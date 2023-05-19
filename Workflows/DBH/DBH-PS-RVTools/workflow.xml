@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="a55dd2fa-c662-4b30-a27e-ee3c6c6f3294" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[DBH-PS-RVTools]]></display-name>
+  <description><![CDATA[Run PS from PS Host.
+]]></description>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="vmUsername" type="string">
+      <description><![CDATA[VM Username]]></description>
+    </param>
+    <param name="vmPassword" type="SecureString">
+      <description><![CDATA[VM Password]]></description>
+    </param>
+    <param name="vm" type="VC:VirtualMachine">
+      <description><![CDATA[Virtual machine]]></description>
+    </param>
+    <param name="interactiveSession" type="boolean">
+      <description><![CDATA[interactive session]]></description>
+    </param>
+    <param name="programPath" type="string">
+      <description><![CDATA[path to the program]]></description>
+    </param>
+    <param name="arguments" type="string">
+      <description><![CDATA[arguments]]></description>
+    </param>
+    <param name="workingDirectory" type="string">
+      <description><![CDATA[working directory]]></description>
+    </param>
+    <param name="environment" type="Array/string">
+      <description><![CDATA[environment variables]]></description>
+    </param>
+  </input>
+  <output>
+    <param name="result" type="number">
+      <description><![CDATA[The pid of the program started.]]></description>
+    </param>
+  </output>
+  <workflow-item name="item1" out-name="item2" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[var host = vm.sdkConnection;
+
+var guestOperationsManager = host.guestOperationsManager;
+var guestAuth = new VcNamePasswordAuthentication();
+guestAuth.username = vmUsername;
+guestAuth.password = vmPassword;
+guestAuth.interactiveSession = interactiveSession;
+
+var guestProgramSpec = new VcGuestProgramSpec();
+guestProgramSpec.programPath = programPath;
+guestProgramSpec.arguments = arguments;
+guestProgramSpec.workingDirectory = workingDirectory;
+guestProgramSpec.envVariables = environment;
+
+var processManager = guestOperationsManager.processManager;
+result = processManager.startProgramInGuest(vm , guestAuth , guestProgramSpec);]]></script>
+    <in-binding>
+      <bind name="vmUsername" type="string" export-name="vmUsername"/>
+      <bind name="vmPassword" type="SecureString" export-name="vmPassword"/>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm"/>
+      <bind name="programPath" type="string" export-name="programPath"/>
+      <bind name="arguments" type="string" export-name="arguments"/>
+      <bind name="workingDirectory" type="string" export-name="workingDirectory"/>
+      <bind name="environment" type="Array/string" export-name="environment"/>
+      <bind name="interactiveSession" type="boolean" export-name="interactiveSession"/>
+    </in-binding>
+    <out-binding>
+      <bind name="result" type="number" export-name="result"/>
+    </out-binding>
+    <position y="55.40909090909091" x="204.5"/>
+  </workflow-item>
+  <workflow-item name="item2" type="end" end-mode="0">
+    <position y="54.5" x="465.0"/>
+  </workflow-item>
+  <presentation>
+    <p-param name="vmUsername">
+      <desc><![CDATA[VM Username:]]></desc>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[svc_vRealize@select.corp.sem]]></p-qual>
+    </p-param>
+    <p-param name="vmPassword">
+      <desc><![CDATA[VM Password:]]></desc>
+      <p-qual kind="static" name="defaultValue" type="SecureString"><![CDATA[8BI61O6BP63Z36Q4DW25H6BZ5DUCC8002W6ED0AA7PC51EAD1UDA165EDJA55E94FG58B307ZCE232F0H7B3332FP9C011A2GCBC8849PF758E29JAF661FFM9A180CAQ4BA194BRBCFF78BI9CD2DC1L37E374BLC088BC1W72CB0EBG1C1B6E5O6197C8ZAB367DFO1F45AD1QF24E10DS]]></p-qual>
+    </p-param>
+    <p-param name="vm">
+      <desc><![CDATA[VM:]]></desc>
+      <p-qual kind="static" name="defaultValue" type="VC:VirtualMachine"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='mecvxvc01.select.corp.sem%2Cid:vm-55350'&dunesName='VC:VirtualMachine']]></p-qual>
+    </p-param>
+    <p-param name="interactiveSession">
+      <desc><![CDATA[Interactive session?]]></desc>
+      <p-qual kind="static" name="defaultValue" type="boolean"><![CDATA[__NULL__]]></p-qual>
+    </p-param>
+    <p-group>
+      <title><![CDATA[Program path]]></title>
+      <desc><![CDATA[The absolute path to the program to start. For Linux guest operating systems, /bin/bash is used to start the program.  For Solaris guest operating systems, /bin/bash is used to start the program if it exists. Otherwise /bin/sh is used. If /bin/sh is used, then the process ID returned will be that of the shell used to start the program, rather than the program itself, due to the differences in how /bin/sh and /bin/bash work. This PID will still be usable for watching the process with this API to find its exit code and elapsed time. ]]></desc>
+      <p-param name="programPath">
+        <desc><![CDATA[Program path:]]></desc>
+        <p-qual kind="static" name="mandatory" type="boolean"><![CDATA[true]]></p-qual>
+        <p-qual kind="static" name="defaultValue" type="string"><![CDATA[C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe]]></p-qual>
+      </p-param>
+    </p-group>
+    <p-group>
+      <title><![CDATA[Arguments]]></title>
+      <desc><![CDATA[The arguments to the program. In Linux and Solaris guest operating systems, the program will be executed by a guest shell. This allows stdio redirection, but may also require that characters which must be escaped to the shell also be escaped on the command line provided. For Windows guest operating systems, prefixing the command with "cmd /c" can provide stdio redirection. ]]></desc>
+      <p-param name="arguments">
+        <desc><![CDATA[Arguments:]]></desc>
+        <p-qual kind="static" name="defaultValue" type="string"><![CDATA[G:\Scripts\rvtools.ps1]]></p-qual>
+      </p-param>
+    </p-group>
+    <p-group>
+      <title><![CDATA[Working directory]]></title>
+      <desc><![CDATA[The absolute path of the working directory for the program to be run. VMware recommends explicitly setting the working directory for the program to be run. If this value is unset or is an empty string, the behavior depends on the guest operating system. For Linux guest operating systems, if this value is unset or is an empty string, the working directory will be the home directory of the user associated with the guest authentication. For other guest operating systems, if this value is unset, the behavior is unspecified. ]]></desc>
+      <p-param name="workingDirectory">
+        <desc><![CDATA[Working directory:]]></desc>
+        <p-qual kind="static" name="defaultValue" type="string"><![CDATA[G:\Scripts]]></p-qual>
+      </p-param>
+    </p-group>
+    <p-group>
+      <title><![CDATA[Environment]]></title>
+      <desc><![CDATA[An array of environment variables, specified in the guest OS notation (eg PATH=c:\bin;c:\windows\system32 or LD_LIBRARY_PATH=/usr/lib:/lib), to be set for the program being run. Note that these are not additions to the default environment variables; they define the complete set available to the program. If none are specified the values are guest dependent. ]]></desc>
+      <p-param name="environment">
+        <desc><![CDATA[Environment:]]></desc>
+      </p-param>
+    </p-group>
+  </presentation>
+</workflow>

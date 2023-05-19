@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="793fb069-0dff-4525-9368-ced9c6afe1bd" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[BuildEmail]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="username" type="string"/>
+  </input>
+  <output>
+    <param name="user" type="string"/>
+  </output>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="45.40909090909091" x="384.5"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[var user = username
+
+user = String(user);
+
+var RequestedFor = user.split("@")[0];
+
+//return RequestedFor;
+//System.Log ("Username: " + RequestedFor);
+//System.Log ("Username: " + username);
+System.log (RequestedFor + "@SelectMedical.com")]]></script>
+    <in-binding>
+      <bind name="username" type="string" export-name="username"/>
+    </in-binding>
+    <out-binding>
+      <bind name="user" type="string" export-name="user"/>
+    </out-binding>
+    <position y="55.40909090909091" x="204.5"/>
+  </workflow-item>
+  <presentation>
+    <p-param name="username">
+      <desc><![CDATA[username]]></desc>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[DHassinger@select.corp.sem]]></p-qual>
+    </p-param>
+  </presentation>
+</workflow>

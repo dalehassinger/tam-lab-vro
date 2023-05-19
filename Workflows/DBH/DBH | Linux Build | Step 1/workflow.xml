@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="a39905ef-b20c-4455-83fe-c69c773a0b20" version="0.0.4" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[DBH | Linux Build | Step 1]]></display-name>
+  <description><![CDATA[Run PS from PS Host.
+]]></description>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="vmUsername" type="string">
+      <description><![CDATA[VM Username]]></description>
+    </param>
+    <param name="vmPassword" type="SecureString">
+      <description><![CDATA[VM Password]]></description>
+    </param>
+    <param name="vm" type="VC:VirtualMachine">
+      <description><![CDATA[Virtual machine]]></description>
+    </param>
+    <param name="programPath" type="string">
+      <description><![CDATA[path to the program]]></description>
+    </param>
+    <param name="arguments" type="string">
+      <description><![CDATA[arguments]]></description>
+    </param>
+    <param name="workingDirectory" type="string">
+      <description><![CDATA[working directory]]></description>
+    </param>
+    <param name="InputProperties" type="Properties"/>
+  </input>
+  <output>
+    <param name="result" type="number">
+      <description><![CDATA[The pid of the program started.]]></description>
+    </param>
+  </output>
+  <workflow-item name="item1" out-name="item2" business-status="" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[var vmName = inputProperties.resourceNames[0];
+var customProperties = inputProperties.customProperties;
+var myProp = customProperties.flavor;
+
+//var psString = "C:\Scripts\crete-file.ps1 -fileName " + vmName;
+//var host = vm.sdkConnection;
+
+//var guestOperationsManager = host.guestOperationsManager;
+//var guestAuth = new VcNamePasswordAuthentication();
+//guestAuth.username = vmUsername;
+//guestAuth.password = vmPassword;
+
+
+//var guestProgramSpec = new VcGuestProgramSpec();
+//guestProgramSpec.programPath = programPath;
+//guestProgramSpec.arguments = arguments;
+//guestProgramSpec.workingDirectory = workingDirectory;
+
+//var processManager = guestOperationsManager.processManager;
+//result = processManager.startProgramInGuest(vm , guestAuth , guestProgramSpec);
+
+//var vmName = inputProperties.resourceNames[0];
+//var customProperties = inputProperties.customProperties;
+//var myProp = customProperties.flavor;
+
+System.log("VM Name: " + vmName);
+//System.log("psString: " + psString);
+
+System.log("Flavor: " + myProp);]]></script>
+    <in-binding>
+      <bind name="InputProperties" type="Properties" export-name="InputProperties"/>
+    </in-binding>
+    <out-binding>
+      <bind name="result" type="number" export-name="result"/>
+    </out-binding>
+    <position y="55.40909090909091" x="204.5"/>
+  </workflow-item>
+  <workflow-item name="item2" type="end" end-mode="0">
+    <in-binding/>
+    <position y="54.5" x="465.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

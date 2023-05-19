@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item0" object-name="Workflow:name=generic" id="e46aa8e7-c834-4088-ac74-8de6c9d1074f" version="0.2.0" api-version="6.0.0" allowed-operations="vfe" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Remove all snapshots-TEST-EMAIL-SMVDIVC01-5-of-5]]></display-name>
+  <description><![CDATA[Removes all existing snapshots - TEST-EMAIL-MECVXVC01]]></description>
+  <ref-types><![CDATA[(VC:VirtualMachine)]]></ref-types>
+  <position y="10.0" x="160.0"/>
+  <input>
+    <param name="vm" type="VC:VirtualMachine">
+      <description><![CDATA[The virtual machine from which to remove all snapshots]]></description>
+    </param>
+    <param name="smtpHost" type="string">
+      <description><![CDATA[SMTP host]]></description>
+    </param>
+    <param name="smtpPort" type="number">
+      <description><![CDATA[SMTP port]]></description>
+    </param>
+    <param name="username" type="string">
+      <description><![CDATA[Username for authentication]]></description>
+    </param>
+    <param name="password" type="SecureString">
+      <description><![CDATA[Password for authentication]]></description>
+    </param>
+    <param name="fromName" type="string">
+      <description><![CDATA[Sender's name]]></description>
+    </param>
+    <param name="fromAddress" type="string">
+      <description><![CDATA[Sender's address]]></description>
+    </param>
+    <param name="toAddress" type="string">
+      <description><![CDATA[Destination address]]></description>
+    </param>
+    <param name="subject" type="string">
+      <description><![CDATA[Email subject]]></description>
+    </param>
+    <param name="content" type="string">
+      <description><![CDATA[Email content (text or HTML)]]></description>
+    </param>
+    <param name="useSsl" type="boolean">
+      <description><![CDATA[If set to true, use SSL to connect ]]></description>
+    </param>
+    <param name="useStartTls" type="boolean">
+      <description><![CDATA[If true, enables the use of the STARTTLS command (if supported by the server) to switch the connection to a TLS-protected connection before issuing any login commands.]]></description>
+    </param>
+  </input>
+  <attrib name="task" type="VC:Task" read-only="false">
+    <value encoded="n"><![CDATA[__NULL__]]></value>
+    <description><![CDATA[Task to await]]></description>
+  </attrib>
+  <attrib name="progress" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[false]]></value>
+    <description><![CDATA[Log progress while waiting for the task to complete]]></description>
+  </attrib>
+  <attrib name="pollRate" type="number" read-only="false">
+    <value encoded="n"><![CDATA[2.0]]></value>
+    <description><![CDATA[Polling rate for the task state, in seconds]]></description>
+  </attrib>
+  <workflow-item name="item0" out-name="item1" type="task" script-module="com.vmware.library.vc.vm.snapshot/removeAllSnapshot">
+    <display-name><![CDATA[removeAllSnapshot]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.library.vc.vm.snapshot").removeAllSnapshot(vm) ;]]></script>
+    <in-binding>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm">
+        <description><![CDATA[VM from which to remove the snapshot]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="VC:Task" export-name="task"/>
+    </out-binding>
+    <description><![CDATA[Remove all the snapshots associated with this virtual machine. If the virtual machine does not have any snapshots, then this operation simply returns successfully. ]]></description>
+    <position y="80.0" x="120.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item3" type="task" script-module="com.vmware.library.vc.basic/vim3WaitTaskEnd">
+    <display-name><![CDATA[vim3WaitTaskEnd]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.library.vc.basic").vim3WaitTaskEnd(task,progress,pollRate) ;]]></script>
+    <in-binding>
+      <bind name="task" type="VC:Task" export-name="task">
+        <description><![CDATA[Task to Wait for]]></description>
+      </bind>
+      <bind name="progress" type="boolean" export-name="progress">
+        <description><![CDATA[Log progess while waiting for the task]]></description>
+      </bind>
+      <bind name="pollRate" type="number" export-name="pollRate">
+        <description><![CDATA[Polling rate for the task state [seconds]]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="Any" explicitly-not-bound="true" export-name="NULL"/>
+    </out-binding>
+    <description><![CDATA[Wait a VIM 3 Task to end.
+When task ended, return the ]]></description>
+    <position y="140.0" x="120.0"/>
+  </workflow-item>
+  <workflow-item name="item2" type="end" end-mode="0">
+    <position y="254.5" x="165.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item2" type="link" linked-workflow-id="39c032ae-6c64-4866-b3e7-b0061d1142d3">
+    <display-name><![CDATA[DBH-Email]]></display-name>
+    <in-binding>
+      <bind name="smtpHost" type="string" export-name="smtpHost">
+        <description><![CDATA[SMTP host]]></description>
+      </bind>
+      <bind name="smtpPort" type="number" export-name="smtpPort">
+        <description><![CDATA[SMTP port]]></description>
+      </bind>
+      <bind name="username" type="string" export-name="username">
+        <description><![CDATA[Username for authentication]]></description>
+      </bind>
+      <bind name="password" type="SecureString" export-name="password">
+        <description><![CDATA[Password for authentication]]></description>
+      </bind>
+      <bind name="fromName" type="string" export-name="fromName">
+        <description><![CDATA[Sender's name]]></description>
+      </bind>
+      <bind name="fromAddress" type="string" export-name="fromAddress">
+        <description><![CDATA[Sender's address]]></description>
+      </bind>
+      <bind name="toAddress" type="string" export-name="toAddress">
+        <description><![CDATA[Destination address]]></description>
+      </bind>
+      <bind name="subject" type="string" export-name="subject">
+        <description><![CDATA[Email subject]]></description>
+      </bind>
+      <bind name="content" type="string" export-name="content">
+        <description><![CDATA[Email content (text or HTML)]]></description>
+      </bind>
+      <bind name="useSsl" type="boolean" export-name="useSsl">
+        <description><![CDATA[If set to true, use SSL to connect ]]></description>
+      </bind>
+      <bind name="useStartTls" type="boolean" export-name="useStartTls">
+        <description><![CDATA[If true, enables the use of the STARTTLS command (if supported by the server) to switch the connection to a TLS-protected connection before issuing any login commands.]]></description>
+      </bind>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Sends an email with specified content to given email address.
+
+Uses the default settings from the Orchestrator Configuration interface for the following optional input parameters:
+SMTP host, SMTP port, username, password, from Address and from Name. You can override these values by providing input parameters.]]></description>
+    <position y="200.86363636363635" x="125.0"/>
+  </workflow-item>
+  <presentation>
+    <p-param name="vm">
+      <desc><![CDATA[The virtual machine from which to remove all snapshots]]></desc>
+      <p-qual name="mandatory"><![CDATA[true]]></p-qual>
+      <p-qual name="contextualParameter"><![CDATA[]]></p-qual>
+      <p-qual kind="static" name="defaultValue" type="VC:VirtualMachine"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='MECVDIVC01.select.corp.sem%2Cid:vm-2633'&dunesName='VC:VirtualMachine']]></p-qual>
+    </p-param>
+    <p-param name="smtpHost">
+      <desc><![CDATA[SMTP host]]></desc>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[mailrelay.select.corp.sem]]></p-qual>
+    </p-param>
+    <p-param name="smtpPort">
+      <desc><![CDATA[SMTP port]]></desc>
+      <p-qual kind="static" name="defaultValue" type="number"><![CDATA[25.0]]></p-qual>
+    </p-param>
+    <p-param name="username">
+      <desc><![CDATA[Username for authentication]]></desc>
+    </p-param>
+    <p-param name="password">
+      <desc><![CDATA[Password for authentication]]></desc>
+    </p-param>
+    <p-param name="fromName">
+      <desc><![CDATA[Sender's name]]></desc>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[vCenter-TEST-EMAIL]]></p-qual>
+    </p-param>
+    <p-param name="fromAddress">
+      <desc><![CDATA[Sender's address]]></desc>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[TEST-EMAIL-SMVDIVC01@SelectMedical.com]]></p-qual>
+    </p-param>
+    <p-param name="toAddress">
+      <desc><![CDATA[Destination address]]></desc>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[dhassinger@SelectMedical.com,MKoss@selectmedical.com]]></p-qual>
+    </p-param>
+    <p-param name="subject">
+      <desc><![CDATA[Email subject]]></desc>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[TEST-EMAIL-SMVDIVC01-Snap-Removed-5-of-5]]></p-qual>
+    </p-param>
+    <p-param name="content">
+      <desc><![CDATA[Email content (text or HTML)]]></desc>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[TEST-EMAIL-SMVDIVC01-Snap-Removed-5-of-5]]></p-qual>
+    </p-param>
+    <p-param name="useSsl">
+      <desc><![CDATA[If set to true, use SSL to connect ]]></desc>
+    </p-param>
+    <p-param name="useStartTls">
+      <desc><![CDATA[If true, enables the use of the STARTTLS command (if supported by the server) to switch the connection to a TLS-protected connection before issuing any login commands.]]></desc>
+    </p-param>
+  </presentation>
+</workflow>

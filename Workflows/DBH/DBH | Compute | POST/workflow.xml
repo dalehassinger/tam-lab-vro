@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item0" object-name="Workflow:name=generic" id="cf797416-db9b-4d35-937d-d27da931bb06" version="4.0.3" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[DBH | Compute | POST]]></display-name>
+  <description><![CDATA[Run a PS Script with arguments on a PS host.]]></description>
+  <position y="70.0" x="380.0"/>
+  <input>
+    <param name="host" type="PowerShell:PowerShellHost">
+      <description><![CDATA[PowerShell host]]></description>
+    </param>
+    <param name="script" type="string">
+      <description><![CDATA[PowerShell script]]></description>
+    </param>
+    <param name="inputProperties" type="Properties"/>
+  </input>
+  <output>
+    <param name="output" type="PowerShell:PowerShellRemotePSObject">
+      <description><![CDATA[Script execution result]]></description>
+    </param>
+  </output>
+  <attrib name="sessionId" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="PSHost" type="PowerShell:PowerShellHost" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='3b96d510-a698-409d-886f-1c451c5137d3'&dunesName='PowerShell:PowerShellHost']]></value>
+  </attrib>
+  <workflow-note x="170.0" y="100.0" w="500.0" h="60.0" color="dfffbfff">
+    <description><![CDATA[Run script]]></description>
+  </workflow-note>
+  <workflow-item name="item5" type="end" end-mode="0">
+    <in-binding/>
+    <position y="210.0" x="380.0"/>
+  </workflow-item>
+  <workflow-item name="item0" out-name="item5" type="task">
+    <display-name><![CDATA[Invoke script]]></display-name>
+    <script encoded="false"><![CDATA[var vmName = inputProperties.resourceNames[0];
+var customProperties = inputProperties.customProperties;
+var vmFlavor = customProperties.flavor;
+
+//Set Values
+script = "C:\\scripts\\create-file-post-compute.ps1 -fileName '" + vmName + "'"
+
+var output;
+var session;
+try {
+	session = host.openSession();
+	output = System.getModule("com.vmware.library.powershell").invokeScript(host,script,session.getSessionId()) ;
+} finally {
+	if (session){
+		host.closeSession(session.getSessionId());
+	}
+}
+
+//Send values to Log
+System.log("VM Name: " + vmName);
+System.log("VM Flavor: " + vmFlavor);
+]]></script>
+    <in-binding>
+      <bind name="host" type="PowerShell:PowerShellHost" export-name="PSHost"/>
+      <bind name="script" type="string" export-name="script"/>
+      <bind name="sessionId" type="string" export-name="sessionId"/>
+      <bind name="inputProperties" type="Properties" export-name="inputProperties"/>
+    </in-binding>
+    <out-binding>
+      <bind name="output" type="PowerShell:PowerShellRemotePSObject" export-name="output"/>
+    </out-binding>
+    <position y="120.0" x="340.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

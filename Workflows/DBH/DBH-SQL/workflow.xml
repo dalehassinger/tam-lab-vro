@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="d1925f5c-3d16-44f9-b5d4-3fdb0f0c27f2" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[DBH-SQL]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="45.40909090909091" x="384.5"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[
+
+//--------------------------Returns all Server Builds----------------------------------------
+// ############# Section 1: Get the database connection #############
+// get all of the databases that are registered to the SQL Manager
+
+var databases = SQLDatabaseManager.getDatabases();
+
+// a variable to hold our database
+
+var database = null;
+
+// loop through them until we find our database, using the friendly name we configured
+
+for each (var db in databases) {
+   if (db.name == "SEM") {
+  database = db;
+   break;
+   }
+}
+
+// a bit of checking to make sure our database was found
+
+if (database == null) {
+   throw "Unable to find database!";
+}
+
+// ############# Section 2: Query the database #############
+// the SQL query we want to execute. Javascript does not support multi-line strings
+// so we append the each "line" to the same variable to keep it readable, but make
+// a single long string
+
+var query = "";
+query += "SELECT DISTINCT ServiceGroup FROM DEV_Netscaler";
+
+//SELECT ServiceGroup FROM DEV_Permissions WHERE (Username = N'dhassinger')
+
+// execute the query
+var result = database.readCustomQuery(query);
+// a bit of info to log
+System.debug("Database query for Service Group Names returned " + result.length + " records");
+
+// ############# Section 3: Parse the result and return values #############
+var data = new Array();
+
+for (var i = 0; i < result.length; i++) {
+//  System.debug("Location: " + result[i].getProperty("Location"));
+  System.debug(result[i].getProperty("ServiceGroup"));
+  data[i] = result[i].getProperty("ServiceGroup");
+}
+
+// return the data
+
+//return data
+]]></script>
+    <in-binding/>
+    <out-binding/>
+    <position y="55.40909090909091" x="204.5"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

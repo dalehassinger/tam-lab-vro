@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="281a517a-610c-4cd6-920a-23a17e7beb9d" version="0.0.3" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[DEMO-RUN-PS-PSHOST]]></display-name>
+  <description><![CDATA[Run PS from PS Host.
+]]></description>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="vmUsername" type="string">
+      <description><![CDATA[VM Username]]></description>
+    </param>
+    <param name="vmPassword" type="SecureString">
+      <description><![CDATA[VM Password]]></description>
+    </param>
+    <param name="vm" type="VC:VirtualMachine">
+      <description><![CDATA[Virtual machine]]></description>
+    </param>
+    <param name="interactiveSession" type="boolean">
+      <description><![CDATA[interactive session]]></description>
+    </param>
+    <param name="programPath" type="string">
+      <description><![CDATA[path to the program]]></description>
+    </param>
+    <param name="arguments" type="string">
+      <description><![CDATA[arguments]]></description>
+    </param>
+    <param name="workingDirectory" type="string">
+      <description><![CDATA[working directory]]></description>
+    </param>
+    <param name="environment" type="Array/string">
+      <description><![CDATA[environment variables]]></description>
+    </param>
+  </input>
+  <output>
+    <param name="result" type="number">
+      <description><![CDATA[The pid of the program started.]]></description>
+    </param>
+  </output>
+  <attrib name="workFlowPassword" type="SecureString" read-only="false">
+    <value encoded="n"><![CDATA[8BV56H4DK77W61Y72R65N31R21SA5EDB57R59BDA47O6D12209S79AFC32OEBFBEFCGC031416H9A4FD6FO1DB3973V904F026KE1C0309Z4F8E8FBT247291CJ62F921AT9A68285V39D9042PACCB5E1L7A9C927Z2B64C0BIB6EDD58GE1F652CGB6D18CEGA1D25A3XBB11177H5DE03FCL]]></value>
+  </attrib>
+  <workflow-item name="item1" out-name="item2" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[var host = vm.sdkConnection;
+
+var guestOperationsManager = host.guestOperationsManager;
+var guestAuth = new VcNamePasswordAuthentication();
+guestAuth.username = vmUsername;
+guestAuth.password = vmPassword;
+//guestAuth.interactiveSession = interactiveSession;
+
+var guestProgramSpec = new VcGuestProgramSpec();
+guestProgramSpec.programPath = programPath;
+guestProgramSpec.arguments = arguments;
+guestProgramSpec.workingDirectory = workingDirectory;
+//guestProgramSpec.envVariables = environment;
+
+var processManager = guestOperationsManager.processManager;
+result = processManager.startProgramInGuest(vm , guestAuth , guestProgramSpec);]]></script>
+    <in-binding>
+      <bind name="vmUsername" type="string" export-name="vmUsername"/>
+      <bind name="vmPassword" type="SecureString" export-name="vmPassword"/>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm"/>
+      <bind name="programPath" type="string" export-name="programPath"/>
+      <bind name="arguments" type="string" export-name="arguments"/>
+      <bind name="workingDirectory" type="string" export-name="workingDirectory"/>
+      <bind name="environment" type="Array/string" export-name="environment"/>
+      <bind name="interactiveSession" type="boolean" export-name="interactiveSession"/>
+    </in-binding>
+    <out-binding>
+      <bind name="result" type="number" export-name="result"/>
+    </out-binding>
+    <position y="55.40909090909091" x="204.5"/>
+  </workflow-item>
+  <workflow-item name="item2" type="end" end-mode="0">
+    <in-binding/>
+    <position y="54.5" x="465.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

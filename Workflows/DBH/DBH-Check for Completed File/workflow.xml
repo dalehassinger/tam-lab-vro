@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item4" object-name="workflow:name=generic" id="5b56f266-5c34-4b0f-95ce-a2ecb36769c1" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[DBH-Check for Completed File]]></display-name>
+  <description><![CDATA[Checks to see if a directory exists in a guest VM.
+Output parameter result is a boolean.]]></description>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="vmUsername" type="string">
+      <description><![CDATA[Username for the virtual machine]]></description>
+    </param>
+    <param name="vmPassword" type="SecureString">
+      <description><![CDATA[Password for the virtual machine]]></description>
+    </param>
+    <param name="vm" type="VC:VirtualMachine">
+      <description><![CDATA[Virtual machine]]></description>
+    </param>
+    <param name="path" type="string">
+      <description><![CDATA[Path in virtual machine to check]]></description>
+    </param>
+  </input>
+  <output>
+    <param name="exists" type="boolean">
+      <description><![CDATA[True if directory exists.]]></description>
+    </param>
+  </output>
+  <attrib name="resultLimit" type="number" read-only="false">
+    <value encoded="n"><![CDATA[1.0]]></value>
+    <description><![CDATA[Result list maximum entries.]]></description>
+  </attrib>
+  <attrib name="result" type="Array/CompositeType(path:string,type:string,size:number):VcGuestFileInfoType" read-only="false">
+    <value encoded="n"><![CDATA[__NULL__]]></value>
+    <description><![CDATA[Array of file info objects (path, type, size).]]></description>
+  </attrib>
+  <attrib name="errorCode" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="45.40909090909091" x="664.5"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item0" type="task">
+    <display-name><![CDATA[set result]]></display-name>
+    <script encoded="false"><![CDATA[exists = false;
+for (var i in result) {
+	var f = result[i];
+	System.log(">" + f.path + "<");
+	System.log(">" + path + "<");
+	System.log(f.path + " : " + f.type + " p:" + (f.path == path) + " f:" + (f.type == "file"));
+	if (f.path == path && f.type == "file") {
+		exists = true;
+		break;
+	}
+}]]></script>
+    <in-binding>
+      <bind name="result" type="Array/CompositeType(path:string,type:string,size:number):VcGuestFileInfoType" export-name="result"/>
+      <bind name="path" type="string" export-name="path"/>
+    </in-binding>
+    <out-binding>
+      <bind name="exists" type="boolean" export-name="exists"/>
+    </out-binding>
+    <position y="9.954545454545453" x="484.5"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item0" type="task">
+    <display-name><![CDATA[process error]]></display-name>
+    <script encoded="false"><![CDATA[if (!/File .+ was not found.+/.test(errorCode)) {
+	throw errorCode;
+}
+exists = false;]]></script>
+    <in-binding>
+      <bind name="errorCode" type="string" export-name="errorCode"/>
+    </in-binding>
+    <out-binding>
+      <bind name="exists" type="boolean" export-name="exists"/>
+    </out-binding>
+    <position y="55.40909090909091" x="484.5"/>
+  </workflow-item>
+  <workflow-item name="item4" out-name="item2" catch-name="item3" throw-bind-name="errorCode" type="link" linked-workflow-id="C28080808080808080808080808080808180808001322751030482b80adf61e7c">
+    <display-name><![CDATA[List path in guest]]></display-name>
+    <in-binding>
+      <bind name="vmUsername" type="string" export-name="vmUsername">
+        <description><![CDATA[Username for the virtual machine]]></description>
+      </bind>
+      <bind name="vmPassword" type="SecureString" export-name="vmPassword">
+        <description><![CDATA[Password for the virtual machine]]></description>
+      </bind>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm">
+        <description><![CDATA[Virtual machine]]></description>
+      </bind>
+      <bind name="path" type="string" export-name="path">
+        <description><![CDATA[Path in virtual machine to check]]></description>
+      </bind>
+      <bind name="resultLimit" type="number" export-name="resultLimit">
+        <description><![CDATA[Result list maximum entries.]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="result" type="Array/CompositeType(path:string,type:string,size:number):VcGuestFileInfoType" export-name="result">
+        <description><![CDATA[Array of file info objects (path, type, size).]]></description>
+      </bind>
+    </out-binding>
+    <description><![CDATA[List path in a guest VM. Output parameter result is list of files and/or directories or throws if path does not exists.]]></description>
+    <position y="55.40909090909091" x="204.5"/>
+  </workflow-item>
+  <presentation>
+    <p-param name="vmUsername">
+      <desc><![CDATA[Username for the virtual machine]]></desc>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[svc_vRealize@Select.Corp.SEM]]></p-qual>
+    </p-param>
+    <p-param name="vmPassword">
+      <desc><![CDATA[Password for the virtual machine]]></desc>
+      <p-qual kind="static" name="defaultValue" type="SecureString"><![CDATA[8BV61N6BY63Y36H4DL25G6BX5DMCEFD7E8I5907EA8ZAB9B4E1JB916AE4UE261C43S466CA7DY81B51ADI7AB889CX5400394S78803CCS7F27D5CWE2F485K6F0B163I609C83DK30C352BQ234B53BYDB4ADE6VAE2CF70SEA4CFABTD9EAA95LF75F589GD099C7L1707CC5Y49C60F0U]]></p-qual>
+    </p-param>
+    <p-param name="vm">
+      <desc><![CDATA[Virtual machine]]></desc>
+      <p-qual kind="static" name="mandatory" type="boolean"><![CDATA[true]]></p-qual>
+      <p-qual kind="static" name="defaultValue" type="VC:VirtualMachine"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='mecvxvc01.select.corp.sem%2Cid:vm-55350'&dunesName='VC:VirtualMachine']]></p-qual>
+    </p-param>
+    <p-param name="path">
+      <desc><![CDATA[Path in virtual machine to check]]></desc>
+      <p-qual kind="static" name="mandatory" type="boolean"><![CDATA[true]]></p-qual>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[G:\Scripts\Completed-Tasks\Snaps\11.complete]]></p-qual>
+    </p-param>
+  </presentation>
+</workflow>

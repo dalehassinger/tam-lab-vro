@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="a6a30066-0d00-4028-8eca-9a3f0b2536c9" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[DBH | js]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="inputProperties" type="Properties"/>
+  </input>
+  <attrib name="vmPassword" type="SecureString" read-only="false">
+    <value encoded="n"><![CDATA[8BT56S4DV77L61H72O65X31Q21RB706E20JADD0617N8A44B80ZD5C8A53Y4BABF20Y7C91E6DY63508DP143CEEFVB8540ADYF7DA8B4O61E9DBCY8F6D047MFC691DCYFFA67F8H33817ET5C8FBE2U791A2D9GE7F5F24IC100BB6H735995G64C6D2IEAE3924Q7F85617Q6D34E2FV]]></value>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.0" x="600.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item2" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[var vmName = inputProperties.resourceNames[0];
+var customProperties = inputProperties.customProperties;
+var myProp = customProperties.flavor;
+
+System.log("VM Name: " + vmName);
+System.log("Flavor: " + myProp);]]></script>
+    <in-binding>
+      <bind name="inputProperties" type="Properties" export-name="inputProperties"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="150.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item0" type="link" linked-workflow-id="281a517a-610c-4cd6-920a-23a17e7beb9d">
+    <display-name><![CDATA[DEMO-RUN-PS-PSHOST]]></display-name>
+    <in-binding>
+      <bind name="vmUsername" type="string" export-name="">
+        <description><![CDATA[VM Username]]></description>
+      </bind>
+      <bind name="vmPassword" type="SecureString" export-name="vmPassword">
+        <description><![CDATA[VM Password]]></description>
+      </bind>
+      <bind name="vm" type="VC:VirtualMachine" export-name="">
+        <description><![CDATA[Virtual machine]]></description>
+      </bind>
+      <bind name="interactiveSession" type="boolean" export-name="">
+        <description><![CDATA[interactive session]]></description>
+      </bind>
+      <bind name="programPath" type="string" export-name="">
+        <description><![CDATA[path to the program]]></description>
+      </bind>
+      <bind name="arguments" type="string" export-name="">
+        <description><![CDATA[arguments]]></description>
+      </bind>
+      <bind name="workingDirectory" type="string" export-name="">
+        <description><![CDATA[working directory]]></description>
+      </bind>
+      <bind name="environment" type="Array/string" export-name="">
+        <description><![CDATA[environment variables]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="result" type="number" export-name="">
+        <description><![CDATA[The pid of the program started.]]></description>
+      </bind>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="60.0" x="360.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

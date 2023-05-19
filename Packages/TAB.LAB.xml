@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<package>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='0b5adeb2-05a0-43a6-9a4b-6d9b276aa8ef'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='1206e3ec-4239-46d4-80c7-c0e3ae623224'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='14f892d3-be6a-48c1-b2fa-1fc0d29d7e66'&dunesName='Action'&name='removeAllSnapshot'&category='com.vmware.library.vc.vm.snapshot']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='1846102f-e1fb-4d56-aa75-a52760339489'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='22e93c97-af9a-47ef-8a46-8b199e7b1617'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='281a517a-610c-4cd6-920a-23a17e7beb9d'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='29a8b24b-f6e2-4543-80ba-0c70fcda24e8'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='307d897e-24b5-401a-a19d-b6e5a09143a0'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='345b4992-d9c2-497d-8fe1-ddedc377d8c4'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='39c032ae-6c64-4866-b3e7-b0061d1142d3'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='5144f3eb-3f89-4a36-b61d-b1af3ea393eb'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='51558348-d254-4911-8c99-5a2c35744c2d'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='51bf0202-bae8-4ffc-a23a-70654fa48c7a'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='5516acbf-fd50-4ee8-a203-e78b8e8db125'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='57c1e3c4-b76c-4e85-aac3-ffdd587c1f21'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='5b56f266-5c34-4b0f-95ce-a2ecb36769c1'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='6e45bc34-caf0-4dab-95bb-1a2a2e414597'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='6fc6c736-c513-4cb4-aa14-a58a4beed83b'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='793fb069-0dff-4525-9368-ced9c6afe1bd'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='7eacacbb-4e3a-4269-8107-3c3698a8fa05'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='806ebd6f-ac9c-44f6-8ea7-d9a0d2016d12'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='86f2e8fc-5867-46f3-bf89-40928ca2a8e3'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='8ef6fa70-dce6-4fff-af96-3db5f86841d2'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='99afccd7-9fcc-4dc2-82b7-586de690364e'&dunesName='Action'&name='vim3WaitTaskEnd'&category='com.vmware.library.vc.basic']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='C28080808080808080808080808080808180808001322751030482b80adf61e7c'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='F5858080808080808080808080808080158080800126658240472157fdafc0fce'&dunesName='Action'&name='invokeScript'&category='com.vmware.library.powershell']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='a39905ef-b20c-4455-83fe-c69c773a0b20'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='a55dd2fa-c662-4b30-a27e-ee3c6c6f3294'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='a6a30066-0d00-4028-8eca-9a3f0b2536c9'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='cf797416-db9b-4d35-937d-d27da931bb06'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='d1925f5c-3d16-44f9-b5d4-3fdb0f0c27f2'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='e3e3381e-66ab-4eea-acb8-d61d80ef8af6'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='e46aa8e7-c834-4088-ac74-8de6c9d1074f'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='e6e0782b-6569-41f0-9036-4748f5825dde'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='f1fffcd2-d01d-4c89-b5d5-3741753f42f4'&dunesName='Workflow']]></elm>
+<used-plugin name='PowerShell' version='1.1.1' />
+<used-plugin name='VC' version='8.0.0' />
+</package>

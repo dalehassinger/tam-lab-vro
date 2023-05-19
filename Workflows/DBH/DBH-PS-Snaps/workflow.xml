@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="51558348-d254-4911-8c99-5a2c35744c2d" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[DBH-PS-Snaps]]></display-name>
+  <description><![CDATA[Run PS from PS Host.
+]]></description>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="vmUsername" type="string">
+      <description><![CDATA[VM Username]]></description>
+    </param>
+    <param name="vmPassword" type="SecureString">
+      <description><![CDATA[VM Password]]></description>
+    </param>
+    <param name="vm" type="VC:VirtualMachine">
+      <description><![CDATA[Virtual machine]]></description>
+    </param>
+    <param name="interactiveSession" type="boolean">
+      <description><![CDATA[interactive session]]></description>
+    </param>
+    <param name="programPath" type="string">
+      <description><![CDATA[path to the program]]></description>
+    </param>
+    <param name="arguments" type="string">
+      <description><![CDATA[arguments]]></description>
+    </param>
+    <param name="workingDirectory" type="string">
+      <description><![CDATA[working directory]]></description>
+    </param>
+    <param name="environment" type="Array/string">
+      <description><![CDATA[environment variables]]></description>
+    </param>
+    <param name="completedfile" type="string"/>
+    <param name="filePath" type="string">
+      <description><![CDATA[Guest path]]></description>
+    </param>
+  </input>
+  <output>
+    <param name="result" type="number">
+      <description><![CDATA[The pid of the program started.]]></description>
+    </param>
+    <param name="result1" type="boolean">
+      <description><![CDATA[Set to true if directory was created successfully]]></description>
+    </param>
+  </output>
+  <attrib name="completed" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[false]]></value>
+    <description><![CDATA[True if directory exists.]]></description>
+  </attrib>
+  <attrib name="sleepTime" type="number" read-only="false">
+    <value encoded="n"><![CDATA[10.0]]></value>
+    <description><![CDATA[Time to sleep in seconds]]></description>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="45.40909090909091" x="804.5"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item2" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[var host = vm.sdkConnection;
+
+var guestOperationsManager = host.guestOperationsManager;
+var guestAuth = new VcNamePasswordAuthentication();
+guestAuth.username = vmUsername;
+guestAuth.password = vmPassword;
+guestAuth.interactiveSession = interactiveSession;
+
+var guestProgramSpec = new VcGuestProgramSpec();
+guestProgramSpec.programPath = programPath;
+guestProgramSpec.arguments = arguments;
+guestProgramSpec.workingDirectory = workingDirectory;
+guestProgramSpec.envVariables = environment;
+
+var processManager = guestOperationsManager.processManager;
+result = processManager.startProgramInGuest(vm , guestAuth , guestProgramSpec);]]></script>
+    <in-binding>
+      <bind name="vmUsername" type="string" export-name="vmUsername"/>
+      <bind name="vmPassword" type="SecureString" export-name="vmPassword"/>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm"/>
+      <bind name="programPath" type="string" export-name="programPath"/>
+      <bind name="arguments" type="string" export-name="arguments"/>
+      <bind name="workingDirectory" type="string" export-name="workingDirectory"/>
+      <bind name="environment" type="Array/string" export-name="environment"/>
+      <bind name="interactiveSession" type="boolean" export-name="interactiveSession"/>
+    </in-binding>
+    <out-binding>
+      <bind name="result" type="number" export-name="result"/>
+    </out-binding>
+    <position y="55.40909090909091" x="204.5"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item3" type="link" linked-workflow-id="5b56f266-5c34-4b0f-95ce-a2ecb36769c1">
+    <display-name><![CDATA[DBH-Check for Completed File]]></display-name>
+    <in-binding>
+      <bind name="vmUsername" type="string" export-name="vmUsername">
+        <description><![CDATA[Username for the virtual machine]]></description>
+      </bind>
+      <bind name="vmPassword" type="SecureString" export-name="vmPassword">
+        <description><![CDATA[Password for the virtual machine]]></description>
+      </bind>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm">
+        <description><![CDATA[Virtual machine]]></description>
+      </bind>
+      <bind name="path" type="string" export-name="completedfile">
+        <description><![CDATA[Path in virtual machine to check]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="exists" type="boolean" export-name="completed">
+        <description><![CDATA[True if directory exists.]]></description>
+      </bind>
+    </out-binding>
+    <position y="55.40909090909091" x="344.5"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item4" type="condition" alt-out-name="item5" comparator="0">
+    <display-name><![CDATA[Does Completed File Exist]]></display-name>
+    <script encoded="false"><![CDATA[//Generated by the system, cannot be edited
+return (completed == true) ;]]></script>
+    <in-binding>
+      <bind name="completed" type="boolean" export-name="completed"/>
+    </in-binding>
+    <condition name="completed" type="boolean" comparator="0" label="null">false</condition>
+    <description><![CDATA[Does not continue until completed file exists]]></description>
+    <position y="45.40909090909091" x="484.5"/>
+  </workflow-item>
+  <workflow-item name="item5" prototype-id="sleep" out-name="item2" content-mode="x" type="task">
+    <display-name><![CDATA[Sleep for 10 seconds]]></display-name>
+    <script encoded="false"><![CDATA[//Auto-generated script
+if ( sleepTime != null )  {
+	System.sleep(sleepTime*1000);
+}
+else  {
+	throw "'sleepTime' is NULL";
+}
+]]></script>
+    <in-binding>
+      <bind name="sleepTime" type="number" export-name="sleepTime">
+        <description><![CDATA[Time to sleep in seconds]]></description>
+      </bind>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Sleep for 10 seconds]]></description>
+    <position y="128.13636363636363" x="445.0"/>
+  </workflow-item>
+  <workflow-item name="item4" out-name="item0" type="link" linked-workflow-id="6fc6c736-c513-4cb4-aa14-a58a4beed83b">
+    <display-name><![CDATA[DBH-Delete Completed File]]></display-name>
+    <in-binding>
+      <bind name="vmUsername" type="string" export-name="vmUsername">
+        <description><![CDATA[Username for the virtual machine]]></description>
+      </bind>
+      <bind name="vmPassword" type="SecureString" export-name="vmPassword">
+        <description><![CDATA[Password for the virtual machine]]></description>
+      </bind>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm">
+        <description><![CDATA[Virtual machine]]></description>
+      </bind>
+      <bind name="filePath" type="string" export-name="filePath">
+        <description><![CDATA[Guest path]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="result" type="boolean" export-name="result1">
+        <description><![CDATA[Set to true if directory was created successfully]]></description>
+      </bind>
+    </out-binding>
+    <description><![CDATA[Deletes Completed File]]></description>
+    <position y="55.40909090909091" x="624.5"/>
+  </workflow-item>
+  <presentation>
+    <p-param name="vmUsername">
+      <desc><![CDATA[VM Username:]]></desc>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[svc_vRealize@Select.Corp.SEM]]></p-qual>
+    </p-param>
+    <p-param name="vmPassword">
+      <desc><![CDATA[VM Password:]]></desc>
+      <p-qual kind="static" name="defaultValue" type="SecureString"><![CDATA[8BG61N6BR63L36U4DH25Z6BY5DG3A4BD3EHD048E71ME147014M5B84DADSE737FEDSCBA5FA2I3FAE32FJB77711AYDB2BD6BLF7AD410O4A649EFP57B80FBU89E7360Y1E836C3OAB26493WB737F93LE3DE2F1IBE84D8MB12069BO1E00A0V701E890ZD333E94V1862318JF9802EAH]]></p-qual>
+    </p-param>
+    <p-param name="vm">
+      <desc><![CDATA[VM:]]></desc>
+      <p-qual kind="static" name="defaultValue" type="VC:VirtualMachine"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='mecvxvc01.select.corp.sem%2Cid:vm-55350'&dunesName='VC:VirtualMachine']]></p-qual>
+    </p-param>
+    <p-param name="interactiveSession">
+      <desc><![CDATA[Interactive session?]]></desc>
+      <p-qual kind="static" name="defaultValue" type="boolean"><![CDATA[__NULL__]]></p-qual>
+    </p-param>
+    <p-param name="completedfile">
+      <desc><![CDATA[File to make sure exists to show that PS Completed]]></desc>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[G:\Scripts\Completed-Tasks\Snaps\1.complete]]></p-qual>
+    </p-param>
+    <p-param name="filePath">
+      <desc><![CDATA[File to Delete]]></desc>
+      <p-qual kind="static" name="defaultValue" type="string"><![CDATA[G:\Scripts\Completed-Tasks\Snaps\1.complete]]></p-qual>
+    </p-param>
+    <p-group>
+      <title><![CDATA[Program path]]></title>
+      <desc><![CDATA[The absolute path to the program to start. For Linux guest operating systems, /bin/bash is used to start the program.  For Solaris guest operating systems, /bin/bash is used to start the program if it exists. Otherwise /bin/sh is used. If /bin/sh is used, then the process ID returned will be that of the shell used to start the program, rather than the program itself, due to the differences in how /bin/sh and /bin/bash work. This PID will still be usable for watching the process with this API to find its exit code and elapsed time. ]]></desc>
+      <p-param name="programPath">
+        <desc><![CDATA[Program path:]]></desc>
+        <p-qual kind="static" name="mandatory" type="boolean"><![CDATA[true]]></p-qual>
+        <p-qual kind="static" name="defaultValue" type="string"><![CDATA[C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe]]></p-qual>
+      </p-param>
+    </p-group>
+    <p-group>
+      <title><![CDATA[Arguments]]></title>
+      <desc><![CDATA[The arguments to the program. In Linux and Solaris guest operating systems, the program will be executed by a guest shell. This allows stdio redirection, but may also require that characters which must be escaped to the shell also be escaped on the command line provided. For Windows guest operating systems, prefixing the command with "cmd /c" can provide stdio redirection. ]]></desc>
+      <p-param name="arguments">
+        <desc><![CDATA[Arguments:]]></desc>
+        <p-qual kind="static" name="defaultValue" type="string"><![CDATA[G:\Scripts\Send-Email.ps1]]></p-qual>
+      </p-param>
+    </p-group>
+    <p-group>
+      <title><![CDATA[Working directory]]></title>
+      <desc><![CDATA[The absolute path of the working directory for the program to be run. VMware recommends explicitly setting the working directory for the program to be run. If this value is unset or is an empty string, the behavior depends on the guest operating system. For Linux guest operating systems, if this value is unset or is an empty string, the working directory will be the home directory of the user associated with the guest authentication. For other guest operating systems, if this value is unset, the behavior is unspecified. ]]></desc>
+      <p-param name="workingDirectory">
+        <desc><![CDATA[Working directory:]]></desc>
+        <p-qual kind="static" name="defaultValue" type="string"><![CDATA[G:\Scripts]]></p-qual>
+      </p-param>
+    </p-group>
+    <p-group>
+      <title><![CDATA[Environment]]></title>
+      <desc><![CDATA[An array of environment variables, specified in the guest OS notation (eg PATH=c:\bin;c:\windows\system32 or LD_LIBRARY_PATH=/usr/lib:/lib), to be set for the program being run. Note that these are not additions to the default environment variables; they define the complete set available to the program. If none are specified the values are guest dependent. ]]></desc>
+      <p-param name="environment">
+        <desc><![CDATA[Environment:]]></desc>
+      </p-param>
+    </p-group>
+  </presentation>
+</workflow>

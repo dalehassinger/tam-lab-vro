@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item0" object-name="Workflow:name=generic" id="39c032ae-6c64-4866-b3e7-b0061d1142d3" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[DBH-Email]]></display-name>
+  <description><![CDATA[Sends an email with specified content to given email address.
+
+Uses the default settings from the Orchestrator Configuration interface for the following optional input parameters:
+SMTP host, SMTP port, username, password, from Address and from Name. You can override these values by providing input parameters.]]></description>
+  <position y="20.0" x="180.0"/>
+  <input>
+    <param name="smtpHost" type="string">
+      <description><![CDATA[SMTP host]]></description>
+    </param>
+    <param name="smtpPort" type="number">
+      <description><![CDATA[SMTP port]]></description>
+    </param>
+    <param name="username" type="string">
+      <description><![CDATA[Username for authentication]]></description>
+    </param>
+    <param name="password" type="SecureString">
+      <description><![CDATA[Password for authentication]]></description>
+    </param>
+    <param name="fromName" type="string">
+      <description><![CDATA[Sender's name]]></description>
+    </param>
+    <param name="fromAddress" type="string">
+      <description><![CDATA[Sender's address]]></description>
+    </param>
+    <param name="toAddress" type="string">
+      <description><![CDATA[Destination address]]></description>
+    </param>
+    <param name="subject" type="string">
+      <description><![CDATA[Email subject]]></description>
+    </param>
+    <param name="content" type="string">
+      <description><![CDATA[Email content (text or HTML)]]></description>
+    </param>
+    <param name="useSsl" type="boolean">
+      <description><![CDATA[If set to true, use SSL to connect ]]></description>
+    </param>
+    <param name="useStartTls" type="boolean">
+      <description><![CDATA[If true, enables the use of the STARTTLS command (if supported by the server) to switch the connection to a TLS-protected connection before issuing any login commands.]]></description>
+    </param>
+  </input>
+  <workflow-item name="item0" out-name="item1" type="task">
+    <display-name><![CDATA[Send Email]]></display-name>
+    <script encoded="false"><![CDATA[var message = new EmailMessage();
+
+// Override default settings if and only if input parameter is set
+if ( smtpHost != null && smtpHost.length > 0 ){
+	message.smtpHost = smtpHost;
+}
+if ( smtpPort != null && smtpPort > 0 ){
+	message.smtpPort = smtpPort;
+}
+if ( username !=null && username.length > 0){
+	message.username = username;
+}
+if ( password != null && password.length > 0){
+	message.password = password;
+}
+if ( fromName != null && fromName.length > 0){
+	message.fromName = fromName;
+}
+if ( fromAddress != null && fromAddress.length > 0){
+	message.fromAddress = fromAddress;
+}
+
+if ( useSsl ){
+	message.useSsl = true;
+}
+
+if ( useStartTls ){
+	message.useStartTls = true;
+}
+
+message.toAddress = toAddress;
+message.subject = subject;
+message.addMimePart(content,"text/html; charset=UTF-8");
+
+System.log( "sending mail to host: " + message.smtpHost + ":" + message.smtpPort + " with user:" + message.username 
+			+ ", from:" + message.fromAddress + ", to:" + message.toAddress );
+
+message.sendMessage();]]></script>
+    <in-binding>
+      <bind name="smtpHost" type="string" export-name="smtpHost"/>
+      <bind name="smtpPort" type="number" export-name="smtpPort"/>
+      <bind name="username" type="string" export-name="username"/>
+      <bind name="password" type="SecureString" export-name="password"/>
+      <bind name="fromName" type="string" export-name="fromName"/>
+      <bind name="fromAddress" type="string" export-name="fromAddress"/>
+      <bind name="toAddress" type="string" export-name="toAddress"/>
+      <bind name="subject" type="string" export-name="subject"/>
+      <bind name="content" type="string" export-name="content"/>
+      <bind name="useSsl" type="boolean" export-name="useSsl">
+        <description><![CDATA[If set to true, use SSL to connect ]]></description>
+      </bind>
+      <bind name="useStartTls" type="boolean" export-name="useStartTls">
+        <description><![CDATA[If true, enables the use of the STARTTLS command (if supported by the server) to switch the connection to a TLS-protected connection before issuing any login commands.]]></description>
+      </bind>
+    </in-binding>
+    <out-binding/>
+    <position y="100.0" x="140.0"/>
+  </workflow-item>
+  <workflow-item name="item1" type="end" end-mode="0">
+    <position y="190.0" x="180.0"/>
+  </workflow-item>
+  <presentation>
+    <p-step>
+      <title><![CDATA[Send Notification]]></title>
+      <p-group>
+        <title><![CDATA[Host]]></title>
+        <desc><![CDATA[Optional.
+
+Defines connection settings. Default values will be used if no parameter provided.
+
+]]></desc>
+        <p-param name="smtpHost">
+          <desc><![CDATA[SMTP host]]></desc>
+          <p-qual kind="static" name="mandatory" type="boolean"><![CDATA[false]]></p-qual>
+          <p-qual kind="static" name="defaultValue" type="string"><![CDATA[mailrelay.Select.Corp.SEM]]></p-qual>
+        </p-param>
+        <p-param name="smtpPort">
+          <desc><![CDATA[SMTP port]]></desc>
+          <p-qual kind="static" name="defaultValue" type="number"><![CDATA[25.0]]></p-qual>
+        </p-param>
+        <p-param name="useSsl">
+          <desc><![CDATA[If set to true, use SSL to connect ]]></desc>
+        </p-param>
+        <p-param name="useStartTls">
+          <desc><![CDATA[If true, enables the use of the STARTTLS command (if supported by the server) to switch the connection to a TLS-protected connection before issuing any login commands.]]></desc>
+        </p-param>
+      </p-group>
+      <p-group>
+        <title><![CDATA[Credentials]]></title>
+        <desc><![CDATA[Optional.
+
+Defines credential for authentication. Default values will be used if no parameter provided.]]></desc>
+        <p-param name="username">
+          <desc><![CDATA[Username]]></desc>
+          <p-qual kind="static" name="mandatory" type="boolean"><![CDATA[false]]></p-qual>
+        </p-param>
+        <p-param name="password">
+          <desc><![CDATA[Password]]></desc>
+          <p-qual kind="static" name="mandatory" type="boolean"><![CDATA[false]]></p-qual>
+        </p-param>
+      </p-group>
+      <p-group>
+        <title><![CDATA[Email Content]]></title>
+        <desc><![CDATA[Defines Email content. 
+
+Only toAddress is mandatory. Default values will be used for both fromAddress and fromName if parameters not provided.
+
+]]></desc>
+        <p-param name="toAddress">
+          <desc><![CDATA[Destination address]]></desc>
+          <p-qual kind="static" name="mandatory" type="boolean"><![CDATA[true]]></p-qual>
+          <p-qual kind="static" name="defaultValue" type="string"><![CDATA[dhassinger@SelectMedical.com]]></p-qual>
+        </p-param>
+        <p-param name="fromAddress">
+          <desc><![CDATA[Sender's address]]></desc>
+          <p-qual kind="static" name="mandatory" type="boolean"><![CDATA[false]]></p-qual>
+          <p-qual kind="static" name="defaultValue" type="string"><![CDATA[Snaps.Removed@SelectMedical.com]]></p-qual>
+        </p-param>
+        <p-param name="fromName">
+          <desc><![CDATA[Sender's name]]></desc>
+          <p-qual kind="static" name="mandatory" type="boolean"><![CDATA[false]]></p-qual>
+          <p-qual kind="static" name="defaultValue" type="string"><![CDATA[Snapshots Removed]]></p-qual>
+        </p-param>
+        <p-param name="subject">
+          <desc><![CDATA[Email subject]]></desc>
+          <p-qual kind="static" name="mandatory" type="boolean"><![CDATA[false]]></p-qual>
+          <p-qual kind="static" name="defaultValue" type="string"><![CDATA[TEST]]></p-qual>
+        </p-param>
+        <p-param name="content">
+          <desc><![CDATA[Email content]]></desc>
+          <p-qual kind="static" name="mandatory" type="boolean"><![CDATA[false]]></p-qual>
+          <p-qual kind="static" name="defaultValue" type="string"><![CDATA[TEST]]></p-qual>
+        </p-param>
+      </p-group>
+    </p-step>
+  </presentation>
+</workflow>

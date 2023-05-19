@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="e6e0782b-6569-41f0-9036-4748f5825dde" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[DBH | Linux Builds Step 3]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.0" x="420.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="task">
+    <runtime><![CDATA[powercli:12-powershell-7.1]]></runtime>
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[function Handler($context, $inputs) {
+    $inputsString = $inputs | ConvertTo-Json -Compress
+
+
+    #$inputsString = $inputs | ConvertTo-Json -Compress
+    #Write-Host "Inputs were $inputsString"
+
+    # Build PowerShell variables
+    $vmName         = $inputs.inputProperties.resourceNames
+    $image         = $inputs.inputProperties.image
+    $vmCPU          = $inputs.inputProperties.customProperties.cpu
+    $vmCore         = $inputs.inputProperties.customProperties.core
+    $vmMemory       = $inputs.inputProperties.customProperties.mem
+    $description    = $inputs.inputProperties.customProperties.description
+    $IPaddress      = $inputs.inputProperties.addresses
+    $vmFlavor   = $inputs.inputProperties.customProperties.flavor
+    $vmImage  = $inputs.inputProperties.customProperties.image
+    $BuildBY        = $inputs.inputProperties.customProperties.BuildBY
+    $BuildRequestor = $inputs.inputProperties.customProperties.BuildRequestor
+    $OSVersion      = $inputs.inputProperties.customProperties.OSVersion
+
+    # Show PS variables
+    Write-Host '----------------------vmFlavor:' $vmFlavor
+    Write-Host '--------------------vmImage:' $vmImage
+    Write-Host '----------------------vmName:' $vmName
+    Write-Host '-----------------Image:' $image
+    Write-Host '-------------------IPaddress:' $IPaddress
+    Write-Host '-----------------------Email:' $emailAddress
+    Write-Host '------------------------Root:' $RootPartition
+    Write-Host '--------------------Build By:' $BuildBY
+    Write-Host '--------------BuildRequestor:' $BuildRequestor
+    Write-Host '------------------OS Version:' $OSVersion
+
+
+    Write-Host ' '
+
+    Write-Host "Inputs were $inputsString"
+
+    $output=@{status = 'done'}
+
+    return $output
+}
+]]></script>
+    <in-binding/>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="220.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>
