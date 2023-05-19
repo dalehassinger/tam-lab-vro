@@ -2,7 +2,7 @@
 <ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item0" object-name="Workflow:name=generic" id="91df8fc7-7e44-43a1-941e-c48df617fc5a" editor-version="2.0" version="4.0.4" api-version="6.0.0" allowed-operations="vef" restartMode="0" resumeFromFailedMode="0">
     <display-name>TAM | TEST-01</display-name>
     <description>Day 2 Automation | Create File</description>
-    <position y="190.0" x="380.0"/>
+    <position y="200.0" x="380.0"/>
     <input>
         <param name="host" type="PowerShell:PowerShellHost">
             <description>PowerShell host</description>
