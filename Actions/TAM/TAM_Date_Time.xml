@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="TAM_Date_Time" result-type="string" api-version="6.0.0" id="c955af27-40ac-493f-a32e-ef7a575d9fe1" version="0.0.1" category-name="TAM">
+  <runtime><![CDATA[powercli:12-powershell-7.1]]></runtime>
+  <param n="input" t="Date"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[function Handler($context, $inputs) {
+    # This action takes the Date/Time from a form and formats properly to send to vCenter
+
+    $inputsString = $inputs | ConvertTo-Json -Compress
+
+    $inputsString = $inputsString | ConvertFrom-Json
+
+    Write-Host "Inputs were $inputsString"
+
+    $output = $inputsString.input
+    Write-Host "Output:"$output
+
+    return $output
+}
+]]></script>
+</dunes-script-module>
