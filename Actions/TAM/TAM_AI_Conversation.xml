@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="TAM_AI_Conversation" result-type="string" api-version="6.0.0" id="a92f11fe-b1eb-41d8-a952-aab176c90cf1" version="0.0.0" category-name="TAM">
+  <param n="host" t="PowerShell:PowerShellHost"><![CDATA[]]></param>
+  <param n="startconvo" t="string"><![CDATA[]]></param>
+  <param n="conversation" t="string"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[//Set Script Value
+script = "C:\\GitHub\\PS-TAM-Lab\\Hackathon-Conversation.ps1 -conversation '" + conversation + "'"
+
+var sess;
+
+if(startconvo == 'Yes'){
+
+     try {
+          //Open session to PowerShell host
+          var sess = host.openSession()
+          //Set executed script
+          //var result = sess.invokeScript('dir')
+          var result = sess.invokeScript(script)
+          
+
+          //Check for errors
+          if (result.invocationState == 'Failed'){
+               throw "PowerShellInvocationError: Errors found while executing script \n" + result.getErrors();
+          }
+          //Show result
+          System.log( result.getHostOutput() );
+     } catch (ex){
+          System.error (ex)
+     } finally {
+          if (sess) {
+          //Close session
+          host.closeSession( sess.getSessionId() );
+          }
+     }
+
+     return result.getHostOutput();
+}
+]]></script>
+</dunes-script-module>

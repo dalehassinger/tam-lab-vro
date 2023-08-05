@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="vms" result-type="Array/Text" api-version="6.0.0" id="73754e22-ced7-4834-9709-08cbd1b5c13f" version="0.0.0" category-name="TAM">
+  <script encoded="false"><![CDATA[// Get all Virtual Machines for all vCenter connections defined for this plugin
+var allVms = VcPlugin.getAllVirtualMachines();
+var vmsForOs = new Array();
+// Check if the VM has required os
+for each(var vm in allVms) {
+    System.log(vm.config.name)
+    vmsForOs.push(vm.config.name);
+}
+
+var vmnames = vmsForOs.sort();
+return vmnames;
+]]></script>
+</dunes-script-module>
