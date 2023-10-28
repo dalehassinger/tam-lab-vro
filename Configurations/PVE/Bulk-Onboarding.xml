@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config-element id="c390fb19-670c-4304-a7da-5f338a848c11" version="0.1.11">
+  <display-name><![CDATA[Bulk-Onboarding]]></display-name>
+  <description><![CDATA[Setting to complete bulk onboarding]]></description>
+  <atts>
+    <att name="iaasDomain" type="String" read-only="false">
+      <value encoded="n"><![CDATA[]]></value>
+      <description><![CDATA[vRA 7 IAAS Domain]]></description>
+    </att>
+    <att name="iaasUsername" type="String" read-only="false">
+      <value encoded="n"><![CDATA[]]></value>
+      <description><![CDATA[User with administrator privileges on IAAS Web Node]]></description>
+    </att>
+    <att name="iaasPassword" type="SecureString" read-only="false">
+      <description><![CDATA[Password corrosponding to iaasUsername specified above]]></description>
+    </att>
+    <att name="iaasHost" type="String" read-only="false">
+      <value encoded="n"><![CDATA[]]></value>
+      <description><![CDATA[FQDN of the primary IAAS Web node]]></description>
+    </att>
+    <att name="tenant" type="String" read-only="false">
+      <value encoded="n"><![CDATA[]]></value>
+      <description><![CDATA[vRA 7 Tenant to be used when extracting vRA 7 data]]></description>
+    </att>
+    <att name="vra7host" type="String" read-only="false">
+      <value encoded="n"><![CDATA[]]></value>
+      <description><![CDATA[FQDN of vRA 7 appliance or loadbalancer]]></description>
+    </att>
+    <att name="vra7Username" type="String" read-only="false">
+      <value encoded="n"><![CDATA[]]></value>
+      <description><![CDATA[vRA 7 Username with IAAS and Fabric Group administrator access]]></description>
+    </att>
+    <att name="vra7Password" type="SecureString" read-only="false">
+      <description><![CDATA[Password that corresponds to the vra7Username specified]]></description>
+    </att>
+    <att name="vra7pagesize" type="Number" read-only="false">
+      <value encoded="n"><![CDATA[50.0]]></value>
+      <description><![CDATA[Number of records to be returned in REST API calls to vRA 7. Default is 50]]></description>
+    </att>
+    <att name="dbFilename" type="String" read-only="false">
+      <value encoded="n"><![CDATA[vra8-onboarding-metadata.db]]></value>
+      <description><![CDATA[Name to be assigned to the database used to temporarily store metadata ]]></description>
+    </att>
+    <att name="csvfile" type="String" read-only="false">
+      <value encoded="n"><![CDATA[machine_data.csv]]></value>
+      <description><![CDATA[Name to be assigned to csv file exported for review. ]]></description>
+    </att>
+    <att name="resourceFolder" type="ResourceElementCategory" read-only="false">
+      <value encoded="n"><![CDATA[__NULL__]]></value>
+      <description><![CDATA[Location to save exported csv and log files in vRO ]]></description>
+    </att>
+    <att name="vroNodeIP" type="String" read-only="false">
+      <value encoded="n"><![CDATA[]]></value>
+      <description><![CDATA[IP address of a vRO node  used to store metadata ]]></description>
+    </att>
+    <att name="vroUsername" type="String" read-only="false">
+      <value encoded="n"><![CDATA[root]]></value>
+      <description><![CDATA[user with root access to vro node. default is root]]></description>
+    </att>
+    <att name="vroPassword" type="SecureString" read-only="false"/>
+    <att name="savedPathContainer" type="String" read-only="false">
+      <value encoded="n"><![CDATA[/tmp]]></value>
+      <description><![CDATA[This value should not be changed. 
+Default /tmp]]></description>
+    </att>
+    <att name="savedPathFS" type="String" read-only="false">
+      <value encoded="n"><![CDATA[/root]]></value>
+      <description><![CDATA[Location to store metadata on vRO node
+Default /root]]></description>
+    </att>
+    <att name="authtype" type="String" read-only="false">
+      <value encoded="n"><![CDATA[onprem]]></value>
+      <description><![CDATA[onprem/cloud]]></description>
+    </att>
+    <att name="vra8host" type="String" read-only="false">
+      <value encoded="n"><![CDATA[]]></value>
+      <description><![CDATA[cloud : api.mgmt.cloud.vmware.com]]></description>
+    </att>
+    <att name="vra8Username" type="String" read-only="false">
+      <value encoded="n"><![CDATA[]]></value>
+    </att>
+    <att name="vra8Password" type="SecureString" read-only="false"/>
+    <att name="cspfqdn" type="String" read-only="false">
+      <value encoded="n"><![CDATA[console.cloud.vmware.com]]></value>
+    </att>
+    <att name="refreshToken" type="SecureString" read-only="false"/>
+    <att name="importprop" type="Boolean" read-only="false">
+      <value encoded="n"><![CDATA[false]]></value>
+      <description><![CDATA[Import vRA 7 Custom properties into vRA 8 ]]></description>
+    </att>
+    <att name="assignCloudTemplate" type="Boolean" read-only="false">
+      <value encoded="n"><![CDATA[false]]></value>
+    </att>
+    <att name="linuxCloudTemplateName" type="String" read-only="false">
+      <value encoded="n"><![CDATA[]]></value>
+    </att>
+    <att name="windowsCloudTemplateName" type="String" read-only="false">
+      <value encoded="n"><![CDATA[]]></value>
+    </att>
+    <att name="projects" type="String" read-only="false">
+      <value encoded="n"><![CDATA[]]></value>
+    </att>
+    <att name="convertprop" type="Boolean" read-only="false">
+      <value encoded="n"><![CDATA[false]]></value>
+      <description><![CDATA[replace . in custom properties names with _]]></description>
+    </att>
+    <att name="componentName" type="String" read-only="false">
+      <value encoded="n"><![CDATA[Machine]]></value>
+      <description><![CDATA[default component name to be associated with deployments]]></description>
+    </att>
+    <att name="threadCount" type="Number" read-only="false">
+      <value encoded="n"><![CDATA[100.0]]></value>
+      <description><![CDATA[number of threads to use for processing API requests]]></description>
+    </att>
+    <att name="includeProjectProp" type="Boolean" read-only="false">
+      <value encoded="n"><![CDATA[false]]></value>
+    </att>
+    <att name="allowOrgOwner" type="Boolean" read-only="false">
+      <value encoded="n"><![CDATA[true]]></value>
+    </att>
+    <att name="getHistory" type="Boolean" read-only="false">
+      <value encoded="n"><![CDATA[false]]></value>
+    </att>
+    <att name="scpTimeout" type="Number" read-only="false">
+      <value encoded="n"><![CDATA[20.0]]></value>
+    </att>
+    <att name="useMachineName" type="Boolean" read-only="false">
+      <value encoded="n"><![CDATA[false]]></value>
+    </att>
+    <att name="includeInProjectLimits" type="Boolean" read-only="false">
+      <value encoded="n"><![CDATA[true]]></value>
+    </att>
+  </atts>
+</config-element>

@@ -35,5 +35,7 @@ if(startconvo == 'Yes'){
 
      return result.getHostOutput();
 }
+
+//System.log("StartConvo: " + startconvo)
 ]]></script>
 </dunes-script-module>

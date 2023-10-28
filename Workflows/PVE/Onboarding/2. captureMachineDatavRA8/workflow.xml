@@ -1,0 +1,601 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item2" object-name="workflow:name=generic" id="8a037881-086f-43fa-89ac-524f5dfaecd5" version="0.1.12" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[2. captureMachineDatavRA8]]></display-name>
+  <description><![CDATA[Capture machine data from vRA 8 deployment for onboarding to vRA Cloud]]></description>
+  <position y="50.0" x="100.0"/>
+  <attrib name="csvfile" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="csvfile">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="savedPathContainer" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathContainer">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="savedPathFS" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathFS">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="resourceFolderName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroPassword" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroPassword"/>
+  <attrib name="vroUsername" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroUsername">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroNodeIP" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroNodeIP">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="dbFilename" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="dbFilename">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="refreshToken" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="refreshToken"/>
+  <attrib name="cspfqdn" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="cspfqdn">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="password" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8Password"/>
+  <attrib name="username" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8Username">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="hostfqdn" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8host">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="authtype" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="authtype">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="resourceFolder" type="ResourceElementCategory" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="resourceFolder"/>
+  <attrib name="threadCount" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="threadCount"/>
+  <attrib name="logFileName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[vra-onboarding-caputureMachineDatavRA8.log]]></value>
+  </attrib>
+  <attrib name="err_0" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="scpTimeout" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="scpTimeout"/>
+  <attrib name="delta" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[false]]></value>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="53.684210526315795" x="864.2105263157895"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item3" catch-name="item5" throw-bind-name="err_0" type="task">
+    <runtime><![CDATA[environment:d5f3e6a0-7c59-4fa0-9053-aa71f7b8e8ad]]></runtime>
+    <display-name><![CDATA[Capture Data from vRA 8 ]]></display-name>
+    <script encoded="false"><![CDATA[import sqlite3
+from sqlite3 import Error
+import json
+import onboardingUtils
+import onboardingUtilsvRO
+import onboardingUtilsHistory
+import logging
+import vacfg_constants as const
+import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+logger = logging.getLogger()
+
+# set log level
+#logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+
+# define file handler and set formatter
+file_handler = logging.FileHandler('/tmp/vra-onboarding-caputureMachineDatavRA8.log')
+formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+file_handler.setFormatter(formatter)
+
+# add file handler to logger
+logger.addHandler(file_handler)
+
+def processDeployment(deployment, vraHost, headers, apiVersion, cloudAccountMap, token, resourceTypes=['vsphere']):
+   
+    try:
+        resourceId = deploymentDate = leaseEnd = machineId = ctName = ''
+    
+        resourceTypesMap = {
+            'vsphere':'Cloud.vSphere.Machine',
+            'aws':'Cloud.AWS.EC2.Instance',
+            'cloudMachine':'Cloud.Machine'
+        }
+
+        deploymentId = deployment["id"]
+        tmpDescription = '%s %s' % (deployment.get("description", ''), ',')
+        description = tmpDescription.replace(',',' ').strip()
+        deploymentDate = deployment["createdAt"]
+        if deployment.get('leaseExpireAt', None):
+            leaseEnd = deployment['leaseExpireAt']
+
+        if deployment.get('blueprint', None):
+            if deployment['blueprint'].get('name', None):
+                ctName =deployment['blueprint']['name']
+
+        skip = 0
+        top = 200
+        deploymentDataset = []
+        propertyDataset = []
+        historyDataset = []
+        # Get all children of this deployment
+        vra8_get_deployment_resources = 'https://%s/deployment/api/deployments' 
+        typeFilter = ''
+        for thisType in resourceTypes:
+            if resourceTypesMap.get(thisType, None):
+                typeFilter = typeFilter + '&resourceTypes=%s' % resourceTypesMap[thisType]
+                
+        #/deployment/api/deployments/b3f2dd72-c26b-4b0b-8cfb-fad4e96337bc/resources?%24skip=0&%24top=200&apiVersion=2020-08-25
+        reqUrl = "%s/%s/resources?$skip=%s&$top=%s&apiVersion=%s%s" % (vra8_get_deployment_resources % (vraHost), deploymentId, skip, top, apiVersion, typeFilter) 
+    
+        vraClient = onboardingUtils.RESTClient()
+        resp = vraClient.get(reqUrl, headers=headers)
+
+        propExcludeListStr = "hostName,address,account,powerState,zone,id,resourceName,region,endpointType,resourceId,resourceDescLink,accounts,componentType,computeHostRef,computeHostType,coreCount,cpuCount,datacenter,datastoreName,endpointId,environmentName,hasSnapshots,instanceUUID,memoryGB,name,osType,primaryMAC,project,providerId,resourceLink,resourcePool,softwareName,storage,totalMemoryMB,vcUuid,vmFolderPath,zone_overlapping_migrated"
+        propExcludeList = propExcludeListStr.split(',')
+    
+        if resp.status_code == 200:
+            data = resp.json()
+            if data['totalPages'] == 0:
+                print('Deployment has no resource of supported type %s, deployment %s will be skipped' % (typeFilter.split('&'), deployment['name']))
+                logger.debug('Deployment has no resource of supported type %s, deployment %s will be skipped' % (typeFilter.split('&'), deployment['name']))
+            elif data['totalPages'] == 1:
+                print('All Machine Components Identified for deployment %s' % deployment['name'])
+                logger.debug('All Machine Components Identified for deployment %s' % deployment['name'])
+            else:
+                print('Some Components might be missing, check logs. Deployment %s has another page of resources.' % deployment['name'])
+                logger.debug('Some Components might be missing, check logs. Deployment %s has another page of resources.' % deployment['name'])
+
+            for thisVM in data['content']:
+                print('Processing VM %s .' % thisVM.get('properties',{}).get('resourceName', 'UNKNOWN'))
+                logger.debug('Processing VM %s .' % thisVM.get('properties',{}).get('resourceName', 'UNKNOWN'))
+                netName = ''
+                for thisNet in thisVM['properties'].get('networks', []):
+                    netName = thisNet.get('name', '')
+                    break
+                    
+                deploymentDataset.append((thisVM['properties']['resourceName'], 
+                                      thisVM['id'],
+                                      thisVM['properties'].get('instanceUUID',''),
+                                      deployment['ownedBy'],
+                                      deployment['project']['name'],
+                                      cloudAccountMap.get(thisVM['properties']['account'], {'fqdn': 'MISSING'})['fqdn'],
+                                      thisVM['properties'].get('endpointType',''),
+                                      deployment['name'],
+                                      deployment['id'], 
+                                      deploymentDate,
+                                      description,
+                                      thisVM['properties'].get('osType',''),
+                                      leaseEnd,
+                                      ctName,
+                                      thisVM['properties'].get('datastoreName',''),
+                                      netName))
+
+                print('Processing Properties for VM %s.' % thisVM.get('properties',{}).get('resourceName', 'UNKNOWN'))
+                logger.debug('Processing Properties for VM %s.' % thisVM.get('properties',{}).get('resourceName', 'UNKNOWN'))
+
+                for prop in thisVM['properties']:
+                    #cutome properties are limited to string only value so we will limit export to same 
+                    #propertyDataset.append((thisVM['id'], prop, json.dumps(thisVM['properties'][prop]), '', ''))
+                    if not isinstance(thisVM['properties'][prop], str) or prop in propExcludeList:
+                        continue
+                    thisValue = str(thisVM['properties'][prop])
+                    
+                    if thisValue.startswith('"') and thisValue.endswith('"'):
+                        thisValue = thisValue[1:-1]
+
+                    propertyDataset.append((thisVM['id'], prop, thisValue, '', ''))
+            
+            deployment['resourceData'] = data['content']
+            historyDataset = onboardingUtilsHistory.exportvRA8DeploymentHistory(vraHost, token, deployment)
+            print('Finished extracing history for deployment %s' % deployment['name'])
+            logger.debug('Finished extracing history for deployment %s' % deployment['name'])
+            
+        print(historyDataset)
+        return deploymentDataset, propertyDataset, historyDataset
+
+    except Exception as e:
+        print(e)
+        print('Error Processing Deployment name: %s ID: %s. Skipping Deployment.' % (deployment['name'], deployment['id']))
+        logger.error(e)
+        logger.error('Error Processing Deployment name: %s ID: %s. Skipping Deployment.' % (deployment['name'], deployment['id']))
+        logger.debug(thisVM)
+        logger.debug(deployment)
+        if thisVM['properties'].get('account',None):
+            if not cloudAccountMap.get(thisVM['properties']['account'], None):
+                print('NO Cloud Account found for %s' % (thisVM['properties']['account']))
+                logger.debug('NO Cloud Account found for %s' % (thisVM['properties']['account']))
+        else:
+            print('ACCOUNT PROPERTY MISSING ON VM %s' %  thisVM['name'])
+            logger.debug('ACCOUNT PROPERTY MISSING ON VM %s' %  thisVM['name'])
+        return [], [], []
+
+
+def create_connection(db_file):
+    """ create a database connection to a SQLite database """
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+        return conn
+    except Error as e:
+        print(e)
+
+    return conn
+
+def create_table(conn, create_table_sql, tableName):
+    """ create a table from the create_table_sql statement
+    :param conn: Connection object
+    :param create_table_sql: a CREATE TABLE statement
+    :return:
+    """
+    try:
+        c = conn.cursor()
+        dropQuery = 'DROP TABLE IF EXISTS %s;' % (tableName)
+        c.execute(dropQuery)
+        c.execute(create_table_sql)
+    except Error as e:
+        print(e)
+
+def insertEvent( insertData ):
+    sql = ''' INSERT OR IGNORE INTO machinedata(machineName, machineId, uuid, owner, businessGroup, endpointFQDN, endpointType, deploymentName, deploymentId, deploymentDate, deploymentDescription, osType, leaseEnd, cloudTemplateName,datastore,networkName)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+    '''
+    cur = conn.cursor()
+    ret = cur.executemany(sql, insertData)
+    conn.commit()
+
+def insertProperties( insertProps ):
+    sql = ''' INSERT INTO machineproperties(machineId, propertyName, propertyValue, isEncrypted, isHidden)
+                VALUES (?,?,?,?,?);
+    '''
+    cur = conn.cursor()
+    ret = cur.executemany(sql, insertProps)
+    conn.commit()
+
+def getDeltaDate():
+    cur = conn.cursor()
+    cur.execute("select deploymentDate from machinedata ORDER BY deploymentDate DESC LIMIT 1;")
+    for resData in cur:
+        return resData[0]
+
+    return None
+
+def handler(context, inputs):
+
+    try:
+        begin_time = datetime.datetime.now()
+
+        print('Extracting Machine Data.......')
+        global conn
+
+        authtype = inputs["authtype"]
+        hostfqdn = inputs["hostfqdn"]
+        username = inputs["username"]
+        password = inputs["password"]
+        cspfqdn = inputs["cspfqdn"]
+        refreshToken = inputs["refreshToken"]
+        dbFileNameIn = inputs["dbFilename"]
+        vroNodeIP = inputs["vroNodeIP"]
+        vroUsername = inputs["vroUsername"]
+        vroPassword = inputs["vroPassword"]
+        resourceFolderName = inputs["resourceFolderName"]
+        getDelta = inputs["delta"]
+        savedPathFS = inputs["savedPathFS"]
+        savedPathContainer = inputs["savedPathContainer"]
+        csvfile = inputs["csvfile"]
+        threadCount = int(inputs["threadCount"])
+        scpTimeout = int(inputs["scpTimeout"])
+        
+        dbFileName = '/%s/%s' % (savedPathContainer, dbFileNameIn)
+
+        print('Export environment is ' + authtype)
+        logger.info('Export environment is ' + authtype)
+
+        vra8Conn = {
+            'hostfqdn': hostfqdn,
+            'username': username,
+            'password': password,
+            'cspfqdn': cspfqdn,
+            'refreshToken': refreshToken
+        }
+        
+        hostname = vra8Conn['hostfqdn']
+
+        if authtype == 'onprem':
+            vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], vra8Conn['username'], vra8Conn['password'], 'vra8')
+        else:
+            if not vra8Conn.get('refreshToken', None):
+                print('No refresh token configured in ini file')
+                logger.error('No refresh token configured in ini file')
+                raise ValueError('RefreshToken Not Provided')
+            else:
+                vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], None, vra8Conn['refreshToken'], 'vra8_cloud')
+
+                vra8Conn['cspToken'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['cspfqdn'], None, vra8Conn['refreshToken'], 'vracloudcsp')
+
+                logger.debug('CSP Token: %s' % vra8Conn['cspToken'])
+
+
+        logger.debug(vra8Conn['token'])
+        #print(vra8Conn['token'])
+
+        if not vra8Conn['token']:
+            raise ValueError('Autherization Token not obtained')
+            exit(1)
+
+        if not dbFileName.endswith('.db'):
+            print('ERROR: Unsupported database filename supplied in ini file. Make sure filename ends in .db \ne.g. myvra7data.db')
+            exit(1)
+
+        conn = create_connection(dbFileName)
+
+        if getDelta:
+            deltaDate = getDeltaDate()
+            if deltaDate:
+                print(deltaDate)
+
+        if not getDelta:
+
+            sql_create_properties_table = """ CREATE TABLE IF NOT EXISTS machineproperties (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                machineId text, propertyName text, newPropertyName text, propertyValue text,
+                isEncrypted text, isHidden text );
+            """
+
+            sql_create_event_table = """ CREATE TABLE IF NOT EXISTS machinedata (
+                id INTEGER PRIMARY KEY AUTOINCREMENT, import text default 'yes', machineName text,
+                uuid text, machineId text NOT NULL UNIQUE, vra8MachineId text, owner text,
+                newOwner text, businessGroup text, project text, projectId text, state text, 
+                datastore text, networkName text, endpointFQDN text, endpointType text, endpointId text,
+                leaseEnd text, osType text, cloudTemplateName text, cloudTemplateId text,
+                deploymentName text, deploymentId text, deploymentDescription text, deploymentDate text );
+            """
+
+            if conn is not None:
+                #create sqllite table
+                create_table(conn, sql_create_event_table, 'machinedata')
+                create_table(conn, sql_create_properties_table, 'machineproperties')
+                res = onboardingUtilsHistory.create_history_table(dbFileName)
+
+        #print('No, Machine Name, UUID, vRA ID, Owner, Business Group, Endpoint, Type, Deployment Name, Deployment ID, Date')
+
+        #allCloudAccountsList = onboardingUtils.getAllvRA8CloudAccounts(vra8Conn['hostfqdn'], vra8Conn['token'], supportedTypes=['vsphere', 'vcf'])
+        allCloudAccountsList = onboardingUtils.getAllvRA8CloudAccounts(vra8Conn['hostfqdn'], vra8Conn['token'], supportedTypes=['aws','vcf','vsphere','vmc'])
+        print(allCloudAccountsList)
+
+        cloudAccountMap = {}
+
+        for acc in allCloudAccountsList:
+            if acc['type'] == 'vcf':
+                lookupName = '%s-%s' % (acc['name'], acc['fqdn'])
+                cloudAccountMap[lookupName] = acc
+            elif acc['type'] == 'vmc':
+                lookupName = '%s-vsphere' % (acc['name'])
+                cloudAccountMap[lookupName] = acc
+            else:
+                cloudAccountMap[acc['name']] = acc
+                
+        cloudAccountMap['MISSING'] = {'fqdn':'MISSING','name':'MISSING'}
+
+        logger.debug('CloudAccounts: %s ' % cloudAccountMap.keys())
+        vra8_get_all_deployments = 'https://%s/deployment/api/deployments'
+        top = 200
+        skip = 0
+        apiVersion = '2020-08-25'
+
+        headers = {'Authorization': '%s' % (vra8Conn['token'])}
+
+        vraClient = onboardingUtils.RESTClient()
+
+        allDone = False
+
+        while not allDone:
+
+            updateDataset = [] # list of sets
+            updatePropertyset = []
+            updateHistoryDataset = []
+            threads = []
+            
+            reqUrl = '%s?&$top=%s&$skip=%s&apiVersion=%s&expand=project&expand=blueprint' % (vra8_get_all_deployments % (vra8Conn['hostfqdn']), top, skip, apiVersion)
+
+            logger.debug('Request URL: %s' % (reqUrl))
+            print('Request URL: %s' % (reqUrl))
+
+            resp = vraClient.get(reqUrl, headers=headers)
+            today = datetime.datetime.today().strftime('%Y-%m-%d')
+            if resp.status_code == 200:
+                with ThreadPoolExecutor(max_workers=threadCount) as executor:
+                    data = resp.json()
+                    
+                    for thisDeployment in data["content"]:
+                        threads.append(executor.submit(processDeployment, thisDeployment, vra8Conn['hostfqdn'], headers, apiVersion, cloudAccountMap, vra8Conn['token'], resourceTypes=['aws', 'cloudMachine', 'vsphere']))
+
+                    for task in as_completed(threads):
+                        print(task.result())
+                        machineList, allMachineProperties, allDeploymentHistory = task.result()
+                        updateDataset.extend(machineList)
+                        updatePropertyset.extend(allMachineProperties)
+                        updateHistoryDataset.extend(allDeploymentHistory)
+
+                    insertEvent(updateDataset)
+                    insertProperties(updatePropertyset)
+                    onboardingUtilsHistory.insertHistory(updateHistoryDataset, dbFileName)
+                    
+
+            else:
+                #print response code and body here with error
+                print('something went wrong')
+                logger.debug('something went wrong')
+
+            
+            logger.debug('vRA Returned the next %s elements of %s deployments. Completed processing %s' % (data['numberOfElements'], data['totalElements'], skip))
+            print('vRA Returned the next %s elements of %s deployments. Completed processing %s' % (data['numberOfElements'], data['totalElements'], skip))
+            skip = skip + top
+            if data['numberOfElements'] < top:
+                allDone = True
+
+        now = datetime.datetime.now()
+        dt_string = now.strftime("%d-%b-%Y-T%H%M%S")
+    
+        csvTmp = "/%s/%s" % (savedPathContainer, csvfile)
+        csv = csvTmp.replace('.csv', "_%s.csv" % dt_string)
+        
+        onboardingUtilsvRO.outputData(csv, conn)
+        conn.close()
+
+        destPath = '/%s/%s' % (savedPathFS, dbFileNameIn) 
+        sourcePath = '%s/%s' % (savedPathContainer, dbFileNameIn)
+
+        vcoUrl = context['vcoUrl']
+        tokenvro = context['getToken']()
+    
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, csv, resourceFolderName)
+        result = onboardingUtilsvRO.updatevROResourceElementType(vcoUrl, tokenvro, csv.split('/')[-1])
+    
+        propFileName = csv.replace('.csv', '_custom_properties.csv')
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, propFileName, resourceFolderName)
+        result = onboardingUtilsvRO.updatevROResourceElementType(vcoUrl, tokenvro, propFileName.split('/')[-1])
+        onboardingUtilsvRO.vROSaveDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, destPath, scpTimeout=scpTimeout)
+
+        backupPath = destPath.replace('.db', '.bak')
+        print('Saving backup of metadata file')
+        onboardingUtilsvRO.vROSaveDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, backupPath, scpTimeout=scpTimeout)
+
+    finally:
+        vcoUrl = context['vcoUrl']
+        tokenvro = context['getToken']()
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, '/tmp/vra-onboarding-caputureMachineDatavRA8.log', resourceFolderName)
+
+        print('Finished Processing.')
+        print('Run Time: ')
+        print(datetime.datetime.now() - begin_time)]]></script>
+    <in-binding>
+      <bind name="authtype" type="string" export-name="authtype"/>
+      <bind name="cspfqdn" type="string" export-name="cspfqdn"/>
+      <bind name="csvfile" type="string" export-name="csvfile"/>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+      <bind name="hostfqdn" type="string" export-name="hostfqdn"/>
+      <bind name="password" type="SecureString" export-name="password"/>
+      <bind name="refreshToken" type="SecureString" export-name="refreshToken"/>
+      <bind name="savedPathContainer" type="string" export-name="savedPathContainer"/>
+      <bind name="savedPathFS" type="string" export-name="savedPathFS"/>
+      <bind name="vroNodeIP" type="string" export-name="vroNodeIP"/>
+      <bind name="vroUsername" type="string" export-name="vroUsername"/>
+      <bind name="vroPassword" type="SecureString" export-name="vroPassword"/>
+      <bind name="username" type="string" export-name="username"/>
+      <bind name="dbFilename" type="string" export-name="dbFilename"/>
+      <bind name="threadCount" type="number" export-name="threadCount"/>
+      <bind name="scpTimeout" type="number" export-name="scpTimeout"/>
+      <bind name="delta" type="boolean" export-name="delta"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="380.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item1" type="task">
+    <display-name><![CDATA[prepResourceElements]]></display-name>
+    <script encoded="false"><![CDATA[var resourceFolderName = resourceFolder.name;
+
+System.log('Resource Elements folder name: ' + resourceFolderName);
+
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    System.log('Deleting old log file ' + logFileName);
+    Server.removeResourceElement(resourceElemet);
+}else{
+    System.log('No Old Log file found for ' + logFileName);
+}]]></script>
+    <in-binding>
+      <bind name="resourceFolder" type="ResourceElementCategory" export-name="resourceFolder"/>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="200.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item0" type="task">
+    <display-name><![CDATA[Update Log Resource]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+    System.log('Check for split log file.');
+    var partNumber = 0;
+    var found = true;
+    while (found){
+        thisPart = '_part' + partNumber + '.log' 
+        partFileName = logFileName.replace('.log', thisPart)
+        var partResourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ partFileName +"'");
+        partNumber = partNumber + 1
+        if (partResourceElements[0]){
+            var partResourceElemet =  partResourceElements[0];
+            var mimeAttachment = partResourceElements[0].getContentAsMimeAttachment();
+            System.log('Updating Log File type for file ' + partFileName);
+            mimeAttachment.mimeType = "text/plain";
+            partResourceElemet.setContentFromMimeAttachment(mimeAttachment);
+        }
+        else{
+            System.log('No Log file found for ' + partFileName);
+            found = false;
+        }
+
+    }
+}]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="63.684210526315795" x="550.5263157894738"/>
+  </workflow-item>
+  <workflow-item name="item4" throw-bind-name="err_0" type="end" end-mode="1">
+    <in-binding/>
+    <position y="211.57894736842107" x="422.10526315789474"/>
+  </workflow-item>
+  <workflow-item name="item5" out-name="item4" type="task">
+    <display-name><![CDATA[Update Log Resource]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+    System.log('Check for split log file.');
+    var partNumber = 0;
+    var found = true;
+    while (found){
+        thisPart = '_part' + partNumber + '.log' 
+        partFileName = logFileName.replace('.log', thisPart)
+        var partResourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ partFileName +"'");
+        partNumber = partNumber + 1
+        if (partResourceElements[0]){
+            var partResourceElemet =  partResourceElements[0];
+            var mimeAttachment = partResourceElements[0].getContentAsMimeAttachment();
+            System.log('Updating Log File type for file ' + partFileName);
+            mimeAttachment.mimeType = "text/plain";
+            partResourceElemet.setContentFromMimeAttachment(mimeAttachment);
+        }
+        else{
+            System.log('No Log file found for ' + partFileName);
+            found = false;
+        }
+
+    }
+}]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="147.89473684210526" x="382.10526315789474"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

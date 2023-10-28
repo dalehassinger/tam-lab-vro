@@ -1,0 +1,1148 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item3" object-name="workflow:name=generic" id="7628f6fe-e5af-4a4b-9a3d-8c777e28e22d" version="0.1.3" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[2. captureMachineDatavRA7x]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="delta" type="boolean"/>
+    <param name="takeBackup" type="boolean"/>
+  </input>
+  <attrib name="domain" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="iaasDomain">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="iaasuser" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="iaasUsername">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="iaashost" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="iaasHost">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vrauser" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra7Username">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="tenant" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="tenant">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vrahost" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra7host">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="iaaspassword" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="iaasPassword"/>
+  <attrib name="vrapassword" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra7Password"/>
+  <attrib name="pagesize" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra7pagesize"/>
+  <attrib name="dbFilename" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="dbFilename">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="csvfile" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="csvfile">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="resourceFolderName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroNodeIP" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroNodeIP">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroUsername" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroUsername">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroPassword" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroPassword"/>
+  <attrib name="resourceFolder" type="ResourceElementCategory" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="resourceFolder"/>
+  <attrib name="savedPathContainer" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathContainer">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="savedPathFS" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathFS">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="threadCount" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="threadCount"/>
+  <attrib name="logFileName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[vra-onboarding-caputureMachineDatavRA7.log]]></value>
+  </attrib>
+  <attrib name="err_0" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="getHistory" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="getHistory"/>
+  <attrib name="scpTimeout" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="scpTimeout"/>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.0" x="960.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item4" catch-name="item6" throw-bind-name="err_0" type="task">
+    <runtime><![CDATA[environment:d5f3e6a0-7c59-4fa0-9053-aa71f7b8e8ad]]></runtime>
+    <display-name><![CDATA[CaptureMachineData]]></display-name>
+    <script encoded="false"><![CDATA[#!/usr/bin/env python3
+import requests
+from requests_ntlm2 import HttpNtlmAuth
+from xml.dom import minidom
+import json
+import csv
+import datetime
+import logging
+import sqlite3
+import uuid
+from sqlite3 import Error
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning) # Disable SSL warning
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import onboardingUtils
+import onboardingUtilsvRO
+import onboardingUtilsHistory
+import urllib.parse
+
+logger = logging.getLogger()
+
+# set log level
+#logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+
+# define file handler and set formatter
+file_handler = logging.FileHandler('/tmp/vra-onboarding-caputureMachineDatavRA7.log')
+formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+file_handler.setFormatter(formatter)
+
+# add file handler to logger
+logger.addHandler(file_handler)
+
+def processDeployment(deployment, vraHost, pagesize, headers, getHistory=False):
+   
+    resourceId = deploymentDate = leaseEnd = machineId = ''
+    thisDesc = str('').encode("ascii", "ignore")
+    
+    resourceId = deployment["id"]
+    requestId = deployment["requestId"]
+    tmpDescription = '%s %s' % (deployment["description"], ',')
+    description = tmpDescription.replace(',',' ').strip()
+    deploymentDate = deployment["dateCreated"]
+    leaseEnd = ""
+            
+    if deployment['hasLease']:
+        leaseEnd = deployment['lease']['end']
+
+    # Get all children of this deployment
+    url = "https://{0}/catalog-service/api/consumer/resources?limit={1}&%24filter=parentResource/id+eq+'{2}'".format(vraHost, pagesize, resourceId)
+    resp2 = requests.get(url, headers=headers, verify=False )
+    if resp2.status_code != 200:
+        print('Unable to get vra deployment data')
+        exit(1)
+
+    data2 = resp2.json()
+
+    machineNames = []
+
+    for child in data2["content"]:
+        if child["resourceTypeRef"]["label"] == "Virtual Machine":
+            machineId = child["providerBinding"]["bindingId"]
+            ipAddress = ""
+            machineStatus = ""
+            machineMemory = ""
+            machineBlueprintName = ""
+            machineReservation = ""
+            datastore = ""
+
+            for res in child["resourceData"]["entries"]:
+                if res["key"] == "ip_address":
+                    ipAddress = res["value"]["value"]
+                if res["key"] == "MachineStatus":
+                    machineStatus = res["value"]["value"]
+                if res["key"] == "MachineMemory":
+                    machineMemory = res["value"]["value"]
+                if res["key"] == "MachineBlueprintName":
+                    machineBlueprintName = res["value"]["value"]
+                if res["key"] == "MachineReservationName":
+                    machineReservation = res["value"]["value"]
+                if res["key"] == "VirtualMachine.Storage.Name":
+                    datastore = res["value"]["value"]
+
+            thisDesc = str(description).encode("ascii", "ignore")
+            print ("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}".format(
+                child["name"],
+                deployment["name"],
+                str(resourceId),
+                str(machineId),
+                deployment["owners"][0]["ref"],
+                deployment["organization"]["subtenantLabel"],
+                ipAddress,
+                machineMemory,
+                machineBlueprintName,
+                machineReservation,
+                machineStatus,
+                datastore,
+                deploymentDate,
+                leaseEnd,
+                thisDesc.decode('utf-8')
+                ))
+
+            machineNames.append(child["name"])
+
+    thisHistory = None
+    if getHistory:
+        thisHistory = extractHistoryData(vraHost, headers, machineNames, resourceId)
+
+    return (str(resourceId),thisDesc.decode('utf-8'),deployment["name"], deploymentDate, leaseEnd, str(machineId)), thisHistory
+
+def create_connection(db_file):
+    """ create a database connection to a SQLite database """
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+        return conn
+    except Error as e:
+        print(e)
+
+    return conn
+
+def create_table(conn, create_table_sql, tableName):
+    """ create a table from the create_table_sql statement
+    :param conn: Connection object
+    :param create_table_sql: a CREATE TABLE statement
+    :return:
+    """
+    try:
+        c = conn.cursor()
+        dropQuery = 'DROP TABLE IF EXISTS %s;' % (tableName)
+        c.execute(dropQuery)
+        c.execute(create_table_sql)
+    except Error as e:
+        print(e)
+
+def insertEvent( insertData ):
+    sql = ''' INSERT OR IGNORE INTO machinedata(machineName, machineId, uuid, owner, businessGroup, state, datastore, endpointFQDN, endpointType, networkName)
+                VALUES (?,?,?,?,?,?,?,?,?,?);
+    '''
+    cur = conn.cursor()
+    ret = cur.executemany(sql, insertData)
+    conn.commit()
+
+def insertProperties( insertProps ):
+    sql = ''' INSERT INTO machineproperties(machineId, propertyName, propertyValue, isEncrypted, isHidden)
+                VALUES (?,?,?,?,?);
+    '''
+    cur = conn.cursor()
+    ret = cur.executemany(sql, insertProps)
+    conn.commit()
+
+def updateEvent( updateData ):
+    sql = ''' UPDATE machinedata set deploymentId = ?, deploymentDescription = ?, deploymentName = ? , deploymentDate = ?, leaseEnd = ? where machineId = ?;
+    '''
+
+    cur = conn.cursor()
+    ret = cur.executemany(sql, updateData)
+    conn.commit()
+
+def updateDeployment(updateData):
+    sql = ''' UPDATE machinedata set deploymentId = ?, deploymentName = ?, deploymentDate = ? where machineName = ?;
+    '''
+
+    cur = conn.cursor()
+    ret = cur.executemany(sql, updateData)
+    conn.commit()
+
+def updateDeploymentDescription(updateData):
+    sql = ''' UPDATE machinedata set deploymentDescription = ? where deploymentId = ?;
+    '''
+
+    cur = conn.cursor()
+    ret = cur.executemany(sql, updateData)
+    conn.commit()
+
+
+def selectMissingData():
+    cursor = conn.cursor()
+    cursor.execute("select machineName from machineData where deploymentId is null")
+
+    vmNames = []
+    for resData in cursor:
+        vmNames.append(resData[0])
+
+    return vmNames
+
+def getDeltaDate():
+    cur = conn.cursor()
+    cur.execute("select deploymentDate from machinedata ORDER BY deploymentDate DESC LIMIT 1;")
+    for resData in cur:
+        return resData[0]
+
+    return None
+
+def getvRAToken(vraHost, vraUser, vraPassword, vraTenant):
+    headers = {"Accept": "application/json", "Content-Type": "application/json"}
+
+    reqUrl = "https://%s/identity/api/tokens" % (vraHost)
+    print('Request URL: %s' % (reqUrl))
+
+    payload = {
+        "username": vraUser,
+        "password": vraPassword,
+        "tenant": vraTenant
+    }
+
+    resp = requests.post(reqUrl, data=json.dumps(payload),headers=headers, verify=False )
+    
+    if resp.status_code == 200:
+        data = resp.json()
+        if data.get('id', None):
+            token = data["id"]
+            print('token: %s' % (token))
+        else:
+            print( 'ERROR: Unable to log into vRA 7 ')
+            print( resp['errors'])
+            print( 'Please check user and password configured in onboarding.ini file')
+            exit(1)
+    else:
+        print( 'ERROR: Unable to log into vRA 7 ')
+        print( resp['errors'])
+        print( 'Please check user and password configured in onboarding.ini file')
+        exit(1)
+
+    return token 
+
+def extractHistoryData(vraHost, headers, resourceNames, deploymentId, limit=50):
+
+    filterList = []
+    for resource in resourceNames:
+        filterList.append("resource/name+eq+'%s'" % resource)
+
+    filterStr = ''
+    if len(filterList) > 0:
+        filterStr = '+or+'.join(filterList)
+
+    reqUrl = "https://%s/catalog-service/api/consumer/requests?$filter=%s&$orderby=dateCreated+desc&limit=%s" % (vraHost,filterStr,limit)
+    #print(reqUrl)
+    logger.debug("Req URL: %s" % reqUrl)
+
+    resp = requests.get(reqUrl, headers=headers, verify=False )
+    
+    historyDataSet = []
+
+    if resp.status_code == 200:
+        data = resp.json()
+        createDate = None
+        for request in data["content"]:
+            if request['dateCreated'] and request['dateCreated'] != 'null':
+                createDate = request['dateCreated']
+            elif createDate and createDate != 'null':
+                print('Unable to find history create/request date using previous timestamp')
+                logger.warning('Unable to find history create/request date using previous timestamp')
+            else:
+                print('Setting random date time stamp on history entry, unable to determine 7x time stamp')
+                logger.warning('Setting random date time stamp on history entry, unable to determine 7x time stamp')
+                createDate = '2020-03-17T17:35:19.504Z'
+
+            if not request.get('organization', None): 
+                tenantRef = 'unknown'
+                subtenantLabel = 'unknown'
+            else:
+                tenantRef = request['organization'].get('tenantRef', 'unknown')
+                if tenantRef == 'null':
+                    tenantRef = 'unknown'
+                subtenantLabel = request['organization'].get('subtenantLabel', 'unknown')
+                if subtenantLabel == 'null':
+                    subtenantLabel = 'unknown'
+
+            if not request.get('requestCompletion', None):
+                requestCompletionState = 'unknown'
+                completionDetails = 'vRA 7 Data incomplete, some data my be inaccurate'
+            else:
+                requestCompletionState = request['requestCompletion'].get('requestCompletionState','unknown')
+                if requestCompletionState == 'null':
+                    requestCompletionState = 'unknown'
+                completionDetails = request['requestCompletion'].get('completionDetails','unknown')
+                if completionDetails == 'null':
+                    completionDetails = 'unknown'
+            
+            if not request.get('resourceRef', None):
+                resourceReflabel = 'unknown'
+                resourceRefid = 'unknown'
+            else:
+                resourceReflabel = request['resourceRef'].get('label','unknown')
+                if resourceReflabel == 'null':
+                    resourceReflabel = 'unknown'
+                resourceRefid = request['resourceRef'].get('id','unknown')
+                if resourceRefid == 'null':
+                    resourceRefid = 'unknown'
+                
+            if not request.get('resourceActionRef', None):
+                resourceActionReflabel = 'unknown'
+            else:
+                resourceActionReflabel = request['resourceActionRef'].get('label', 'unknown')
+                if resourceActionReflabel == 'null':
+                    resourceActionReflabel = 'unknown'
+
+            reqType = request.get('@type', 'ResourceActionRequest')
+            if not reqType or reqType == 'null':
+                reqType = 'ResourceActionRequest'
+            
+            reqId = request.get('id', str(uuid.uuid4()))
+            if not reqId or reqId == 'null':
+                reqId = str(uuid.uuid4())
+
+            reqState = request.get('state', 'FAILED')
+            if not reqState or reqState == 'null':
+                reqState = 'FAILED'
+
+            requestedFor = request.get('requestedFor','unknown')
+            if not requestedFor or requestedFor == 'null':
+                requestedFor = 'unknown'
+
+            requestedBy = request.get('requestedBy','unknown')
+            if not requestedBy or requestedBy == 'null':
+                requestedBy = 'unknown'
+
+            dateCompleted = request.get('dateCompleted', 'unknown')
+            if not dateCompleted or dateCompleted == 'null':
+                dateCompleted = 'unknown'
+
+            requestData = json.dumps(request.get('requestData', {'inputs':''}))
+            if not requestData or requestData == 'null':
+                requestData = json.dumps({'inputs':''})
+
+            reqSuccess = request.get('successful', 'unknown')
+            if not reqSuccess or reqSuccess == 'null':
+                reqSuccess = 'unknown'
+
+            thisRequest = (
+                deploymentId,
+                reqType,
+                reqId,
+                reqState,
+                request.get('description', ''),
+                request.get('reasons',''),
+                requestedFor,
+                requestedBy,
+                tenantRef,
+                subtenantLabel,
+                createDate,
+                request.get('dateApproved', ''),
+                dateCompleted,
+                requestCompletionState,
+                completionDetails,
+                requestData,
+                reqSuccess,
+                resourceReflabel,
+                resourceRefid,
+                resourceActionReflabel
+                )
+            
+            historyDataSet.append(thisRequest)
+    else:
+        print('Unable to get vra deployment history')
+
+    return historyDataSet
+
+def extractDeploymentData(vraUser, vraPassword, vraTenant, vraHost, pagesize, threadCount, dbFileName, getHistory=False):
+
+    headers = {"Accept": "application/json", "Content-Type": "application/json"}
+    token = getvRAToken(vraHost, vraUser, vraPassword, vraTenant)
+    
+    headers["Authorization"] = "Bearer %s" % (token)
+
+    reqUrl = "https://{0}/catalog-service/api/consumer/resources?limit={1}&%24filter=resourceType/name+eq+'Deployment'".format(vraHost, pagesize)
+    print("Machine, Deployment, ID, Machine ID, Owner, Business Group, IP address, Memory, BlueprintName, Reservation, State, Datastore, Deployment Date, Description")
+
+    machineCounter = 0
+
+    while reqUrl:
+    
+        resp = requests.get(reqUrl, headers=headers, verify=False )
+
+        if resp.status_code != 200:
+            print('Unable to get vra deployment data')
+            exit(1)
+
+        
+        threads = []
+        updateData = []
+        with ThreadPoolExecutor(max_workers=threadCount) as executor:
+
+            data = resp.json()
+            for deployment in data["content"]:
+                threads.append(executor.submit(processDeployment, deployment, vraHost, pagesize, headers, getHistory))
+        
+            for task in as_completed(threads):
+                deploymentData, historyData = task.result()
+                if getHistory and len(historyData) > 0:
+                    onboardingUtilsHistory.insertHistory(historyData, dbFileName)
+                updateData.append(deploymentData)
+        
+        updateEvent(updateData)
+
+        reqUrl=False
+        for l in data["links"]:
+            if l["rel"] == "next":
+                # Fix url for curl - $ breaks the url
+                reqUrl = l["href"].replace("$", "%24")
+
+def extractMissingDeploymentData(vraUser, vraPassword, vraTenant, vraHost, pagesize, dbFileName, getHistory=False):
+    missingVMs = selectMissingData()
+    dataMap = {}
+
+    print( 'Missing Deployment Data for %s VMS' % (len(missingVMs)))
+
+    if len(missingVMs) == 0:
+        print('Data set complete....')
+        return
+    else:
+        chunks = [missingVMs[x:x+pagesize] for x in range(0, len(missingVMs), pagesize)]
+
+    vmcounter = 0
+    depcounter = 0
+    for chunk in chunks:
+        filterStr = []
+        vmcounter = vmcounter + len(chunk)
+        for thisVM in chunk:
+            filterStr.append("name%20eq%20%27{0}%27".format(thisVM))
+
+
+        thisFilter = '%20or%20'.join(filterStr)
+        thisFilter = '{0}%20and%20{1}'.format(thisFilter, "resourceType/name+eq+%27Virtual%20Machine%27")
+
+        headers = {"Accept": "application/json", "Content-Type": "application/json"}
+        token = getvRAToken(vraHost, vraUser, vraPassword, vraTenant)
+    
+        headers["Authorization"] = "Bearer %s" % (token)
+
+        url = "https://{0}/catalog-service/api/consumer/resources?limit={1}&%24filter={2}".format(vraHost, pagesize,thisFilter)
+        print(url)
+        deploymentList = []
+
+        while url:
+
+            updateData = []
+
+            resp = requests.get(url, headers=headers, verify=False )
+
+            if resp.status_code != 200:
+                print('Unable to get vra deployment data')
+                exit(1)
+
+            data = resp.json()
+            
+            for deployment in data.get('content', []):
+
+                name = deployment["name"]
+                #print(name)
+                #todo
+                #maybe skip over entries that dont have a parentResourceRef
+                try:
+                    deploymentId = deployment["parentResourceRef"]["id"]
+                    deploymentName = deployment["parentResourceRef"]["label"]
+                    encodedName = urllib.parse.quote(deploymentName.replace("'","''"))
+                    deploymentList.append("name%20eq%20%27{0}%27".format(encodedName))
+                    deploymentDate = deployment["dateCreated"]
+                    updateData.append((deploymentId, deploymentName, deploymentDate, name))
+                    if deploymentId in dataMap.keys():
+                        dataMap[deploymentId]['vmName'].append(name)
+                    else:
+                        dataMap[deploymentId] = {'depName': deploymentName,
+                                             'vmName': [name],
+                                             'processed': False}
+                except:
+                    print('Problem processing VM %s' % (name))
+                    #print(deployment)
+
+            url=False
+            for l in data["links"]:
+                if l["rel"] == "next":
+                    # Fix url for curl - $ breaks the url
+                    url = l["href"].replace("$", "%24")
+
+            updateDeployment(updateData)
+
+        print('Requesting batch of %s deployments' % (len(deploymentList)))
+        thisFilter = '%20or%20'.join(deploymentList)
+
+        url = "https://{0}/catalog-service/api/consumer/resources?limit={1}&%24filter={2}%20and%20resourceType/name+eq+%27Deployment%27".format(vraHost, pagesize,thisFilter)
+        
+        if len(deploymentList) == 0:
+            url = False
+
+        while url:
+
+            updateData = []
+            rep = requests.get(url, headers=headers, verify=False )
+            
+            data = rep.json()
+            if 'content' in data.keys():
+                print('vRA returned data for %s deployments' % len(data['content']))
+
+                if len(deploymentList) != len(data['content']):
+                    print('Data Missmatch for REST call: %s' % (url))
+            else:
+                print('No Content Returned for Request')
+                print(data)
+
+            for deployment in data.get('content', []):
+                depcounter = depcounter + 1
+                deploymentId = deployment["id"]
+                tmpDescription = '%s %s' % (deployment["description"], ',')
+                description = tmpDescription.replace(',',' ').strip()
+                thisDesc = str(description).encode("ascii", "ignore")
+                updateData.append((thisDesc.decode('utf-8'), deploymentId))
+                if deploymentId in dataMap.keys():
+                    dataMap[deploymentId]['processed'] = True
+                else:
+                    'Deployment with ID %s will be skiped due to processing errors' %  (deploymentId)
+                #print(deployment['name'])
+                #print(thisDesc.decode('utf-8'))
+            
+            url=False
+            for l in data.get("links",[]):
+                if l["rel"] == "next":
+                    # Fix url for curl - $ breaks the url
+                    url = l["href"].replace("$", "%24")
+
+            updateDeploymentDescription(updateData)
+    print('vRA API returned data for a total of %s deployments' % (depcounter))
+    print('Processed Deployment Data for %s vms' % (vmcounter))
+
+    if getHistory:
+        for depId in dataMap.keys():
+            thisHistory = extractHistoryData(vraHost, headers, dataMap[deploymentId]['vmName'], depId)
+            res = onboardingUtilsHistory.insertHistory(thisHistory, dbFileName)
+        
+    print('The following deployments are missing data in export.')
+    noneMissing = True
+    for deploymentId in dataMap.keys():
+        if not dataMap[deploymentId]['processed']:
+            noneMissing = False
+            print('Deployment with ID %s and name %s is missing some deployment related data' % (deploymentId, dataMap[deploymentId]['depName'] ))
+    if noneMissing and len(dataMap.keys()) > 0:
+        print('Dataset complete, no missing data identified.')
+    else:
+        print('Dataset missing deployment data for %s deployments' % (len(missingVMs)))
+        print(missingVMs)
+
+def handler(context, inputs):
+
+    try:
+        begin_time = datetime.datetime.now()
+        print('Extracting Machine List Data.......')
+        global conn
+
+        domain = inputs["domain"]
+        iaasUser = inputs["iaasuser"]
+        iaasHost = inputs["iaashost"]
+        vraUser = inputs["vrauser"]
+        vraTenant = inputs["tenant"]
+        vraHost = inputs["vrahost"]
+        iaasPassword = inputs["iaaspassword"]    
+        vraPassword = inputs["vrapassword"]
+        top = int(inputs["pagesize"])
+        pagesize = int(inputs["pagesize"])
+        dbFileNameIn = inputs["dbFilename"]
+        vroNodeIP = inputs["vroNodeIP"]
+        vroUsername = inputs["vroUsername"]
+        vroPassword = inputs["vroPassword"]
+        resourceFolderName = inputs["resourceFolderName"]
+        getDelta = inputs["delta"]
+        savedPathFS = inputs["savedPathFS"]
+        savedPathContainer = inputs["savedPathContainer"]
+        csvfile = inputs["csvfile"]
+        threadCount = int(inputs["threadCount"])
+        getHistory = inputs["getHistory"]
+        scpTimeout = int(inputs["scpTimeout"])
+        takeBackup = inputs["takeBackup"]
+        
+        dbFileName = '/%s/%s' % (savedPathContainer, dbFileNameIn)
+
+        print(getDelta)
+
+        if getDelta:
+            sourcePath = '%s/%s' % (savedPathFS, dbFileNameIn)
+            destPath = '%s/%s' % (savedPathContainer,dbFileNameIn)
+
+            onboardingUtilsvRO.vROGetDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, destPath, scpTimeout=scpTimeout)
+
+        if not dbFileName.endswith('.db'):
+            print('ERROR: Unsupported database filename supplied in ini file. Make sure filename ends in .db \ne.g. myvra7data.db')
+            exit(1)
+
+        conn = create_connection(dbFileName)
+
+        if getDelta:
+            deltaDate = getDeltaDate()
+            if deltaDate:
+                print(deltaDate)
+
+        if not getDelta:
+            sql_create_properties_table = """ CREATE TABLE IF NOT EXISTS machineproperties (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                machineId text,
+                propertyName text,
+                newPropertyName text,
+                propertyValue text,
+                isEncrypted text,
+                isHidden text
+                );
+            """
+
+            sql_create_event_table = """ CREATE TABLE IF NOT EXISTS machinedata (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                import text default 'yes',
+                machineName text,
+                uuid text,
+                machineId text NOT NULL UNIQUE,
+                vra8MachineId text,
+                owner text,
+                newOwner text,
+                businessGroup text,
+                project text,
+                projectId text,
+                state text,
+                datastore text,
+                networkName text,
+                endpointFQDN text,
+                endpointType text,
+                endpointId text,
+                leaseEnd text,
+                osType text,
+                cloudTemplateName text,
+                cloudTemplateId text,
+                deploymentName text,
+                deploymentId text,
+                deploymentDescription text,
+                deploymentDate text
+                );
+            """
+
+            if conn is not None:
+                #create sqllite table
+                print('Creating Tables')
+                create_table(conn, sql_create_event_table, 'machinedata')
+                create_table(conn, sql_create_properties_table, 'machineproperties')
+                res = onboardingUtilsHistory.create_history_table(dbFileName)
+
+        allDone = False
+        model="VirtualMachines"
+        if getDelta:
+            filter="$filter=IsManaged%20eq%20{}+and+VMCreationDate%20gt%20datetime%27{}%27+and+HostReservation/ProvisioningGroup/TenantID%20eq%20%27{}%27".format('true', deltaDate, inputs["tenant"].strip())
+        else:
+            filter="$filter=IsManaged%20eq%20{}+and+HostReservation/ProvisioningGroup/TenantID%20eq%20%27{}%27".format('true', inputs["tenant"].strip())
+        skip = 0
+        count = 1
+        gotData = False
+
+        print('No, Machine Name, UUID, Power On, Storeage Path, Network Name, Business Group, UserName, VM ID, Endpoint, Type')
+
+        while not allDone:
+            localCounter = 0
+            allMachineData = []
+            allMachineProperties = []
+            auth=HttpNtlmAuth('%s\\%s' % (domain, iaasUser),iaasPassword)
+            reqUrl = "https://%s/repository/data/managementmodelentities.svc/VirtualMachines()?$skip=%s&$top=%s&%s&$expand=HostReservation/ProvisioningGroup,HostReservation/Host/ManagementEndpoint,VirtualMachineProperties,Owner" % (iaasHost,skip,top,filter)
+            print(reqUrl)
+            resp = requests.get(reqUrl, verify=False, auth=auth)
+            
+            if resp.status_code != 200:
+                print('Unable to get data from Iaas repo')
+                print(resp.text)
+                print(resp.status_code)
+                exit(1)
+                
+            print(resp.status_code)
+
+            xmldoc = minidom.parseString(resp.text)
+            itemlist = xmldoc.firstChild.childNodes
+            for s in itemlist:
+                vmn = gn = un = stp = sta = pw = vmi = ep = uid = tn = ept = vmnet = ''
+
+                if s.tagName != 'entry':
+                    continue
+
+                #print(dir(s))
+                #print(s.toprettyxml())
+                vmId =  s.getElementsByTagName('d:VirtualMachineID')
+                if len(vmId) > 0:
+                    if vmId[0].firstChild:
+                        vmi = vmId[0].firstChild.nodeValue
+
+                vmName = s.getElementsByTagName('d:VirtualMachineName')
+                if len(vmName) > 0:
+                    if vmName[0].firstChild:
+                        vmn = vmName[0].firstChild.nodeValue
+
+                vmUUID = s.getElementsByTagName('d:VMUniqueID')
+                if len(vmUUID) > 0:
+                    if vmUUID[0].firstChild:
+                        uid = vmUUID[0].firstChild.nodeValue
+
+                powerStatus = s.getElementsByTagName('d:IsRunning')
+                if len(powerStatus) > 0:
+                    if powerStatus[0].firstChild:
+                        pw = powerStatus[0].firstChild.nodeValue
+
+                storage = s.getElementsByTagName('d:StoragePath')
+                if len(storage) > 0:
+                    if storage[0].firstChild:
+                        stp = storage[0].firstChild.nodeValue
+        
+                groupName = s.getElementsByTagName('d:GroupName')
+                if len(groupName) > 0:
+                    if groupName[0].firstChild:
+                        gn = groupName[0].firstChild.nodeValue
+
+                #not used.
+                tenant = s.getElementsByTagName('d:TenantID')
+                if len(tenant) > 0:
+                    if tenant[0].firstChild:
+                        tn = tenant[0].firstChild.nodeValue
+
+                userName = s.getElementsByTagName('d:UserName')
+                if len(userName) > 0:
+                    if userName[0].firstChild:
+                        un = userName[0].firstChild.nodeValue
+
+                endpoint = s.getElementsByTagName('d:ManagementUri')
+                if len(endpoint) > 0:
+                    if endpoint[0].firstChild:
+                        ep = endpoint[0].firstChild.nodeValue
+        
+                endpointType = s.getElementsByTagName('d:InterfaceType')
+                if len(endpointType) > 0:
+                    if endpointType[0].firstChild:
+                        ept = endpointType[0].firstChild.nodeValue
+
+                propCheck = s.getElementsByTagName('feed')
+                if len(propCheck) > 0:
+                    nameCheck = propCheck[0].getElementsByTagName('title')
+                    if 'VirtualMachineProperties' == nameCheck[0].firstChild.nodeValue:
+                        propList = propCheck[0].getElementsByTagName('m:properties')
+                        for elm in propList:
+                            pn = pv = pe = ph = ''
+                            pn = elm.getElementsByTagName('d:PropertyName')[0].firstChild.nodeValue
+                            if elm.getElementsByTagName('d:PropertyValue')[0].firstChild:
+                                pv = elm.getElementsByTagName('d:PropertyValue')[0].firstChild.nodeValue
+                                if pn == 'VirtualMachine.Network0.Name':
+                                    vmnet = pv
+                            pe = elm.getElementsByTagName('d:IsEncrypted')[0].firstChild.nodeValue
+                            ph = elm.getElementsByTagName('d:IsHidden')[0].firstChild.nodeValue
+
+                            allMachineProperties.append((vmi,pn,pv,pe,ph))
+
+                print('{},{},{},{},{},{},{},{},{},{},{}'.format(count,vmn,uid,pw,stp,vmnet,gn,un,vmi,ep.replace('https://','').replace('/sdk',''),ept))
+                count = count + 1
+                localCounter = localCounter + 1
+                thisMachineData = (vmn,
+                                vmi,
+                                uid,
+                                un,
+                                gn,
+                                pw,
+                                stp,
+                                ep.replace('https://','').replace('/sdk',''),
+                                ept,
+                                vmnet
+                                )
+                allMachineData.append(thisMachineData)
+
+            skip = count - 1
+            if localCounter < top:
+                allDone = True
+
+            if len(allMachineData) > 0:
+                gotData = True
+
+            insertEvent(allMachineData)
+            insertProperties(allMachineProperties)
+
+        if not gotData and not getDelta: 
+            print('Unable to log into IAAS host %s with username %s or NOT authorised for IAAS Repository access. NO DATA RETURNED FROM IAAS REPO' % (vraHost, vraUser))
+            exit(1)
+                
+        if not getDelta:
+            print('Extracting Deplpoyment Data.......')
+            extractDeploymentData(vraUser, vraPassword, vraTenant, vraHost, pagesize, threadCount, dbFileName, getHistory)
+
+        print('Extracting Missing Deployment data.......')
+        extractMissingDeploymentData(vraUser, vraPassword, vraTenant, vraHost, pagesize, dbFileName, getHistory)
+
+        now = datetime.datetime.now()
+        dt_string = now.strftime("%d-%b-%Y-T%H%M%S")
+    
+        print("Current date & time: %s" % (dt_string))
+        logger.debug("Current date & time: %s" % (dt_string))
+
+        csvTmp = "/%s/%s" % (savedPathContainer, csvfile)
+        csv = csvTmp.replace('.csv', "_%s.csv" % dt_string)
+        
+        onboardingUtilsvRO.outputData(csv, conn)
+        conn.close()
+
+        destPath = '%s/%s' % (savedPathFS, dbFileNameIn) 
+        sourcePath = '%s/%s' % (savedPathContainer, dbFileNameIn)
+
+        vcoUrl = context['vcoUrl']
+        tokenvro = context['getToken']()
+    
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, csv, resourceFolderName)
+        result = onboardingUtilsvRO.updatevROResourceElementType(vcoUrl, tokenvro, csv.split('/')[-1])
+        propFileName = csv.replace('.csv', '_custom_properties.csv')
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, propFileName, resourceFolderName)
+        result = onboardingUtilsvRO.updatevROResourceElementType(vcoUrl, tokenvro, propFileName.split('/')[-1])
+        onboardingUtilsvRO.vROSaveDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, destPath, scpTimeout=scpTimeout)
+
+        if takeBackup:
+            backupPath = destPath.replace('.db', '.bak')
+            print('Saving backup of metadata file')
+            onboardingUtilsvRO.vROSaveDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, backupPath, scpTimeout=scpTimeout)
+
+    finally:
+        vcoUrl = context['vcoUrl']
+        tokenvro = context['getToken']()
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, '/tmp/vra-onboarding-caputureMachineDatavRA7.log', resourceFolderName)
+
+        print('Finished Processing.')
+        print('Run Time: ')
+        print(datetime.datetime.now() - begin_time)]]></script>
+    <in-binding>
+      <bind name="domain" type="string" export-name="domain"/>
+      <bind name="iaasuser" type="string" export-name="iaasuser"/>
+      <bind name="iaashost" type="string" export-name="iaashost"/>
+      <bind name="vrauser" type="string" export-name="vrauser"/>
+      <bind name="tenant" type="string" export-name="tenant"/>
+      <bind name="vrahost" type="string" export-name="vrahost"/>
+      <bind name="iaaspassword" type="SecureString" export-name="iaaspassword"/>
+      <bind name="vrapassword" type="SecureString" export-name="vrapassword"/>
+      <bind name="pagesize" type="number" export-name="pagesize"/>
+      <bind name="dbFilename" type="string" export-name="dbFilename"/>
+      <bind name="delta" type="boolean" export-name="delta"/>
+      <bind name="csvfile" type="string" export-name="csvfile"/>
+      <bind name="vroNodeIP" type="string" export-name="vroNodeIP"/>
+      <bind name="vroUsername" type="string" export-name="vroUsername"/>
+      <bind name="vroPassword" type="SecureString" export-name="vroPassword"/>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+      <bind name="savedPathContainer" type="string" export-name="savedPathContainer"/>
+      <bind name="savedPathFS" type="string" export-name="savedPathFS"/>
+      <bind name="threadCount" type="number" export-name="threadCount"/>
+      <bind name="getHistory" type="boolean" export-name="getHistory"/>
+      <bind name="scpTimeout" type="number" export-name="scpTimeout"/>
+      <bind name="takeBackup" type="boolean" export-name="takeBackup"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="620.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item1" type="task">
+    <display-name><![CDATA[getResourceElementName]]></display-name>
+    <script encoded="false"><![CDATA[if (!resourceFolder){
+    System.error('No Resource Folder Specified, Set resource folder by running configureBulkOnboardingUtility Workflow.');
+    throw Error('No Resource Folder Specified, Set resource folder by running configureBulkOnboardingUtility Workflow.');
+}
+var resourceFolderName = resourceFolder.name;
+
+System.log('Resource Elements folder name: ' + resourceFolderName);
+
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    System.log('Deleting old log file ' + logFileName);
+    Server.removeResourceElement(resourceElemet);
+}else{
+    System.log('No Old Log file found for ' + logFileName);
+}]]></script>
+    <in-binding>
+      <bind name="resourceFolder" type="ResourceElementCategory" export-name="resourceFolder"/>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="440.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item2" type="task">
+    <display-name><![CDATA[Validate Inputs]]></display-name>
+    <script encoded="false"><![CDATA[if (!csvfile){
+    System.error('Required Input csvfile Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input csvfile Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+}
+
+if (!dbFilename){
+    System.error('Required Input dbFilename Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input dbFilename Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+}
+
+if (!domain){
+    System.error('Required Input domain Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input domain Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!iaashost){
+    System.error('Required Input iaashost Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input iaashost Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!iaaspassword){
+    System.error('Required Input iaaspassword Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input iaaspassword Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!iaasuser){
+    System.error('Required Input iaasuser Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input iaasuser Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!pagesize){
+    System.error('Required Input pagesize Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input pagesize Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!savedPathContainer){
+    System.error('Required Input savedPathContainer Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input savedPathContainer Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!savedPathFS){
+    System.error('Required Input savedPathFS Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input savedPathFS Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!tenant){
+    System.error('Required Input tenant  Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input tenant  Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!vroUsername){
+    System.error('Required Input vroUsername Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input vroUsername Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!vroPassword){
+    System.error('Required Input vroPassword Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input vroPassword Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!vroNodeIP){
+    System.error('Required Input vroNodeIP Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input vroNodeIP Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!vrauser){
+    System.error('Required Input vrauser Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input vrauser Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!vrapassword){
+    System.error('Required Input vrapassword  Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input vrapassword  Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!vrahost){
+    System.error('Required Input vrahost  Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input vrahost  Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}
+
+if (!threadCount){
+    System.error('Required Input threadCount  Not Present Run configureBulkOnboardingUtility workflow to set parameters');
+    throw Error('Required Input threadCount  Not Present Run configureBulkOnboardingUtility workflow to set parameters');    
+}]]></script>
+    <in-binding>
+      <bind name="csvfile" type="string" export-name="csvfile"/>
+      <bind name="dbFilename" type="string" export-name="dbFilename"/>
+      <bind name="domain" type="string" export-name="domain"/>
+      <bind name="iaashost" type="string" export-name="iaashost"/>
+      <bind name="iaaspassword" type="SecureString" export-name="iaaspassword"/>
+      <bind name="iaasuser" type="string" export-name="iaasuser"/>
+      <bind name="pagesize" type="number" export-name="pagesize"/>
+      <bind name="savedPathContainer" type="string" export-name="savedPathContainer"/>
+      <bind name="savedPathFS" type="string" export-name="savedPathFS"/>
+      <bind name="tenant" type="string" export-name="tenant"/>
+      <bind name="vroUsername" type="string" export-name="vroUsername"/>
+      <bind name="vroPassword" type="SecureString" export-name="vroPassword"/>
+      <bind name="vroNodeIP" type="string" export-name="vroNodeIP"/>
+      <bind name="vrauser" type="string" export-name="vrauser"/>
+      <bind name="vrapassword" type="SecureString" export-name="vrapassword"/>
+      <bind name="vrahost" type="string" export-name="vrahost"/>
+      <bind name="threadCount" type="number" export-name="threadCount"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="240.0"/>
+  </workflow-item>
+  <workflow-item name="item4" out-name="item0" type="task">
+    <display-name><![CDATA[Update Log Resource]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+    System.log('Check for split log file.');
+    var partNumber = 0;
+    var found = true;
+    while (found){
+        thisPart = '_part' + partNumber + '.log' 
+        partFileName = logFileName.replace('.log', thisPart)
+        var partResourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ partFileName +"'");
+        partNumber = partNumber + 1
+        if (partResourceElements[0]){
+            var partResourceElemet =  partResourceElements[0];
+            var mimeAttachment = partResourceElements[0].getContentAsMimeAttachment();
+            System.log('Updating Log File type for file ' + partFileName);
+            mimeAttachment.mimeType = "text/plain";
+            partResourceElemet.setContentFromMimeAttachment(mimeAttachment);
+        }
+        else{
+            System.log('No Log file found for ' + partFileName);
+            found = false;
+        }
+
+    }
+}]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="800.0"/>
+  </workflow-item>
+  <workflow-item name="item5" throw-bind-name="err_0" type="end" end-mode="1">
+    <in-binding/>
+    <position y="170.0" x="660.0"/>
+  </workflow-item>
+  <workflow-item name="item6" out-name="item5" type="task">
+    <display-name><![CDATA[Update Log Resource]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+    System.log('Check for split log file.');
+    var partNumber = 0;
+    var found = true;
+    while (found){
+        thisPart = '_part' + partNumber + '.log' 
+        partFileName = logFileName.replace('.log', thisPart)
+        var partResourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ partFileName +"'");
+        partNumber = partNumber + 1
+        if (partResourceElements[0]){
+            var partResourceElemet =  partResourceElements[0];
+            var mimeAttachment = partResourceElements[0].getContentAsMimeAttachment();
+            System.log('Updating Log File type for file ' + partFileName);
+            mimeAttachment.mimeType = "text/plain";
+            partResourceElemet.setContentFromMimeAttachment(mimeAttachment);
+        }
+        else{
+            System.log('No Log file found for ' + partFileName);
+            found = false;
+        }
+
+    }
+}]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="120.0" x="620.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

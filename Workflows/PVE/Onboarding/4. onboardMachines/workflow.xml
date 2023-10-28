@@ -1,0 +1,754 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item3" object-name="workflow:name=generic" id="0a58c84b-0329-4b1f-8518-bc84705af2e7" version="0.3.5" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[4. onboardMachines]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="execPlan" type="boolean"/>
+    <param name="projectsIn" type="string"/>
+    <param name="customProperties" type="Properties"/>
+  </input>
+  <attrib name="dbFilename" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="dbFilename">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroNodeIP" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroNodeIP">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroUsername" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroUsername">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroPassword" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroPassword"/>
+  <attrib name="authtype" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="authtype">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="hostfqdn" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8host">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vra8Username" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8Username">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vra8Password" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8Password"/>
+  <attrib name="cspfqdn" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="cspfqdn">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="refreshToken" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="refreshToken"/>
+  <attrib name="savedPathFS" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathFS">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="savedPathContainer" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathContainer">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="importprop" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="importprop"/>
+  <attrib name="assignCloudTemplate" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="assignCloudTemplate"/>
+  <attrib name="linuxCloudTemplateName" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="linuxCloudTemplateName">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="windowsCloudTemplateName" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="windowsCloudTemplateName">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="projects" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="projects">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="threadCount" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="threadCount"/>
+  <attrib name="componentName" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="componentName">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="convertprop" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="convertprop"/>
+  <attrib name="logFileName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[vra-onboarding-onboardMachines.log]]></value>
+  </attrib>
+  <attrib name="resourceFolder" type="ResourceElementCategory" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="resourceFolder"/>
+  <attrib name="resourceFolderName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="configurationElement" type="ConfigurationElement" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/ConfigurationElement?id='c390fb19-670c-4304-a7da-5f338a848c11'&dunesName='ConfigurationElement']]></value>
+  </attrib>
+  <attrib name="includeProjectProp" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="includeProjectProp"/>
+  <attrib name="allowOrgOwner" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="allowOrgOwner"/>
+  <attrib name="scpTimeout" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="scpTimeout"/>
+  <attrib name="useMachineName" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="useMachineName"/>
+  <attrib name="includeInProjectLimits" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="includeInProjectLimits"/>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.0" x="720.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item4" catch-name="item6" throw-bind-name="err_1" type="task">
+    <runtime><![CDATA[environment:d5f3e6a0-7c59-4fa0-9053-aa71f7b8e8ad]]></runtime>
+    <display-name><![CDATA[onboardMachines]]></display-name>
+    <script encoded="false"><![CDATA[import requests
+import time
+import json
+import csv
+import configparser
+import urllib.parse
+import onboardingUtils
+import sqlite3
+import logging
+import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import onboardingUtilsvRO
+
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning) # Disable SSL warning
+
+logger = logging.getLogger()
+
+# set log level
+#logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+
+# define file handler and set formatter
+file_handler = logging.FileHandler('/tmp/vra-onboarding-onboardMachines.log')
+formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+file_handler.setFormatter(formatter)
+
+# add file handler to logger
+logger.addHandler(file_handler)
+
+begin_time = datetime.datetime.now()
+
+def processDeployment(thisItem, vra8Conn, planLink, componentName, database, includeCustProp, convertProp, assignCloudTemplate, includeProjectProp, projectData, useMachineName):
+    machineNames = []
+    machineData = {}
+    fixZone = False
+    for thisMachine in thisItem['resources']:
+        machineNames.append(thisMachine['machineName'])
+        machineCtProps = None
+        machineStaticProps = thisMachine['staticProps']
+
+        if assignCloudTemplate:
+            componentName = thisMachine['componentName']
+            machineCtProps = thisMachine['ctProps']
+
+        machineData[thisMachine['machineName']] = {'resourceLink': '/resources/compute/%s' % ( thisMachine['vra8MachineId']),
+            'machineId': thisMachine['machineId'],
+            'machineName': thisMachine['machineName'],
+            'componentName': componentName,
+            'ctProps': machineCtProps}
+ 
+    logger.info('Adding Resource with data: Project: %s, Deployment Name: %s, MachineName: %s, ComponentName: %s, Owner: %s' % (thisItem['project'], thisItem['deploymentName'], machineNames, componentName, thisItem['owner']))
+
+    deploymentLink = onboardingUtils.createDeployment (vra8Conn['hostfqdn'], vra8Conn['token'], planLink, thisItem['deploymentName'], thisItem['deploymentDescription'], thisItem['owner'], fixZone)
+
+    if not deploymentLink:
+        logger.error("Unable to create deployment link skipping deployment: %s" %(thisItem['deploymentName']))
+        return None
+
+    print('Creating Onboarding DEPLOYMENT %s' % (thisItem['deploymentName']))
+    print(deploymentLink)
+    logger.debug('Creating Onboarding DEPLOYMENT %s' % (thisItem['deploymentName']))
+    logger.debug(deploymentLink)
+
+    if assignCloudTemplate:
+        bpRes = onboardingUtils.addBlueprintRef(vra8Conn['hostfqdn'], vra8Conn['token'], planLink, deploymentLink, bpId=thisItem['cloudTemplateId'])
+    else:
+        bpRes = onboardingUtils.addBlueprintRef(vra8Conn['hostfqdn'], vra8Conn['token'], planLink, deploymentLink)
+
+    if not bpRes:
+        logger.warning('Unable to add blueprint ref for deployment %s' % (thisItem['deploymentName']))
+    
+    print('---------------------')
+    print(thisItem)
+
+    resp = True
+    machineCount = 0
+    machineCounter = {}
+    prepedMachineData = {}
+    for thisMachine in machineData:
+        if includeCustProp:
+            resprops = onboardingUtils.buildProperties (database, machineData[thisMachine]['machineId'], thisItem['owner'], includeCustProp, convertProp, fixZone)
+        else:
+            #Make this optional
+            if fixZone:
+                resprops = { "newOwner": thisItem['owner'], "__migration_did": "pve"}
+            else:
+                resprops = { "newOwner": thisItem['owner'] }
+ 
+        if thisItem.get('deploymentDate', None):
+            resprops["vRA7_Created_Date"] = thisItem['deploymentDate']
+
+        if includeProjectProp:
+            logger.info('Adding project defined custom properties')
+            print('Adding project defined custom properties')
+            propSet = projectData[thisItem['project']]['properties']
+            for thisKey in propSet.keys():
+                if thisKey.startswith('__'):
+                    continue
+                else:
+                    resprops[thisKey] = propSet[thisKey]         
+
+        if assignCloudTemplate:
+            logger.info('Adding cloud template defined OOB properties')
+            print('Adding cloud template defined OOB properties')
+            ctProps = machineData[thisMachine]['ctProps']['properties']
+            for thisKey in ctProps:
+                if thisKey in ['imageRef','customizationSpec','count','image','flavor']:
+                    if ctProps[thisKey]:
+                        if str(ctProps[thisKey]).startswith('$') and thisKey != 'count':
+                            continue;
+                        else:
+                            resprops[thisKey] = ctProps[thisKey]
+        
+        for thisKey in  machineStaticProps:
+            if thisKey in ['imageRef','customizationSpec','count','image','flavor']:
+                continue
+            
+            if machineStaticProps[thisKey].startswith('$'):
+                    continue
+
+            resprops[thisKey] = machineStaticProps[thisKey]
+
+        if useMachineName:
+            thisComponentName = thisMachine
+        else:    
+            if len(machineData) == 1:
+                #newRes = onboardingUtils.addResource (vra8Conn['hostfqdn'], vra8Conn['token'], planLink, machineData[thisMachine]['componentName'], machineData[thisMachine]['resourceLink'], deploymentLink, resprops)
+                thisComponentName = machineData[thisMachine]['componentName']
+                machineCounter[machineData[thisMachine]['componentName']] = {'count':0}
+            else:
+                if machineCounter.get(machineData[thisMachine]['componentName'], None):
+                    machineCount = machineCounter[machineData[thisMachine]['componentName']]['count']
+                else:
+                    machineCounter[machineData[thisMachine]['componentName']] = {'count': 0}
+                    machineCount = 0
+
+                print('Current Machine Count: %s' % machineCount)
+                print('component Name: %s' % machineData[thisMachine]['componentName'])
+                
+                if ']' not in machineData[thisMachine]['componentName']:
+                    if not assignCloudTemplate:
+                        thisComponentName = '%s[%s]' % (machineData[thisMachine]['componentName'], machineCount)
+                        resprops['countIndex'] =  machineCount
+                    elif machineCount == 0:
+                        thisComponentName = machineData[thisMachine]['componentName']
+                    else:
+                        #logger.error('Unclustered Cloud Template Resource Specified Multiple times in deployment. ADDING INDEX TO AVOID ERROR. DEPLOYMNET WILL NOT BE IN SYNC WITH CLOUD TEMPLATE.')
+                        #print('Unclustered Cloud Template Resource Specified Multiple times in deployment. ADDING INDEX TO AVOID ERROR. DEPLOYMNET WILL NOT BE IN SYNC WITH CLOUD TEMPLATE.')
+                        logger.error('Skipping deployment %s , %s' % (thisItem['deploymentName'], deploymentLink))
+                        print('Skipping deployment %s , %s' % (thisItem['deploymentName'], deploymentLink))
+                        print('Fix resource to componete assignment in deployment %s . component %s is not a clustered component but has multiple resources assigned' % (thisItem['deploymentName'], machineData[thisMachine]['componentName']))
+                        logger.error('Fix resource to componete assignment in deployment %s . component %s is not a clustered component but has multiple resources assigned' % (thisItem['deploymentName'], machineData[thisMachine]['componentName']))
+                        onboardingUtils.deleteOnboardingDeployment(vra8Conn['hostfqdn'], vra8Conn['token'], deploymentLink)
+                        return None
+                else:
+                    thisComponentName = machineData[thisMachine]['componentName'].replace('[0]', '[%s]' % (machineCount))
+                    resprops['countIndex'] =  machineCount
+
+            machineCount = machineCount + 1
+            machineCounter[machineData[thisMachine]['componentName']]['count'] = machineCount
+
+        prepedMachineData[thisMachine] = {'thisComponentName':thisComponentName, 'thisResourceLink': machineData[thisMachine]['resourceLink'], 'thisMachineProps': resprops}
+
+    for thisMachine in machineData:
+    
+        if prepedMachineData[thisMachine]['thisMachineProps'].get('count', None):
+            prepedMachineData[thisMachine]['thisMachineProps']['count'] = machineCounter[machineData[thisMachine]['componentName']]['count']
+            
+        newRes = onboardingUtils.addResource (vra8Conn['hostfqdn'], vra8Conn['token'], planLink, prepedMachineData[thisMachine]['thisComponentName'], prepedMachineData[thisMachine]['thisResourceLink'], deploymentLink, prepedMachineData[thisMachine]['thisMachineProps'])
+
+        if not newRes:
+            resp = False
+
+    return resp
+
+def handler(context, inputs):
+
+    try:
+        authtype = inputs["authtype"]
+        hostfqdn = inputs["hostfqdn"]
+        username = inputs["username"]
+        password = inputs["password"]
+        cspfqdn = inputs["cspfqdn"]
+        refreshToken = inputs["refreshToken"]
+        vroNodeIP = inputs["vroNodeIP"]
+        vroUsername = inputs["vroUsername"]
+        vroPassword  = inputs["vroPassword"]
+        savedPathFS = inputs["savedPathFS"]
+        savedPathContainer = inputs["savedPathContainer"]
+        includeCustProp = inputs["importprop"]
+        includeProjectProp = inputs["includeProjectProp"]
+        convertProp = inputs["convertprop"]
+        assignCloudTemplate = inputs["assignCloudTemplate"]
+        linuxCloudTemplateName = inputs["linuxCloudTemplateName"]
+        windowsCloudTemplateName = inputs["windowsCloudTemplateName"]
+        threadCount = inputs["threadCount"]
+        componentName = inputs["componentName"]
+        projects = inputs["projects"]
+        execPlan = inputs["execPlan"]
+        resourceFolderName = inputs["resourceFolderName"]
+        allowOrgOwner = inputs["allowOrgOwner"]
+        scpTimeout = int(inputs["scpTimeout"])
+        staticCustomProperties = inputs["customProperties"]
+        useMachineName = inputs["useMachineName"]
+        includeInProjectLimits = inputs["includeInProjectLimits"]
+
+        print(json.dumps(staticCustomProperties))
+        print(staticCustomProperties)
+
+        print('Target environment is ' + authtype)
+        logger.info('Target environment is ' + authtype)
+
+        vra8Conn = {
+            'hostfqdn': hostfqdn,
+            'username': username,
+            'password': password,
+            'cspfqdn': cspfqdn,
+            'refreshToken': refreshToken
+        }
+
+        database = inputs["dbFilename"]
+        hostname = vra8Conn['hostfqdn']
+
+        print('Target hostname is ' + hostname)
+        logger.info('Target hostname is ' + hostname)
+
+        if authtype == 'onprem':
+            vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], vra8Conn['username'], vra8Conn['password'], 'vra8')
+        else:
+            if not vra8Conn.get('refreshToken', None):
+                print('No refresh token configured in ini file')
+                logger.error('No refresh token configured in ini file')
+                raise ValueError('RefreshToken Not Provided')
+            else:
+                vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], None, vra8Conn['refreshToken'], 'vracloud')
+
+                vra8Conn['cspToken'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['cspfqdn'], None, vra8Conn['refreshToken'], 'vracloudcsp')
+                logger.debug('CSP Token: %s' % vra8Conn['cspToken'])
+
+        logger.debug(vra8Conn['token'])
+        print('Target hostname is ' + vra8Conn['hostfqdn'])
+        logger.info('Target hostname is ' + vra8Conn['hostfqdn'])
+
+        version = None
+        if authtype == 'onprem':
+            version = onboardingUtils.getVersionvRA(vra8Conn['hostfqdn'], 'ALL')
+            print('Target version is ' + version)
+            logger.info('Target version is ' + version)
+
+        if not vra8Conn['token']:
+            raise ValueError('Autherization Token not obtained')
+            exit(1)
+
+        execPlanList = []
+        failedPlanList = []
+        
+        sourcePath = '%s/%s' % (savedPathFS, database)
+        destPath = '%s/%s' % (savedPathContainer,database)
+        database = destPath
+        
+        onboardingUtilsvRO.vROGetDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, destPath, scpTimeout=scpTimeout)
+
+        print("----- Validating Data ------")
+        logger.info("----- Validating Data ------")
+        cleanUp = onboardingUtils.clearVMValidationData(database, False)
+
+        if not cleanUp:
+            print('Unable to continue, error cleaning data prior to onboarding.')
+            logger.error('Unable to continue, error cleaning data prior to onboarding.')
+            exit(1)
+
+        thisOrgId = onboardingUtils.getLoggedInOrg(vra8Conn,vra8Conn['token'], authtype)
+
+        print('Org ID: '+ thisOrgId)
+        logger.info('Org ID: '+ thisOrgId)
+
+        #prepForPerProjectVMValidation
+        processedEndpoints = []
+
+        allProjects = projects.split(',')
+
+        for thisProject in projects.split(','):
+            thisProject = thisProject.strip()
+            #project specific validation recheck
+            print('--------------------- Processing Project %s ----------------' % thisProject)
+            projectCheck, projectData, badProjects = onboardingUtils.verifyProjects(database, vra8Conn['hostfqdn'], vra8Conn['token'])
+            if projectCheck:
+                logger.debug('ALL projects exist verified')
+            else:
+                if thisProject.lower() in (key.lower() for key in projectData.keys()):
+                    logger.warning('Project %s verified OK but other projects are causing errors'  % (thisProject))
+                else:
+                    logger.error('Unable to verify project %s exists.' % (thisProject))
+                    logger.error('Onboarding for project %s FAILED' % (thisProject))
+                    continue
+            userCheck, invalidUsers, validUsers = onboardingUtils.verifyUsers(database, projectData, vra8Conn, vra8Conn['token'], authtype, thisProject, allowOrgOwner)
+
+            if not userCheck:
+                currentProjectUsersValid = True
+                print(invalidUsers)
+                for thisUser in invalidUsers:
+                    print(thisUser)
+                    if invalidUsers[thisUser]['project'].lower() == thisProject.lower():
+                        currentProjectUsersValid = False
+
+                if not currentProjectUsersValid:
+                    print('User validation FAILED for project %s' % (thisProject))
+                    logger.error('Unable to verify users for project %s.' % (thisProject))
+                    logger.error('Problamatic Users: ' + ','.join(invalidUsers.keys()))
+                    logger.error('Onboarding for project %s FAILED' % (thisProject))
+                    continue
+                else:
+                    logger.error('Unable to verify all users, but problamatic users do not relate to project %s.' % (thisProject))
+                    logger.error('Problamatic Users: ' + ','.join(invalidUsers.keys()))
+                    for thisUser in invalidUsers:
+                        logger.error('Problamatic Users: %s for project %s' % (invalidUsers[thisUser]['user'], invalidUsers[thisUser]['project']))
+
+            verifiedEndpoints, cloudAccountData, badEndpoints = onboardingUtils.endpointLookup(database, vra8Conn['hostfqdn'], vra8Conn['token'], thisProject, supportedTypes=['aws', 'vsphere', 'vcf', 'vmc'])
+
+            print ('Endpoints validated: %s' % (verifiedEndpoints))
+            logger.debug ('Endpoints validated: %s' % (verifiedEndpoints))
+            logger.debug (cloudAccountData)
+
+            if not verifiedEndpoints:
+                logger.error('Endpoints are not valid, please check logs for more details. Unable to find matching cloud account for supplied FQDN')
+                logger.error('Onboarding for project %s FAILED' % (thisProject))
+                print('ERROR: Endpoints are not valid, please check logs for more details. Unable to find matching cloud account for supplied FQDN')
+                continue
+
+            verifyVM, processedEndpoints = onboardingUtils.vmCheck(database, cloudAccountData, processedEndpoints, vra8Conn['hostfqdn'], vra8Conn['token'], thisProject)
+
+            if not verifyVM:
+                logger.error('Not all VMs are valid and available in vRA 8, please check logs for more details. Unable to find matching VMs for VMs supplied in csv')
+                logger.error('Onboarding for project %s FAILED' % (thisProject))
+                print('ERROR: Not all VMs are valid and available in vRA 8, please check logs for more details. Unable to find matching VMs for VMs supplied in csv')
+                continue
+
+            planName = '%s-%s' % (thisProject, datetime.datetime.now().strftime('%Y-%m-%d-%H-%M'))
+            allOnboardingData = onboardingUtils.getOnboardinData(database, thisProject )
+
+            logger.debug(allOnboardingData)
+            logger.debug('Processing Onboarding plan: ' + planName)
+            logger.debug('vRA 8 Org ID: ' + thisOrgId)
+
+            planLink = None
+
+            logger.info('----- Validation Completed --------')
+            print ('----- Validation Completed --------')
+
+            print ('----- Processing Project %s -------' % (thisProject))
+            if len(allOnboardingData) > 0:
+
+                print ("----- Onboarding Data ------")
+                logger.info ("----- Onboarding Data ------")
+
+                if execPlan:
+                    ##assuming this is no longer needed in cloud as issues is addressed in the cloud code base
+                    if authtype == 'onprem':
+                        majorVersion = onboardingUtils.getVersionvRA(vra8Conn['hostfqdn'], 'MAJOR')
+        
+                        if float(majorVersion) in [8.1,8.2,8.3,8.4,8.5,8.6,8.7]:
+                            ##MAYBE WE SHOULD ONLY SEND IN THE LIST OF VERIFIED USRS AND NOT LOOKUP IN DB IN THE PATCHPROJECTUSERS FUNCTION
+                            updateProjectRootUsers, addedMembers = onboardingUtils.patchProjectUsers(database, thisProject, allOnboardingData[0]['projectId'], projectData[thisProject]['users'], vra8Conn['hostfqdn'], vra8Conn['token'], validUsers)
+
+                            if updateProjectRootUsers:
+                                changesSaved = onboardingUtils.storeMemberChanges(database, thisProject, allOnboardingData[0]['projectId'], addedMembers)
+
+                                if not changesSaved:
+                                    print('!!! WARNING !!! Unable to record membership changes to project %s, this will need to be reviewed manually post onboarding' % (thisProject))
+                                    logger.warning('Unable to record membership changes to project %s, this will need to be reviewed manually post onboarding' % (thisProject))
+
+                        if float(majorVersion) in [8.1,8.2,8.3,8.4,8.5,8.6,8.7,8.8,8.9,8.10]:
+                            if includeInProjectLimits:
+                                if float(majorVersion) == 8.10:
+                                    majorPlus = onboardingUtils.getVersionvRA(hostname, 'MAJOR_PLUS')
+                                    if majorPlus == '8.10.0':
+                                        print('!!!!!!!!!!!!!!! WARNING !!!!!!!!!!!!!!!!!!!')
+                                        print('Including resources in project limit calcualtion is only supported from vRA 8.10.1 and above, setting will be ignored')
+                                        logger.warning('Including resources in project limit calcualtion is only supported from vRA 8.10.1 and above, setting will be ignored')
+                                        includeInProjectLimits = False
+                                else:
+                                    print('!!!!!!!!!!!!!!! WARNING !!!!!!!!!!!!!!!!!!!')
+                                    print('Including resources in project limit calcualtion is only supported from vRA 8.10.1 and above, setting will be ignored')
+                                    logger.warning('Including resources in project limit calcualtion is only supported from vRA 8.10.1 and above, setting will be ignored')
+                                    includeInProjectLimits = False
+
+                endpointIdList = onboardingUtils.getAllEndpointsforProject(database, allOnboardingData[0]['projectId'])
+                logger.debug('EndpointId List for onboarding plan')
+                logger.debug(endpointIdList)
+
+                description = 'Auto generated onboarding plan, PVE bulk onboarding tool. '
+
+                planLink = onboardingUtils.createPlan (vra8Conn['hostfqdn'], vra8Conn['token'], description, planName, allOnboardingData[0]['projectId'], endpointIdList, thisOrgId, includeInProjectLimits)
+
+                if not planLink:
+                    print("Unable to create plan link for project: %s" % thisProject)
+                    print("Skipping onbording for project %s, please check logs for errors" % thisProject)
+                    logger.error("Unable to create plan link for project: %s" % thisProject)
+                    logger.error("Skipping onbording for project %s, please check logs for errors" % thisProject)
+                    continue
+
+                execPlanList.append(planLink)
+
+                print(planLink)
+                logger.debug(planLink)
+
+            else:
+                print('No Machine to onboard for project %s' % (thisProject))
+                logger.info('No Machine to onboard for project %s' % (thisProject))
+                continue
+
+            #This needs to be processed at a deployment level
+            allDeploymentData = {}
+            componentNameCache = {}
+            ctProps = {}
+            for thisItemRow in allOnboardingData:
+                thisItem = dict(thisItemRow)
+                if assignCloudTemplate:
+                    if thisItem['cloudTemplateId'] in componentNameCache.keys() and componentNameCache[thisItem['cloudTemplateId']].get(thisItem['cloudTemplateName'], None):
+                        ctProps = componentNameCache[thisItem['cloudTemplateId']][thisItem['cloudTemplateName']]['properties']
+                        componentName = componentNameCache[thisItem['cloudTemplateId']][thisItem['cloudTemplateName']]['componentName']
+                    else:
+                        ctYaml = onboardingUtils.getCloudTemplateYaml(thisItem['cloudTemplateId'], vra8Conn['hostfqdn'], vra8Conn['token'])
+                        #extComponentName = onboardingUtils.extractCloudTemplateResourceName(ctYaml)
+                        nameSplit = str(thisItem['cloudTemplateName']).split(':')
+                        thisResourceNumber = int(nameSplit[1])
+                        allCloudTemplateData = onboardingUtils.extractCloudTemplateData(ctYaml)
+                        if len(allCloudTemplateData.keys()) >= thisResourceNumber + 1:
+                        #extComponentName = onboardingUtils.extractCloudTemplateComponentName(ctYaml, resourceNumber=int(nameSplit[1]))
+                        #if extComponentName: and len(extComponentName) > 0:
+                            ctProps = allCloudTemplateData[thisResourceNumber]
+                            if ctProps.get('properties', None):
+                                if ctProps['properties'].get('count', None):
+                                    componentName = "%s[0]" % allCloudTemplateData[thisResourceNumber]['componentName']
+                                else:
+                                    componentName = allCloudTemplateData[thisResourceNumber]['componentName']
+                            else:
+                                componentName = allCloudTemplateData[thisResourceNumber]['componentName']
+
+                            if not componentNameCache.get(thisItem['cloudTemplateId'], None):
+                                componentNameCache[thisItem['cloudTemplateId']] = {thisItem['cloudTemplateName']:{'componentName': componentName, 'properties': allCloudTemplateData[thisResourceNumber]}}
+                            else:
+                                componentNameCache[thisItem['cloudTemplateId']][thisItem['cloudTemplateName']] = {'componentName': componentName, 'properties': allCloudTemplateData[thisResourceNumber]}
+                        else:
+                            logger.warning('Error extracting cloud template component name, using default instead.')
+                            if not componentNameCache.get(thisItem['cloudTemplateId'], None):
+                                componentNameCache[thisItem['cloudTemplateId']] = {thisItem['cloudTemplateName']:{'componentName': componentName, 'properties': {}}}
+                            else:
+                                componentNameCache[thisItem['cloudTemplateId']][thisItem['cloudTemplateName']] = {'componentName': componentName, 'properties': {}}
+
+                    thisItem['componentName'] = componentName
+                    thisItem['ctProps'] = ctProps
+                
+                thisItem['staticProps'] = staticCustomProperties
+                
+                #print(thisItem['deploymentName'])
+                if allDeploymentData.get(thisItem['deploymentName'], None):
+                    allDeploymentData[thisItem['deploymentName']]['resources'].append(thisItem)
+                else:
+                    allDeploymentData[thisItem['deploymentName']] = {'project':  thisItem['project']}
+                    allDeploymentData[thisItem['deploymentName']]['deploymentName'] = thisItem['deploymentName']
+                    allDeploymentData[thisItem['deploymentName']]['owner'] = thisItem['owner']
+                    allDeploymentData[thisItem['deploymentName']]['projectId'] = thisItem['projectId']
+                    allDeploymentData[thisItem['deploymentName']]['deploymentDescription'] = thisItem['deploymentDescription']
+                    if thisItem.get('deploymentDate', None):
+                        allDeploymentData[thisItem['deploymentName']]['deploymentDate'] = thisItem['deploymentDate']
+                    allDeploymentData[thisItem['deploymentName']]['resources'] = [thisItem]
+                    if assignCloudTemplate:
+                        allDeploymentData[thisItem['deploymentName']]['cloudTemplateId'] = thisItem['cloudTemplateId']
+
+            threads = []
+            with ThreadPoolExecutor(max_workers=threadCount) as executor:
+                for thisItem in allDeploymentData:
+                    threads.append(executor.submit(processDeployment, allDeploymentData[thisItem], vra8Conn, planLink, componentName, database, includeCustProp, convertProp, assignCloudTemplate, includeProjectProp, projectData, useMachineName))
+
+                for task in as_completed(threads):
+                    print('Resources added to deployment: %s' % task.result())
+
+            if execPlan and planLink:
+                print("Executing Plan " + planLink)
+                logger.info("Executing Plan " + planLink)
+
+                planExecute = onboardingUtils.executePlan (vra8Conn['hostfqdn'], vra8Conn['token'], planLink)
+
+                time.sleep(10)
+                print ('Plan Execution Status: ' + planExecute['taskInfo']['stage'])
+                print ('Plan Execution Status Link: ' + planExecute['documentSelfLink'])
+
+                logger.info('Plan Execution Status: ' + planExecute['taskInfo']['stage'])
+                logger.info('Plan Execution Status Link: ' + planExecute['documentSelfLink'])
+
+                if planExecute['taskInfo']['stage'] in ['FAILED', 'CANCELLED']:
+                    failedPlanList.append(planLink)
+            else:
+                print('Dry Run Completed for project %s ... DO NOT RUN THE CREATED ONBOARDING PLAN IN THE UI, Project members need to be temporarily modified to support onboarding' % (thisProject))
+    
+        if len(failedPlanList) > 0:
+            logger.error('ONBOARDING PLAN FAILED %s' % json.dumps(failedPlanList))
+            print('ERROR: ONBOARDING PLAN FAILED %s' % json.dumps(failedPlanList))
+
+    finally:
+        vcoUrl = context['vcoUrl']
+        tokenvro = context['getToken']()
+        
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, '/tmp/vra-onboarding-onboardMachines.log', resourceFolderName)
+    
+        print('Run Time: ')
+        print(datetime.datetime.now() - begin_time)
+        logger.info('Run Time: %s' % (datetime.datetime.now() - begin_time))
+        
+        if len(failedPlanList) > 0:
+            raise Exception('One or More onboarding plans failed, check logs and vRA 8/Cloud Web UI for more details.')
+            exit(1)]]></script>
+    <in-binding>
+      <bind name="authtype" type="string" export-name="authtype"/>
+      <bind name="hostfqdn" type="string" export-name="hostfqdn"/>
+      <bind name="username" type="string" export-name="vra8Username"/>
+      <bind name="password" type="SecureString" export-name="vra8Password"/>
+      <bind name="cspfqdn" type="string" export-name="cspfqdn"/>
+      <bind name="refreshToken" type="SecureString" export-name="refreshToken"/>
+      <bind name="dbFilename" type="string" export-name="dbFilename"/>
+      <bind name="vroNodeIP" type="string" export-name="vroNodeIP"/>
+      <bind name="vroPassword" type="SecureString" export-name="vroPassword"/>
+      <bind name="vroUsername" type="string" export-name="vroUsername"/>
+      <bind name="savedPathFS" type="string" export-name="savedPathFS"/>
+      <bind name="savedPathContainer" type="string" export-name="savedPathContainer"/>
+      <bind name="importprop" type="boolean" export-name="importprop"/>
+      <bind name="assignCloudTemplate" type="boolean" export-name="assignCloudTemplate"/>
+      <bind name="linuxCloudTemplateName" type="string" export-name="linuxCloudTemplateName"/>
+      <bind name="windowsCloudTemplateName" type="string" export-name="windowsCloudTemplateName"/>
+      <bind name="projects" type="string" export-name="projects"/>
+      <bind name="threadCount" type="number" export-name="threadCount"/>
+      <bind name="componentName" type="string" export-name="componentName"/>
+      <bind name="convertprop" type="boolean" export-name="convertprop"/>
+      <bind name="execPlan" type="boolean" export-name="execPlan"/>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+      <bind name="includeProjectProp" type="boolean" export-name="includeProjectProp"/>
+      <bind name="allowOrgOwner" type="boolean" export-name="allowOrgOwner"/>
+      <bind name="scpTimeout" type="number" export-name="scpTimeout"/>
+      <bind name="customProperties" type="Properties" export-name="customProperties"/>
+      <bind name="useMachineName" type="boolean" export-name="useMachineName"/>
+      <bind name="includeInProjectLimits" type="boolean" export-name="includeInProjectLimits"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="440.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item1" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    System.log('Deleting old log file ' + logFileName);
+    Server.removeResourceElement(resourceElemet);
+}else{
+    System.log('No Old Log file found for ' + logFileName);
+}
+
+resourceFolderName = resourceFolder.name;]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+      <bind name="resourceFolder" type="ResourceElementCategory" export-name="resourceFolder"/>
+    </in-binding>
+    <out-binding>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="320.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item2" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[
+configurationElement.setAttributeWithKey('projects', projectsIn, 'String');
+
+var projects = projectsIn;]]></script>
+    <in-binding>
+      <bind name="configurationElement" type="ConfigurationElement" export-name="configurationElement"/>
+      <bind name="projectsIn" type="string" export-name="projectsIn"/>
+    </in-binding>
+    <out-binding>
+      <bind name="projects" type="string" export-name="projects"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="180.0"/>
+  </workflow-item>
+  <workflow-item name="item4" out-name="item0" type="task">
+    <display-name><![CDATA[Update Resource Log]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+    System.log('Check for split log file.');
+    var partNumber = 0;
+    var found = true;
+    while (found){
+        thisPart = '_part' + partNumber + '.log' 
+        partFileName = logFileName.replace('.log', thisPart)
+        var partResourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ partFileName +"'");
+        partNumber = partNumber + 1
+        if (partResourceElements[0]){
+            var partResourceElemet =  partResourceElements[0];
+            var mimeAttachment = partResourceElements[0].getContentAsMimeAttachment();
+            System.log('Updating Log File type for file ' + partFileName);
+            mimeAttachment.mimeType = "text/plain";
+            partResourceElemet.setContentFromMimeAttachment(mimeAttachment);
+        }
+        else{
+            System.log('No Log file found for ' + partFileName);
+            found = false;
+        }
+
+    }
+}]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="580.0"/>
+  </workflow-item>
+  <workflow-item name="item5" throw-bind-name="err_1" type="end" end-mode="1">
+    <in-binding/>
+    <position y="200.0" x="480.0"/>
+  </workflow-item>
+  <workflow-item name="item6" out-name="item5" type="task">
+    <display-name><![CDATA[Update Resource Logs]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+    System.log('Check for split log file.');
+    var partNumber = 0;
+    var found = true;
+    while (found){
+        thisPart = '_part' + partNumber + '.log' 
+        partFileName = logFileName.replace('.log', thisPart)
+        var partResourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ partFileName +"'");
+        partNumber = partNumber + 1
+        if (partResourceElements[0]){
+            var partResourceElemet =  partResourceElements[0];
+            var mimeAttachment = partResourceElements[0].getContentAsMimeAttachment();
+            System.log('Updating Log File type for file ' + partFileName);
+            mimeAttachment.mimeType = "text/plain";
+            partResourceElemet.setContentFromMimeAttachment(mimeAttachment);
+        }
+        else{
+            System.log('No Log file found for ' + partFileName);
+            found = false;
+        }
+
+    }
+}]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="140.0" x="440.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

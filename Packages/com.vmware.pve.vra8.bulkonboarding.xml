@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<package>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='0a58c84b-0329-4b1f-8518-bc84705af2e7'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='16608244-b666-4017-bcde-647155caadaa'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='456e2d1e-fd7b-40ed-8df4-7673fc291b8d'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/ResourceElement?id='476c2902-0b2f-41bd-818f-beabfae018cc'&dunesName='ResourceElement']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='7628f6fe-e5af-4a4b-9a3d-8c777e28e22d'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='8a037881-086f-43fa-89ac-524f5dfaecd5'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='a566c82b-901e-49f0-8e0d-471b1a45353f'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='b7cf3649-cb58-49a1-b50e-7cf5ca257ff8'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='b9094714-f73a-480a-b014-1c98e6d0c687'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/ConfigurationElement?id='c390fb19-670c-4304-a7da-5f338a848c11'&dunesName='ConfigurationElement']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/ActionEnvironment?id='d5f3e6a0-7c59-4fa0-9053-aa71f7b8e8ad'&dunesName='ActionEnvironment']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='dc31fd60-86f3-4cb0-b036-d95e79e685fb'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='df3dd813-31f4-4712-ba44-8a0ca6019d12'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='fee5ad53-bf4d-4a4a-890b-748a28c0beac'&dunesName='Action'&name='updateResourceElementType'&category='com.vmware.pve.vro8.utils']]></elm>
+</package>

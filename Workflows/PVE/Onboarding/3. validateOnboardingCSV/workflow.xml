@@ -1,0 +1,794 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item13" object-name="workflow:name=generic" id="16608244-b666-4017-bcde-647155caadaa" version="0.1.17" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[3. validateOnboardingCSV]]></display-name>
+  <position y="52.72727272727272" x="24.0"/>
+  <input>
+    <param name="deleteDelta" type="boolean"/>
+    <param name="deletedvms" type="string"/>
+    <param name="machineDataFile" type="MimeAttachment"/>
+    <param name="custPropFile" type="MimeAttachment"/>
+  </input>
+  <attrib name="dbFilename" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="dbFilename">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="csvfile" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="csvfile">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroNodeIP" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroNodeIP">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroUsername" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroUsername">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroPassword" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroPassword"/>
+  <attrib name="authtype" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="authtype">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="hostfqdn" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8host">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="username" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8Username">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="password" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8Password"/>
+  <attrib name="cspfqdn" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="cspfqdn">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="refreshToken" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="refreshToken"/>
+  <attrib name="savedPathFS" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathFS">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="savedPathContainer" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathContainer">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="importprop" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="importprop"/>
+  <attrib name="assignCloudTemplate" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="assignCloudTemplate"/>
+  <attrib name="linuxCloudTemplateName" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="linuxCloudTemplateName">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="windowsCloudTemplateName" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="windowsCloudTemplateName">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="confirmDelete" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[false]]></value>
+  </attrib>
+  <attrib name="csv_resource_id" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="csv_prop_resource_id" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="logFileName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[vra-onboarding-validateOnboardingCSV.log]]></value>
+  </attrib>
+  <attrib name="resourceFolderName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="configurationElement" type="ConfigurationElement" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/ConfigurationElement?id='c390fb19-670c-4304-a7da-5f338a848c11'&dunesName='ConfigurationElement']]></value>
+  </attrib>
+  <attrib name="projects" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="projects">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="MachineDataCSV" type="ResourceElement" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="CustomPropertiesCSV" type="ResourceElement" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="resourceFolder" type="ResourceElementCategory" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="resourceFolder"/>
+  <attrib name="allowOrgOwner" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="allowOrgOwner"/>
+  <attrib name="err_0" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="scpTimeout" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="scpTimeout"/>
+  <attrib name="var_0" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="192.98701298701297" x="856.1904761904761"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item12" catch-name="item15" throw-bind-name="err_0" type="task">
+    <runtime><![CDATA[environment:d5f3e6a0-7c59-4fa0-9053-aa71f7b8e8ad]]></runtime>
+    <display-name><![CDATA[validateOnBoardingCSV]]></display-name>
+    <script encoded="false"><![CDATA[import logging
+import csv
+import argparse
+import sqlite3
+import vacfg_constants as const
+import onboardingUtils
+import shutil
+import datetime
+from stat import S_IREAD, S_IRGRP, S_IROTH
+import onboardingUtilsvRO
+
+logger = logging.getLogger()
+
+# set log level
+#logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+
+# define file handler and set formatter
+file_handler = logging.FileHandler('/tmp/vra-onboarding-validateOnboardingCSV.log')
+formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+file_handler.setFormatter(formatter)
+
+# add file handler to logger
+logger.addHandler(file_handler)
+
+def updateProjectData(projectData, database):
+    updateDataset = []
+    for thisProj in projectData.keys():
+        updateDataset.append((projectData[thisProj]['id'], projectData[thisProj]['name']))
+
+    conn = onboardingUtils.createConnection(database)
+    sql = ''' UPDATE machinedata set projectId = ? where project = ?;
+    '''
+
+    logger.debug('Updating db with project IDs')
+    cur = conn.cursor()
+    ret = cur.executemany(sql, updateDataset)
+    conn.commit()
+    conn.close()
+
+def removeDeltaVMs(database, deltaVMS):
+    conn = onboardingUtils.createConnection(database)
+
+    deltaStr = "','".join(deltaVMS)
+    sql = ''' DELETE from machinedata where machineName in ('%s');
+    ''' % deltaStr
+
+    logger.debug('Removing Delta VMs from db')
+    logger.debug(sql)
+    print(sql)
+
+    cur = conn.cursor()
+    ret = cur.execute(sql)
+    conn.commit()
+    conn.close()
+
+def parseUpdatedCSV(csvFile, database):
+    reader = csv.DictReader(open(csvFile, encoding="utf-8-sig"))
+
+    updateDataset = []
+    deleteDataset = []
+    for row in reader:
+        if row['import'] == "yes":
+            thisOwner = ''
+            thisProject = ''
+            thisCT = ''
+            thisEndpoint = row['endpointFQDN'].strip()
+
+            if not row['newOwner'] or row['newOwner'] == '':
+                thisOwner = row['owner'].strip()
+            else:
+                thisOwner = row['newOwner'].strip()
+
+            if not row['project'] or row['project'] == '':
+                thisProject = row['businessGroup'].strip()
+            else:
+                thisProject = row['project'].strip()
+
+            if row['cloudTemplateName']:
+                thisCT = row['cloudTemplateName'].strip()
+                if ':' not in thisCT:
+                    thisCT = '%s:0' % row['cloudTemplateName'].strip()
+
+            updateDataset.append((thisOwner,thisProject,thisEndpoint,thisCT,row['id']))
+
+        else:
+            if row['id']:
+                deleteDataset.append(row['id'])
+
+    conn = onboardingUtils.createConnection(database)
+    sql = ''' UPDATE machinedata set import = 'yes', newOwner = ? ,  project = ?, endpointFQDN = ?, cloudTemplateName = ? where id = ?;
+    '''
+
+    logger.debug('Updating db with project user names')
+    print('Updating db with project user names')
+    cur = conn.cursor()
+    ret = cur.executemany(sql, updateDataset)
+    print(ret)
+    conn.commit()
+
+    removeList = ', '.join(deleteDataset)
+    sql = '''DELETE from machinedata where id in (%s)''' % (removeList)
+    logger.debug('Removing VMs not to be imported')
+    logger.debug(sql)
+
+    cur = conn.cursor()
+    ret = cur.execute(sql)
+    conn.commit()
+    conn.close()
+
+def downloadResource(vcoUrl, token, file_path, resource_element_id):
+
+    headers = {
+        'accept': 'application/json',
+        'authorization': token
+    }
+    vraClient = onboardingUtils.RESTClient()
+    reqUrl = f'{vcoUrl}/api/resources/{resource_element_id}'
+    print(reqUrl)
+    response = vraClient.get(reqUrl, headers=headers)
+    print(response.status_code)
+    response.raise_for_status()
+
+    # write
+    open(file_path, 'wb').write(response.content)
+
+def handler(context, inputs):
+
+    try:
+        begin_time = datetime.datetime.now()
+        authtype = inputs["authtype"]
+        hostfqdn = inputs["hostfqdn"]
+        username = inputs["username"]
+        password = inputs["password"]
+        cspfqdn = inputs["cspfqdn"]
+        refreshToken = inputs["refreshToken"]
+        vroNodeIP = inputs["vroNodeIP"]
+        vroUsername = inputs["vroUsername"]
+        vroPassword  = inputs["vroPassword"]
+        savedPathFS = inputs["savedPathFS"]
+        savedPathContainer = inputs["savedPathContainer"]
+        csv_resource_id = inputs["csv_resource_id"]
+        includeCustProp  = inputs["importprop"]
+        assignCloudTemplate = inputs["assignCloudTemplate"]
+        linuxCloudTemplateName = inputs["linuxCloudTemplateName"]
+        windowsCloudTemplateName = inputs["windowsCloudTemplateName"]
+        deleteDelta = inputs["deleteDelta"]
+        deletedvms = inputs["deletedvms"]
+        csv_prop_resource_id = inputs["csv_prop_resource_id"]
+        resourceFolderName = inputs["resourceFolderName"]
+        allowOrgOwner = inputs["allowOrgOwner"]
+        scpTimeout = int(inputs["scpTimeout"])
+
+        print('Target environment is ' + authtype)
+        logger.info('Target environment is ' + authtype)
+
+        vra8Conn = {
+            'hostfqdn': hostfqdn,
+            'username': username,
+            'password': password,
+            'cspfqdn': cspfqdn,
+            'refreshToken': refreshToken
+        }
+        
+        csvFile = inputs["csvfile"]
+        database = inputs["dbFilename"]
+        hostname = vra8Conn['hostfqdn']
+
+        print('Target hostname is ' + hostname)
+        logger.info('Target hostname is ' + hostname)
+
+        if authtype == 'onprem':
+            version = onboardingUtils.getVersionvRA(hostname, 'ALL')
+            if version:
+                print('Target version is ' + version)
+                logger.info('Target version is ' + version)
+            else:
+                print('Unable to determine version')
+                logger.error('Unable to determine version')
+
+        if authtype == 'onprem':
+            vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], vra8Conn['username'], vra8Conn['password'], 'vra8')
+        else:
+            if not vra8Conn.get('refreshToken', None):
+                print('No refresh token configured in ini file')
+                logger.error('No refresh token configured in ini file')
+                raise ValueError('RefreshToken Not Provided')
+            else:
+                vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], None, vra8Conn['refreshToken'], 'vracloud')
+
+                vra8Conn['cspToken'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['cspfqdn'], None, vra8Conn['refreshToken'], 'vracloudcsp')
+                logger.debug('CSP Token: %s' % vra8Conn['cspToken'])
+
+
+        logger.debug(vra8Conn['token'])
+
+        token = vra8Conn['token']
+
+        if not vra8Conn['token']:
+            raise ValueError('Autherization Token not obtained')
+            exit(1)
+
+        logger.info('Checking csv file is OK.')
+        
+        sourcePath = '%s/%s' % (savedPathFS, database)
+        destPath = '%s/%s' % (savedPathContainer,database)
+        database = destPath
+        csvPath = '%s/%s' % (savedPathContainer, csvFile)
+        
+        onboardingUtilsvRO.vROGetDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, destPath, scpTimeout=scpTimeout)
+    
+        downloadResource( context['vcoUrl'], 'Bearer %s' % context['getToken']() , csvPath, csv_resource_id)
+
+        checkDBExists = onboardingUtils.checkFileExists(database)
+        checkCSVExists = onboardingUtils.checkFileExists(csvPath)
+
+        if not checkDBExists:
+            logger.error('Unable to find database file %s. Please check file exists and is set correctly in ini file' % (database))
+            print('\x1b[1;37;41m' + '!!! ERROR !!!' + '\x1b[0m')
+            print ('ERROR: Unable to find database file %s. Please check file exists and is set correctly in ini file' % (database))
+            exit(1)
+
+        if not checkCSVExists:
+            logger.error('Unable to find csv file %s. Please check file exists and is set correctly in ini file' % (csvPath))
+            print('\x1b[1;37;41m' + '!!! ERROR !!!' + '\x1b[0m')
+            print ('ERROR: Unable to find csv file %s. Please check file exists and is set correctly in ini file' % (csvPath))
+            exit(1)
+
+        cleanUp = onboardingUtils.clearVMValidationData(database)
+        
+        if not cleanUp:
+            print('Unable to continue, error cleaning data prior to onboarding.')
+            logger.error('Unable to continue, error cleaning data prior to onboarding.')
+            logger.error('Unable to remove previous validation data from DB.')
+            exit(1)
+
+        parseUpdatedCSV(csvPath, database)
+        
+        if includeCustProp:
+            custPropPath = csvPath.replace('.', '_custom_properties.')
+            downloadResource( context['vcoUrl'], 'Bearer %s' % context['getToken']() , custPropPath, csv_prop_resource_id)
+
+            propertiesUpdated = onboardingUtils.validateCustomPropertiesCSV(csvPath, database)
+
+        logger.info('Checking Projects are valid.')
+        print('Checking Projects are valid.')
+
+        projectCheck, projectData, badProjects = onboardingUtils.verifyProjects(database, hostname, token)
+
+        if projectCheck:
+            updateProjectData(projectData, database)
+            logger.info('----- All Projects Validated -----')
+            print('----- All Projects Validated -----\n')
+        else:
+            updateProjectData(projectData, database)
+            logger.error('----- Failed Projects Validated -----')
+            print('----- Failed Projects Validated -----\n')
+
+        validUsers, invalidUsers, validUsersList = onboardingUtils.verifyUsers(database, projectData, vra8Conn, token, authtype, None, allowOrgOwner)
+        if not validUsers:
+            logger.error('Users are not valid, please check logs for more details. Unable to find matching users and project membership for supplied owners')
+            print('ERROR: Users are not valid, please check logs for more details. Unable to find matching users and project membership for supplied owners')
+            print('Problematic Users: ' + ','.join(invalidUsers.keys()))
+            logger.error('Problamatic Users: ' + ','.join(invalidUsers.keys()))
+            logger.error('----- Failed User Validation -----')
+            print('----- Failed User Validation -----\n')
+        else:
+            logger.info('----- All Users Validated -----')
+            print('----- All Users Validated -----\n')
+
+        verifiedEndpoints, cloudAccountData, badEndpoints = onboardingUtils.endpointLookup(database, hostname, token, project=None, supportedTypes=['aws', 'vcf', 'vsphere','vmc'])
+
+        if not verifiedEndpoints:
+            logger.error('Endpoints are not valid, please check logs for more details. Unable to find matching cloud account for supplied FQDN')
+            print('\x1b[1;37;41m' + '!!! ERROR !!!' + '\x1b[0m')
+            print('ERROR: Endpoints are not valid, please check logs for more details. Unable to find matching cloud account for supplied FQDN')
+            logger.error('----- Failed Endpoint Validation -----')
+            print('----- Failed Endpoint Validation -----\n')
+            print('Problematic Endpoints: ' + ','.join(badEndpoints))
+        else:
+            logger.info('----- All Endpoints Validated -----')
+            print('----- All Endpoints Validated -----\n')
+
+        deltaVMS = []
+        if deleteDelta:
+            #https://stackoverflow.com/questions/287871/how-to-print-colored-text-to-the-terminal
+            print('\x1b[1;37;41m' + '!!! WARNING !!!' + '\x1b[0m')
+            print('''DELETE VM CONFIRMED, ANY VMS DELETED FROM THE DATASET CANNOT BE RESTORED WITHOUT STARTING THE WHOLE PROCESS AGAIN WITH THE VRA 7 DATA CAPTURE.''')
+            logger.warning('DELETE VM FILE CONFIRMED, ANY VMS DELETED FROM THE DATASET CANNOT BE RESTORED WITHOUT STARTING THE WHOLE PROCESS AGAIN WITH THE VRA 7 DATA CAPTURE.')
+
+            print('Following VMs will be removed from dataset')
+            print(deletedvms)
+
+            removeDeltaVMs(database, deletedvms.replace(' ', '').split(','))
+
+        verifyVM, epList = onboardingUtils.vmCheck(database, cloudAccountData, [], hostname, token)
+
+        if verifyVM:
+            logger.info('----- All VMs Validated -----')
+            print('----- All VMs Validated -----\n')
+        else:
+            logger.error('----- FAILED VM Validation -----')
+            print('----- FAILED VM Validation -----')
+
+        validatedCT = False
+        problemCT = []
+        if assignCloudTemplate:
+            defaultLinuxCT = linuxCloudTemplateName
+            defaultWindowsCT = windowsCloudTemplateName
+            allCTList = [defaultLinuxCT,defaultWindowsCT]
+            validatedCT, problemCT, problemCTStr = onboardingUtils.validateCloudTemplates(database, allCTList, defaultLinuxCT, defaultWindowsCT, hostname, token,  authtype)
+
+            if validatedCT:
+                logger.info('----- All Cloud Templates Validated -----')
+                print('----- All Cloud Templates Validated -----\n')
+            else:
+                logger.error('----- FAILED Cloud Template Validation -----')
+                print('----- FAILED Cloud Template Validation -----')
+                logger.error(problemCTStr)
+                logger.error(problemCT)
+                print(problemCTStr)
+                print(problemCT)
+
+
+
+
+        print('\n\n')
+        print('----------- Validation Summary ---------------')
+        if projectCheck:
+            print('All Projects Validated')
+        else:
+            if badProjects:
+                print('FAILED Projects Validation: ' + ','.join(badProjects))
+            else:
+                print('FAILED Projects Validation')
+
+        if validUsers:
+            print('All Users Validated')
+        else:
+            print('FAILED Users Validation: ' + ','.join(invalidUsers.keys()))
+
+        if verifiedEndpoints:
+            print('All Endpoints Validated')
+        else:
+            print('FAILED Endpoints Validation: '  + ','.join(badEndpoints))
+
+        if verifyVM:
+            print('All VMs Validated')
+        else:
+            print('FAILED VM Validation')
+
+        if assignCloudTemplate:
+            if validatedCT:
+                print('All Cloud Templates Validated')
+            else:
+                print('FAILED Cloud Template Validation ' +  ','.join(problemCT))
+
+        print('\n\n')
+        print('Run Time: ')
+        print(datetime.datetime.now() - begin_time)
+        logger.info('Run Time: %s' % (datetime.datetime.now() - begin_time))
+        onboardingUtilsvRO.vROSaveDatabase(vroNodeIP, vroUsername, vroPassword, destPath, sourcePath, scpTimeout=scpTimeout)
+
+    finally:
+        vcoUrl = context['vcoUrl']
+        tokenvro = context['getToken']()
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, '/tmp/vra-onboarding-validateOnboardingCSV.log', resourceFolderName)
+
+    if not assignCloudTemplate:
+        validatedCT = True
+
+    if not projectCheck or not validUsers or not verifiedEndpoints or not verifyVM or not validatedCT:
+        print('VALIDATION FAILED, SEE SUMMARY AND LOGS FOR DETAILS')
+        exit(1)
+]]></script>
+    <in-binding>
+      <bind name="authtype" type="string" export-name="authtype"/>
+      <bind name="hostfqdn" type="string" export-name="hostfqdn"/>
+      <bind name="username" type="string" export-name="username"/>
+      <bind name="password" type="SecureString" export-name="password"/>
+      <bind name="cspfqdn" type="string" export-name="cspfqdn"/>
+      <bind name="refreshToken" type="SecureString" export-name="refreshToken"/>
+      <bind name="dbFilename" type="string" export-name="dbFilename"/>
+      <bind name="vroNodeIP" type="string" export-name="vroNodeIP"/>
+      <bind name="vroPassword" type="SecureString" export-name="vroPassword"/>
+      <bind name="vroUsername" type="string" export-name="vroUsername"/>
+      <bind name="savedPathFS" type="string" export-name="savedPathFS"/>
+      <bind name="savedPathContainer" type="string" export-name="savedPathContainer"/>
+      <bind name="csvfile" type="string" export-name="csvfile"/>
+      <bind name="csv_resource_id" type="string" export-name="csv_resource_id"/>
+      <bind name="importprop" type="boolean" export-name="importprop"/>
+      <bind name="assignCloudTemplate" type="boolean" export-name="assignCloudTemplate"/>
+      <bind name="linuxCloudTemplateName" type="string" export-name="linuxCloudTemplateName"/>
+      <bind name="windowsCloudTemplateName" type="string" export-name="windowsCloudTemplateName"/>
+      <bind name="deletedvms" type="string" export-name="deletedvms"/>
+      <bind name="projects" type="string" export-name="projects"/>
+      <bind name="deleteDelta" type="boolean" export-name="deleteDelta"/>
+      <bind name="csv_prop_resource_id" type="string" export-name="csv_prop_resource_id"/>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+      <bind name="allowOrgOwner" type="boolean" export-name="allowOrgOwner"/>
+      <bind name="scpTimeout" type="number" export-name="scpTimeout"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="70.0" x="820.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item9" type="condition" alt-out-name="item10" comparator="0">
+    <display-name><![CDATA[Check Delete Delta OK]]></display-name>
+    <script encoded="false"><![CDATA[// Generated by the system, cannot be edited
+return (deleteDelta === false);]]></script>
+    <in-binding>
+      <bind name="deleteDelta" type="boolean" export-name="deleteDelta"/>
+    </in-binding>
+    <out-binding/>
+    <condition name="deleteDelta" type="boolean" comparator="1" label="null"/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="56.19047619047619" x="454.2857142857142"/>
+  </workflow-item>
+  <workflow-item name="item4" out-name="item7" catch-name="item8" throw-bind-name="err_0" type="input">
+    <display-name><![CDATA[User interaction]]></display-name>
+    <in-binding>
+      <bind name="security.group" type="LdapGroup">
+        <description><![CDATA[Any user member of this group will be authorized to fill in this form.]]></description>
+      </bind>
+      <bind name="security.assignees" type="Array/LdapUser">
+        <description><![CDATA[Any user from this array of users will be authorized to fill in this form]]></description>
+      </bind>
+      <bind name="security.assignee.groups" type="Array/LdapGroup">
+        <description><![CDATA[Any user member of any of the groups will be authorized to fill in this form.]]></description>
+      </bind>
+      <bind name="timeout.date" type="Date">
+        <description><![CDATA[If not null, this input item will wait until date and will continue workflow execution.]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="confirmDelete" type="boolean" export-name="confirmDelete"/>
+    </out-binding>
+    <presentation/>
+    <description><![CDATA[Use this element to set up a user interaction.]]></description>
+    <position y="202.98701298701297" x="452.5541125541124"/>
+  </workflow-item>
+  <workflow-item name="item5" type="end" end-mode="0">
+    <in-binding/>
+    <position y="317.53246753246754" x="496.19047619047603"/>
+  </workflow-item>
+  <workflow-item name="item7" out-name="item9" type="condition" alt-out-name="item0" comparator="0">
+    <display-name><![CDATA[Decision]]></display-name>
+    <script encoded="false"><![CDATA[// Generated by the system, cannot be edited
+return (confirmDelete === true);]]></script>
+    <in-binding>
+      <bind name="confirmDelete" type="boolean" export-name="confirmDelete"/>
+    </in-binding>
+    <out-binding/>
+    <condition name="confirmDelete" type="boolean" comparator="0" label="null"/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="192.98701298701297" x="634.3722943722942"/>
+  </workflow-item>
+  <workflow-item name="item8" out-name="item5" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[System.log('WE WENT THIS WAY')]]></script>
+    <in-binding/>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="257.53246753246754" x="452.5541125541124"/>
+  </workflow-item>
+  <workflow-item name="item9" out-name="item1" type="task">
+    <display-name><![CDATA[Get Resource Ids]]></display-name>
+    <script encoded="false"><![CDATA[var machineDataURI = Server.toUri(MachineDataCSV);
+resourceFolder = MachineDataCSV.getResourceElementCategory();
+resourceFolderName = resourceFolder.name;
+System.log(machineDataURI);
+tmpID = machineDataURI.split("id='")[1];
+csv_resource_id = tmpID.replace("'&dunesName='ResourceElement'",'');
+System.log('Machine Resource ID: ' + csv_resource_id);
+
+if (importprop){
+    if (!CustomPropertiesCSV){
+        System.error('Include custom properties enabled but no csv file selected.');
+        throw Error('Include custom properties enabled but no csv file selected.');
+    }
+    var propDataURI = Server.toUri(CustomPropertiesCSV);
+    System.log(propDataURI);
+    propTmpID = propDataURI.split("id='")[1];
+    csv_prop_resource_id = propTmpID.replace("'&dunesName='ResourceElement'",'');
+    System.log('Custom Prop Resource ID: ' + csv_prop_resource_id);
+}
+
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    System.log('Deleting old log file ' + logFileName);
+    Server.removeResourceElement(resourceElemet);
+}else{
+    System.log('No Old Log file found for ' + logFileName);
+}]]></script>
+    <in-binding>
+      <bind name="CustomPropertiesCSV" type="ResourceElement" export-name="CustomPropertiesCSV"/>
+      <bind name="MachineDataCSV" type="ResourceElement" export-name="MachineDataCSV"/>
+      <bind name="importprop" type="boolean" export-name="importprop"/>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding>
+      <bind name="csv_resource_id" type="string" export-name="csv_resource_id"/>
+      <bind name="csv_prop_resource_id" type="string" export-name="csv_prop_resource_id"/>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="66.19047619047619" x="634.2857142857142"/>
+  </workflow-item>
+  <workflow-item name="item10" out-name="item4" type="task">
+    <display-name><![CDATA[Check Inputs]]></display-name>
+    <script encoded="false"><![CDATA[if(!deletedvms){
+    System.error('Delete delta specified but not VM names supplied');
+    throw Error('Delete delta specified but not VM names supplied');
+}]]></script>
+    <in-binding>
+      <bind name="deletedvms" type="string" export-name="deletedvms"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="136.32034632034635" x="454.2857142857142"/>
+  </workflow-item>
+  <workflow-item name="item11" out-name="item3" type="task">
+    <display-name><![CDATA[Verify Inputs]]></display-name>
+    <script encoded="false"><![CDATA[System.log('Verify Inputs');]]></script>
+    <in-binding>
+      <bind name="assignCloudTemplate" type="boolean" export-name="assignCloudTemplate"/>
+      <bind name="authtype" type="string" export-name="authtype"/>
+      <bind name="cspfqdn" type="string" export-name="cspfqdn"/>
+      <bind name="csvfile" type="string" export-name="csvfile"/>
+      <bind name="dbFilename" type="string" export-name="dbFilename"/>
+      <bind name="hostfqdn" type="string" export-name="hostfqdn"/>
+      <bind name="importprop" type="boolean" export-name="importprop"/>
+      <bind name="linuxCloudTemplateName" type="string" export-name="linuxCloudTemplateName"/>
+      <bind name="password" type="SecureString" export-name="password"/>
+      <bind name="projects" type="string" export-name="projects"/>
+      <bind name="refreshToken" type="SecureString" export-name="refreshToken"/>
+      <bind name="savedPathContainer" type="string" export-name="savedPathContainer"/>
+      <bind name="windowsCloudTemplateName" type="string" export-name="windowsCloudTemplateName"/>
+      <bind name="vroUsername" type="string" export-name="vroUsername"/>
+      <bind name="vroPassword" type="SecureString" export-name="vroPassword"/>
+      <bind name="vroNodeIP" type="string" export-name="vroNodeIP"/>
+      <bind name="username" type="string" export-name="username"/>
+      <bind name="savedPathFS" type="string" export-name="savedPathFS"/>
+      <bind name="configurationElement" type="ConfigurationElement" export-name="configurationElement"/>
+      <bind name="projectsIn" type="string" export-name="projects"/>
+    </in-binding>
+    <out-binding>
+      <bind name="projects" type="string" export-name="projects"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="66.19047619047619" x="301.90476190476187"/>
+  </workflow-item>
+  <workflow-item name="item12" out-name="item0" type="task">
+    <display-name><![CDATA[Update Resource Log]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+    System.log('Check for split log file.');
+    var partNumber = 0;
+    var found = true;
+    while (found){
+        thisPart = '_part' + partNumber + '.log' 
+        partFileName = logFileName.replace('.log', thisPart)
+        var partResourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ partFileName +"'");
+        partNumber = partNumber + 1
+        if (partResourceElements[0]){
+            var partResourceElemet =  partResourceElements[0];
+            var mimeAttachment = partResourceElements[0].getContentAsMimeAttachment();
+            System.log('Updating Log File type for file ' + partFileName);
+            mimeAttachment.mimeType = "text/plain";
+            partResourceElemet.setContentFromMimeAttachment(mimeAttachment);
+        }
+        else{
+            System.log('No Log file found for ' + partFileName);
+            found = false;
+        }
+
+    }
+}]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="126.79653679653677" x="816.1904761904761"/>
+  </workflow-item>
+  <workflow-item name="item13" out-name="item11" type="task">
+    <display-name><![CDATA[SaveFiles]]></display-name>
+    <script encoded="false"><![CDATA[var machineDataFileName = machineDataFile.name;
+var stringEndsWithSuffix = machineDataFileName.substring(machineDataFileName.length - 3) === 'csv';
+
+if(!stringEndsWithSuffix){
+    System.error('Supplied Machine Data file is not a csv, please provide a csv file as an input.');
+    throw Error('Supplied Machine Data file is not a csv, please provide a csv file as an input.');
+}
+
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ machineDataFile.name + "'");
+if (resourceElements[0]){
+    var MachineDataCSV = resourceElements[0];
+}else{
+    var MachineDataCSV = Server.createResourceElement(resourceFolder.path, machineDataFile.name, null, 'text/csv');
+}
+
+MachineDataCSV.setContentFromMimeAttachment(machineDataFile);
+
+if (importprop){
+    if (!custPropFile){
+        System.error('Import properties selected but no Custom Properties CSV provided, change settings or provide custom properties csv');
+        throw Error('Import properties selected but no Custom Properties CSV provided, change settings or provide custom properties csv');
+    }
+
+    var custPropFileName = custPropFile.name;
+    var stringEndsWithSuffixCP = custPropFileName.substring(custPropFileName.length - 3) === 'csv';
+
+    if(!stringEndsWithSuffixCP){
+        System.error('Supplied Custom Properties file is not a csv, please provide a csv file as an input.');
+        throw Error('Supplied Custom Properties file is not a csv, please provide a csv file as an input.');
+    }
+
+    var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ custPropFile.name + "'");
+    if (resourceElements[0]){
+        var CustomPropertiesCSV = resourceElements[0];
+    }else{
+        var CustomPropertiesCSV = Server.createResourceElement(resourceFolder.path, custPropFile.name, null, 'text/csv');
+    }
+
+    CustomPropertiesCSV.setContentFromMimeAttachment(custPropFile);
+}]]></script>
+    <in-binding>
+      <bind name="machineDataFile" type="MimeAttachment" export-name="machineDataFile"/>
+      <bind name="custPropFile" type="MimeAttachment" export-name="custPropFile"/>
+      <bind name="resourceFolder" type="ResourceElementCategory" export-name="resourceFolder"/>
+      <bind name="importprop" type="boolean" export-name="importprop"/>
+      <bind name="var_0" type="string" export-name="var_0"/>
+    </in-binding>
+    <out-binding>
+      <bind name="MachineDataCSV" type="ResourceElement" export-name="MachineDataCSV"/>
+      <bind name="CustomPropertiesCSV" type="ResourceElement" export-name="CustomPropertiesCSV"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="66.19047619047619" x="130.47619047619048"/>
+  </workflow-item>
+  <workflow-item name="item14" throw-bind-name="err_0" type="end" end-mode="1">
+    <in-binding/>
+    <position y="56.19047619047619" x="1256.1904761904761"/>
+  </workflow-item>
+  <workflow-item name="item15" out-name="item14" type="task">
+    <display-name><![CDATA[Update Resource Log]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+    System.log('Check for split log file.');
+    var partNumber = 0;
+    var found = true;
+    while (found){
+        thisPart = '_part' + partNumber + '.log' 
+        partFileName = logFileName.replace('.log', thisPart)
+        var partResourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ partFileName +"'");
+        partNumber = partNumber + 1
+        if (partResourceElements[0]){
+            var partResourceElemet =  partResourceElements[0];
+            var mimeAttachment = partResourceElements[0].getContentAsMimeAttachment();
+            System.log('Updating Log File type for file ' + partFileName);
+            mimeAttachment.mimeType = "text/plain";
+            partResourceElemet.setContentFromMimeAttachment(mimeAttachment);
+        }
+        else{
+            System.log('No Log file found for ' + partFileName);
+            found = false;
+        }
+
+    }
+}]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="66.19047619047619" x="1025.7142857142858"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

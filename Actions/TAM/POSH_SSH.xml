@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="POSH_SSH" result-type="string" api-version="6.0.0" id="19c607f6-fc90-4ee4-b9e6-c3268668197b" version="0.0.0" category-name="TAM">
+  <environment><![CDATA[ab6cc5e9-1431-4e76-8b43-079b1cd06b15]]></environment>
+  <script encoded="false"><![CDATA[function Handler($context, $inputs) {
+    $inputsString = $inputs | ConvertTo-Json -Compress
+
+    #Write-Host "Inputs were $inputsString"
+
+    Write-Host 'Import-Module'
+    import-module 'posh-ssh'
+
+    Write-Host 'Setting username/PW'
+    # Define clear text string for username and password
+    [string]$userName = 'administrator'
+    [string]$userPassword = 'VMware1!'
+
+    # Convert to SecureString
+    [securestring]$secStringPassword = ConvertTo-SecureString $userPassword -AsPlainText -Force
+    [pscredential]$credObject = New-Object System.Management.Automation.PSCredential ($userName, $secStringPassword)
+
+    Write-Host 'Setting host name'
+    $Server = '192.168.69.178'
+
+    $Params = @{
+        "ComputerName" = $Server
+        "Credential"   = $credObject
+    } # End Params
+        
+    # SSH Connection to SaltStack Server
+    $sshSession = Get-SSHSession
+    if($sshSession.SessionId -eq 0){
+        Write-Host 'SSH Connection to SSC Server already completed'
+        return 'already connected'
+    } # End If
+    else{
+        Write-Host 'Creating new SSH Connection to SSC Server'
+        New-SSHSession @Params
+        return 'connected'
+    } # End Else
+
+    # Copy File
+    $sshCommand = 'df -hT'
+    $sshCommand
+
+    $Params = @{
+        "SessionId" = 0
+        "Command"   = $sshCommand
+    } # End Params
+
+    $results = Invoke-SSHCommand @Params -TimeOut 300
+    return $results.Output
+
+
+    $output=@{status = 'done'}
+
+    #return $output
+}
+]]></script>
+</dunes-script-module>

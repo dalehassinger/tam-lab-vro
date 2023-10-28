@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="pode_sqlite" result-type="Array/string" api-version="6.0.0" id="dcfb489b-f32f-45d6-8028-4e2d7fc8f49f" version="0.0.1" category-name="TAM">
+  <runtime><![CDATA[powercli:12-powershell-7.2]]></runtime>
+  <script encoded="false"><![CDATA[function Handler($context, $inputs) {
+
+    # All VMs from SQLite DB
+    $response = Invoke-WebRequest -Uri 'http://win-pode.corp.local:8080/vaadd'
+    $responseData = $response.Content
+    $ddValues = $responseData | convertfrom-json
+    write-host $ddValues.topic
+
+    return $ddValues
+}
+]]></script>
+</dunes-script-module>

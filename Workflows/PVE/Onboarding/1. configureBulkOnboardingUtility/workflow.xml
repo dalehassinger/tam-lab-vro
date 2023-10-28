@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="456e2d1e-fd7b-40ed-8df4-7673fc291b8d" version="0.1.1" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[1. configureBulkOnboardingUtility]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="threadCountIn" type="number"/>
+    <param name="iaasDomainIn" type="string"/>
+    <param name="iaasUsernameIn" type="string"/>
+    <param name="iaasPasswordIn" type="SecureString"/>
+    <param name="iaasHostIn" type="string"/>
+    <param name="tenantIn" type="string"/>
+    <param name="vra7hostIn" type="string"/>
+    <param name="vra7UsernameIn" type="string"/>
+    <param name="vra7PasswordIn" type="SecureString"/>
+    <param name="vra7pagesizeIn" type="number"/>
+    <param name="dbFilenameIn" type="string"/>
+    <param name="csvfileIn" type="string"/>
+    <param name="resourceFolderIn" type="ResourceElementCategory"/>
+    <param name="vroNodeIPIn" type="string"/>
+    <param name="vroUsernameIn" type="string"/>
+    <param name="vroPasswordIn" type="SecureString"/>
+    <param name="savedPathContainerIn" type="string"/>
+    <param name="savedPathFSIn" type="string"/>
+    <param name="authtypeIn" type="string"/>
+    <param name="vra8hostIn" type="string"/>
+    <param name="vra8UsernameIn" type="string"/>
+    <param name="vra8PasswordIn" type="SecureString"/>
+    <param name="cspfqdnIn" type="string"/>
+    <param name="refreshTokenIn" type="SecureString"/>
+    <param name="importpropIn" type="boolean"/>
+    <param name="assignCloudTemplateIn" type="boolean"/>
+    <param name="linuxCloudTemplateNameIn" type="string"/>
+    <param name="windowsCloudTemplateNameIn" type="string"/>
+    <param name="projectsIn" type="string"/>
+    <param name="convertpropIn" type="boolean"/>
+    <param name="componentNameIn" type="string"/>
+    <param name="includeProjectPropIn" type="boolean"/>
+    <param name="allowOrgOwnerIn" type="boolean"/>
+    <param name="getHistoryIn" type="boolean"/>
+    <param name="scpTimeoutIn" type="number"/>
+    <param name="useMachineNameIn" type="boolean"/>
+    <param name="includeInProjectLimitsIn" type="boolean"/>
+  </input>
+  <attrib name="threadCount" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="threadCount"/>
+  <attrib name="iaasDomain" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="iaasDomain">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="iaasUsername" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="iaasUsername">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="iaasPassword" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="iaasPassword"/>
+  <attrib name="iaasHost" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="iaasHost">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="tenant" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="tenant">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vra7host" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra7host">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vra7Username" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra7Username">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vra7Password" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra7Password"/>
+  <attrib name="vra7pagesize" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra7pagesize"/>
+  <attrib name="dbFilename" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="dbFilename">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="csvfile" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="csvfile">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="resourceFolder" type="ResourceElementCategory" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="resourceFolder"/>
+  <attrib name="vroNodeIP" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroNodeIP">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroUsername" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroUsername">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroPassword" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroPassword"/>
+  <attrib name="savedPathContainer" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathContainer">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="savedPathFS" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathFS">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="authtype" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="authtype">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vra8host" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8host">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vra8Username" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8Username">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vra8Password" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8Password"/>
+  <attrib name="cspfqdn" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="cspfqdn">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="refreshToken" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="refreshToken"/>
+  <attrib name="importprop" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="importprop"/>
+  <attrib name="assignCloudTemplate" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="assignCloudTemplate"/>
+  <attrib name="linuxCloudTemplateName" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="linuxCloudTemplateName">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="windowsCloudTemplateName" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="windowsCloudTemplateName">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="projects" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="projects">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="convertprop" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="convertprop"/>
+  <attrib name="componentName" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="componentName">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="configurationElement" type="ConfigurationElement" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/ConfigurationElement?id='c390fb19-670c-4304-a7da-5f338a848c11'&dunesName='ConfigurationElement']]></value>
+  </attrib>
+  <attrib name="includeProjectProp" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="includeProjectProp"/>
+  <attrib name="allowOrgOwner" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="allowOrgOwner"/>
+  <attrib name="getHistory" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="getHistory"/>
+  <attrib name="scpTimeout" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="scpTimeout"/>
+  <attrib name="useMachineName" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="useMachineName"/>
+  <attrib name="includeInProjectLimits" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="includeInProjectLimits"/>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.0" x="860.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="task">
+    <display-name><![CDATA[SaveConfig]]></display-name>
+    <script encoded="false"><![CDATA[System.log('Saving Inputs to Configuration Element  ' + configurationElement.name);
+
+if (assignCloudTemplateIn){
+    useMachineNameIn = false;
+}
+
+try{
+    configurationElement.setAttributeWithKey('authtype', authtypeIn, 'String');
+    configurationElement.setAttributeWithKey('csvfile', csvfileIn, 'String');
+    configurationElement.setAttributeWithKey('dbFilename', dbFilenameIn, 'String');
+    configurationElement.setAttributeWithKey('cspfqdn', cspfqdnIn, 'String');
+    configurationElement.setAttributeWithKey('iaasDomain', iaasDomainIn, 'String');
+    configurationElement.setAttributeWithKey('iaasHost', iaasHostIn, 'String');
+    configurationElement.setAttributeWithKey('assignCloudTemplate', assignCloudTemplateIn, 'Boolean');
+    configurationElement.setAttributeWithKey('iaasPassword', iaasPasswordIn, 'SecureString');
+    configurationElement.setAttributeWithKey('iaasUsername', iaasUsernameIn, 'String');
+    configurationElement.setAttributeWithKey('importprop', importpropIn, 'Boolean');
+    configurationElement.setAttributeWithKey('includeInProjectLimits', includeInProjectLimitsIn, 'Boolean');
+    configurationElement.setAttributeWithKey('includeProjectProp', includeProjectPropIn, 'Boolean');
+    configurationElement.setAttributeWithKey('convertprop', convertpropIn, 'Boolean');
+    configurationElement.setAttributeWithKey('componentName', componentNameIn, 'String');
+    configurationElement.setAttributeWithKey('linuxCloudTemplateName', linuxCloudTemplateNameIn, 'String');
+    configurationElement.setAttributeWithKey('projects', projectsIn, 'String');
+    configurationElement.setAttributeWithKey('refreshToken', refreshTokenIn, 'SecureString');
+    configurationElement.setAttributeWithKey('resourceFolder', resourceFolderIn, 'ResourceElementCategory');
+    configurationElement.setAttributeWithKey('savedPathFS', savedPathFSIn, 'String');
+    configurationElement.setAttributeWithKey('savedPathContainer', savedPathContainerIn, 'String');
+    configurationElement.setAttributeWithKey('tenant', tenantIn, 'String');
+    configurationElement.setAttributeWithKey('threadCount', threadCountIn, 'Number');
+    configurationElement.setAttributeWithKey('vra7host', vra7hostIn, 'String');
+    configurationElement.setAttributeWithKey('vra7pagesize', vra7pagesizeIn, 'Number');
+    configurationElement.setAttributeWithKey('vra7Password', vra7PasswordIn, 'SecureString');
+    configurationElement.setAttributeWithKey('vra7Username', vra7UsernameIn, 'String');
+    configurationElement.setAttributeWithKey('vra8host', vra8hostIn, 'String');
+    configurationElement.setAttributeWithKey('vra8Password', vra8PasswordIn, 'SecureString');
+    configurationElement.setAttributeWithKey('vroNodeIP', vroNodeIPIn, 'String');
+    configurationElement.setAttributeWithKey('windowsCloudTemplateName', windowsCloudTemplateNameIn, 'String');
+    configurationElement.setAttributeWithKey('vra8Username', vra8UsernameIn, 'String');
+    configurationElement.setAttributeWithKey('vroUsername', vroUsernameIn, 'String');
+    configurationElement.setAttributeWithKey('vroPassword', vroPasswordIn, 'SecureString');
+    configurationElement.setAttributeWithKey('allowOrgOwner', allowOrgOwnerIn, 'Boolean');
+    configurationElement.setAttributeWithKey('getHistory', getHistoryIn, 'Boolean');
+    configurationElement.setAttributeWithKey('scpTimeout', scpTimeoutIn, 'Number');
+    configurationElement.setAttributeWithKey('useMachineName', useMachineNameIn, 'Boolean');
+}
+catch(err){
+    System.error('Unable to save configuration element please check logs for details.');
+    System.error(err)
+    throw new Error('Unable to save configuration element please check logs for details. ' + err);
+}
+
+System.log('Inputs saved successfully.');
+]]></script>
+    <in-binding>
+      <bind name="configurationElement" type="ConfigurationElement" export-name="configurationElement"/>
+      <bind name="authtypeIn" type="string" export-name="authtypeIn"/>
+      <bind name="csvfileIn" type="string" export-name="csvfileIn"/>
+      <bind name="dbFilenameIn" type="string" export-name="dbFilenameIn"/>
+      <bind name="cspfqdnIn" type="string" export-name="cspfqdnIn"/>
+      <bind name="iaasDomainIn" type="string" export-name="iaasDomainIn"/>
+      <bind name="iaasHostIn" type="string" export-name="iaasHostIn"/>
+      <bind name="assignCloudTemplateIn" type="boolean" export-name="assignCloudTemplateIn"/>
+      <bind name="iaasPasswordIn" type="SecureString" export-name="iaasPasswordIn"/>
+      <bind name="iaasUsernameIn" type="string" export-name="iaasUsernameIn"/>
+      <bind name="importpropIn" type="boolean" export-name="importpropIn"/>
+      <bind name="convertpropIn" type="boolean" export-name="convertpropIn"/>
+      <bind name="componentNameIn" type="string" export-name="componentNameIn"/>
+      <bind name="linuxCloudTemplateNameIn" type="string" export-name="linuxCloudTemplateNameIn"/>
+      <bind name="projectsIn" type="string" export-name="projectsIn"/>
+      <bind name="refreshTokenIn" type="SecureString" export-name="refreshTokenIn"/>
+      <bind name="resourceFolderIn" type="ResourceElementCategory" export-name="resourceFolderIn"/>
+      <bind name="savedPathFSIn" type="string" export-name="savedPathFSIn"/>
+      <bind name="savedPathContainerIn" type="string" export-name="savedPathContainerIn"/>
+      <bind name="tenantIn" type="string" export-name="tenantIn"/>
+      <bind name="threadCountIn" type="number" export-name="threadCountIn"/>
+      <bind name="vra7hostIn" type="string" export-name="vra7hostIn"/>
+      <bind name="vra7pagesizeIn" type="number" export-name="vra7pagesizeIn"/>
+      <bind name="vra7PasswordIn" type="SecureString" export-name="vra7PasswordIn"/>
+      <bind name="vra7UsernameIn" type="string" export-name="vra7UsernameIn"/>
+      <bind name="vra8hostIn" type="string" export-name="vra8hostIn"/>
+      <bind name="vra8PasswordIn" type="SecureString" export-name="vra8PasswordIn"/>
+      <bind name="vroNodeIPIn" type="string" export-name="vroNodeIPIn"/>
+      <bind name="windowsCloudTemplateNameIn" type="string" export-name="windowsCloudTemplateNameIn"/>
+      <bind name="vra8UsernameIn" type="string" export-name="vra8UsernameIn"/>
+      <bind name="vroUsernameIn" type="string" export-name="vroUsernameIn"/>
+      <bind name="vroPasswordIn" type="SecureString" export-name="vroPasswordIn"/>
+      <bind name="includeProjectPropIn" type="boolean" export-name="includeProjectPropIn"/>
+      <bind name="allowOrgOwnerIn" type="boolean" export-name="allowOrgOwnerIn"/>
+      <bind name="getHistoryIn" type="boolean" export-name="getHistoryIn"/>
+      <bind name="scpTimeoutIn" type="number" export-name="scpTimeoutIn"/>
+      <bind name="useMachineNameIn" type="boolean" export-name="useMachineNameIn"/>
+      <bind name="includeInProjectLimitsIn" type="boolean" export-name="includeInProjectLimitsIn"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="360.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

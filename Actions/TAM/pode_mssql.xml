@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="pode_mssql" result-type="Array/string" api-version="6.0.0" id="f18a8221-c9bb-4e6f-8111-72db17dd1b48" version="0.0.1" category-name="TAM">
+  <runtime><![CDATA[powercli:12-powershell-7.2]]></runtime>
+  <script encoded="false"><![CDATA[function Handler($context, $inputs) {
+    #$inputsString = $inputs | ConvertTo-Json -Compress
+
+    $response = Invoke-WebRequest -Uri 'http://win-pode.corp.local:8080/sql'
+    $responseData = $response.Content
+    $ddValues = $responseData | convertfrom-json
+    write-host $ddValues.topic
+
+    return $ddValues.topic
+}
+]]></script>
+</dunes-script-module>

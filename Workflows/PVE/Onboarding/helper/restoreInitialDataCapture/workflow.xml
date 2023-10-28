@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item2" object-name="workflow:name=generic" id="b9094714-f73a-480a-b014-1c98e6d0c687" version="0.1.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[restoreInitialDataCapture]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <attrib name="dbFilename" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="dbFilename">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="csvfile" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="csvfile">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="resourceFolderName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroNodeIP" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroNodeIP">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroUsername" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroUsername">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroPassword" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroPassword"/>
+  <attrib name="resourceFolder" type="ResourceElementCategory" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="resourceFolder"/>
+  <attrib name="savedPathContainer" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathContainer">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="savedPathFS" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathFS">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="threadCount" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="threadCount"/>
+  <attrib name="logFileName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[vra-onboarding-restoreInitialDataCaptureDB.log]]></value>
+  </attrib>
+  <attrib name="err_0" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="getHistory" type="boolean" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="getHistory"/>
+  <attrib name="scpTimeout" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="scpTimeout"/>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.0" x="960.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item4" catch-name="item6" throw-bind-name="err_0" type="task">
+    <runtime><![CDATA[environment:d5f3e6a0-7c59-4fa0-9053-aa71f7b8e8ad]]></runtime>
+    <display-name><![CDATA[RestoreBackupFile]]></display-name>
+    <script encoded="false"><![CDATA[#!/usr/bin/env python3
+import requests
+from requests_ntlm2 import HttpNtlmAuth
+from xml.dom import minidom
+import json
+import csv
+import datetime
+import logging
+import sqlite3
+import uuid
+from sqlite3 import Error
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning) # Disable SSL warning
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import onboardingUtils
+import onboardingUtilsvRO
+import onboardingUtilsHistory
+
+logger = logging.getLogger()
+
+# set log level
+#logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+
+# define file handler and set formatter
+file_handler = logging.FileHandler('/tmp/vra-onboarding-restoreInitialDataCaptureDB.log')
+formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+file_handler.setFormatter(formatter)
+
+# add file handler to logger
+logger.addHandler(file_handler)
+
+
+def handler(context, inputs):
+
+    try:
+        begin_time = datetime.datetime.now()
+        print('Restoring Backup of initial dtat capture.......')
+
+        dbFileNameIn = inputs["dbFilename"]
+        vroNodeIP = inputs["vroNodeIP"]
+        vroUsername = inputs["vroUsername"]
+        vroPassword = inputs["vroPassword"]
+        resourceFolderName = inputs["resourceFolderName"]
+        savedPathFS = inputs["savedPathFS"]
+        savedPathContainer = inputs["savedPathContainer"]
+        scpTimeout = int(inputs["scpTimeout"])
+
+        sourcePath = '%s/%s' % (savedPathFS, dbFileNameIn)
+        backupRestore = sourcePath.replace('.db','.bak')
+        destPath = '%s/%s' % (savedPathContainer,dbFileNameIn)
+        #restore backup
+        onboardingUtilsvRO.vROGetDatabase(vroNodeIP, vroUsername, vroPassword, backupRestore, destPath, scpTimeout=scpTimeout)
+
+        destPath = '%s/%s' % (savedPathFS, dbFileNameIn) 
+        sourcePath = '%s/%s' % (savedPathContainer, dbFileNameIn)
+        #save restored file
+        onboardingUtilsvRO.vROSaveDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, destPath, scpTimeout=scpTimeout)
+
+    finally:
+        vcoUrl = context['vcoUrl']
+        tokenvro = context['getToken']()
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, '/tmp/vra-onboarding-restoreInitialDataCaptureDB.log', resourceFolderName)
+
+        print('Finished Processing.')
+        print('Run Time: ')
+        print(datetime.datetime.now() - begin_time)]]></script>
+    <in-binding>
+      <bind name="domain" type="string"/>
+      <bind name="iaasuser" type="string"/>
+      <bind name="iaashost" type="string"/>
+      <bind name="vrauser" type="string"/>
+      <bind name="tenant" type="string"/>
+      <bind name="vrahost" type="string"/>
+      <bind name="iaaspassword" type="SecureString"/>
+      <bind name="vrapassword" type="SecureString"/>
+      <bind name="pagesize" type="number"/>
+      <bind name="dbFilename" type="string" export-name="dbFilename"/>
+      <bind name="delta" type="boolean"/>
+      <bind name="csvfile" type="string" export-name="csvfile"/>
+      <bind name="vroNodeIP" type="string" export-name="vroNodeIP"/>
+      <bind name="vroUsername" type="string" export-name="vroUsername"/>
+      <bind name="vroPassword" type="SecureString" export-name="vroPassword"/>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+      <bind name="savedPathContainer" type="string" export-name="savedPathContainer"/>
+      <bind name="savedPathFS" type="string" export-name="savedPathFS"/>
+      <bind name="threadCount" type="number" export-name="threadCount"/>
+      <bind name="getHistory" type="boolean" export-name="getHistory"/>
+      <bind name="scpTimeout" type="number" export-name="scpTimeout"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="620.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item1" type="task">
+    <display-name><![CDATA[getResourceElementName]]></display-name>
+    <script encoded="false"><![CDATA[if (!resourceFolder){
+    System.error('No Resource Folder Specified, Set resource folder by running configureBulkOnboardingUtility Workflow.');
+    throw Error('No Resource Folder Specified, Set resource folder by running configureBulkOnboardingUtility Workflow.');
+}
+var resourceFolderName = resourceFolder.name;
+
+System.log('Resource Elements folder name: ' + resourceFolderName);
+
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    System.log('Deleting old log file ' + logFileName);
+    Server.removeResourceElement(resourceElemet);
+}else{
+    System.log('No Old Log file found for ' + logFileName);
+}]]></script>
+    <in-binding>
+      <bind name="resourceFolder" type="ResourceElementCategory" export-name="resourceFolder"/>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="440.0"/>
+  </workflow-item>
+  <workflow-item name="item4" out-name="item0" type="task">
+    <display-name><![CDATA[Update Log Resource]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+}
+]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="800.0"/>
+  </workflow-item>
+  <workflow-item name="item5" throw-bind-name="err_0" type="end" end-mode="1">
+    <in-binding/>
+    <position y="170.0" x="660.0"/>
+  </workflow-item>
+  <workflow-item name="item6" out-name="item5" type="task">
+    <display-name><![CDATA[Update Log Resource]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+}
+]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="120.0" x="620.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="random" result-type="string" api-version="6.0.0" id="d9054d3f-a015-4bfd-9ad8-887e7cc8366c" version="0.0.0" category-name="TAM">
+  <runtime><![CDATA[powershell:7.3]]></runtime>
+  <script encoded="false"><![CDATA[function Handler($context, $inputs) {
+    $inputsString = $inputs | ConvertTo-Json -Compress
+
+    Write-Host "Inputs were $inputsString"
+
+    $output= '123456789'
+
+    return $output
+}
+]]></script>
+</dunes-script-module>

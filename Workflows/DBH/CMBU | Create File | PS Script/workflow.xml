@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item0" object-name="Workflow:name=generic" id="4853d674-f02c-4ddd-9fb2-17b502d520c2" editor-version="2.0" version="4.0.6" api-version="6.0.0" allowed-operations="vef" restartMode="1" resumeFromFailedMode="0">
+    <display-name>CMBU | Create File | PS Script</display-name>
+    <description>Day 2 Automation | Run a PS Script on PS Host</description>
+    <position y="160.0" x="180.0"/>
+    <input>
+        <param name="host" type="PowerShell:PowerShellHost">
+            <description>PowerShell host</description>
+        </param>
+        <param name="fileName" type="string"/>
+    </input>
+    <output>
+        <param name="output" type="PowerShell:PowerShellRemotePSObject">
+            <description>Script execution result</description>
+        </param>
+    </output>
+    <attrib name="sessionId" type="string">
+        <value encoded="n"></value>
+    </attrib>
+    <workflow-item name="item5" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="140.0" x="660.0"/>
+    </workflow-item>
+    <workflow-item name="item0" out-name="item5" type="task" comparator="0">
+        <display-name>Invoke script</display-name>
+        <script encoded="false">// Example to run script from cli
+//C:\\GitHub\\PS-TAM-Lab\\Schedule-VM-reboot.ps1 -emailAddress 'hdale@vmware.com' -rebootDescription 'TEST-01 from vRA' -rebootName 'DBH01' -rebootTime '2023-06-01T08:00' -vmName 'LINUX-U-240' -rebootMemory 'False'
+
+//Set Script Value
+script = "C:\\Github\\PS-TAM-Lab\\create-file.ps1 -fileName '" + fileName + "'"
+
+var output;
+var session;
+try {
+	session = host.openSession();
+	output = System.getModule("com.vmware.library.powershell").invokeScript(host,script,session.getSessionId()) ;
+} finally {
+	if (session){
+		host.closeSession(session.getSessionId());
+	}
+}
+
+//Send values to Log
+System.log("File Name: " + fileName);
+
+ </script>
+        <in-binding>
+            <bind name="host" type="PowerShell:PowerShellHost" export-name="host"/>
+            <bind name="fileName" type="string" export-name="fileName"/>
+        </in-binding>
+        <out-binding>
+            <bind name="output" type="PowerShell:PowerShellRemotePSObject" export-name="output"/>
+        </out-binding>
+        <position y="150.0" x="340.0"/>
+    </workflow-item>
+</ns2:workflow>

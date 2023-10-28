@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item2" object-name="workflow:name=generic" id="a566c82b-901e-49f0-8e0d-471b1a45353f" version="0.1.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[metadataDump]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <attrib name="resourceFolder" type="ResourceElementCategory" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="resourceFolder"/>
+  <attrib name="resourceFolderName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="dbFilename" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="dbFilename">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroNodeIP" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroNodeIP">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroUsername" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroUsername">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroPassword" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroPassword"/>
+  <attrib name="savedPathFS" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathFS">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="savedPathContainer" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathContainer">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="scpTimeout" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="scpTimeout"/>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.0" x="620.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="task">
+    <runtime><![CDATA[environment:d5f3e6a0-7c59-4fa0-9053-aa71f7b8e8ad]]></runtime>
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[#!/usr/bin/env python3
+import datetime
+import logging
+import sqlite3
+from sqlite3 import Error
+import onboardingUtilsvRO
+
+logger = logging.getLogger()
+
+# set log level
+#logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+
+# define file handler and set formatter
+file_handler = logging.FileHandler('/tmp/vra-onboarding-dumpMetadata.log')
+formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+file_handler.setFormatter(formatter)
+
+# add file handler to logger
+logger.addHandler(file_handler)
+
+def create_connection(db_file):
+    """ create a database connection to a SQLite database """
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+        return conn
+    except Error as e:
+        print(e)
+
+    return conn
+
+def handler(context, inputs):
+
+    database = inputs["dbFilename"]
+    vroNodeIP = inputs["vroNodeIP"]
+    vroUsername = inputs["vroUsername"]
+    vroPassword = inputs["vroPassword"]
+    resourceFolderName = inputs["resourceFolderName"]
+    savedPathFS = inputs["savedPathFS"]
+    savedPathContainer = inputs["savedPathContainer"]
+    scpTimeout = int(inputs["scpTimeout"])
+
+
+    csvFile = 'metadata_dump.csv'
+    sourcePath = '%s/%s' % (savedPathFS, database)
+    destPath = '%s/%s' % (savedPathContainer,database)
+    database = destPath
+    csvPath = '%s/%s' % (savedPathContainer, csvFile)
+        
+    onboardingUtilsvRO.vROGetDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, destPath, scpTimeout=scpTimeout)
+    
+    now = datetime.datetime.now()
+    dt_string = now.strftime("%d-%b-%Y-T%H%M%S")
+    
+    print("Current date & time: %s" % (dt_string))
+    logger.debug("Current date & time: %s" % (dt_string))
+
+    csvTmp = "/%s/%s" % (savedPathContainer, csvFile)
+    csv = csvTmp.replace('.csv', "_%s.csv" % dt_string)
+        
+    conn = create_connection(database)
+
+    onboardingUtilsvRO.outputData(csv, conn)
+    conn.close()
+
+    destPath = '/%s/%s' % (savedPathFS, database) 
+    sourcePath = '%s/%s' % (savedPathContainer, database)
+
+
+    vcoUrl = context['vcoUrl']
+    tokenvro = context['getToken']()
+    
+    onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, csv, resourceFolderName)
+    result = onboardingUtilsvRO.updatevROResourceElementType(vcoUrl, tokenvro, csv.split('/')[-1])
+
+    print('Data dump completed')
+]]></script>
+    <in-binding>
+      <bind name="dbFilename" type="string" export-name="dbFilename"/>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+      <bind name="savedPathContainer" type="string" export-name="savedPathContainer"/>
+      <bind name="vroNodeIP" type="string" export-name="vroNodeIP"/>
+      <bind name="vroPassword" type="SecureString" export-name="vroPassword"/>
+      <bind name="vroUsername" type="string" export-name="vroUsername"/>
+      <bind name="savedPathFS" type="string" export-name="savedPathFS"/>
+      <bind name="scpTimeout" type="number" export-name="scpTimeout"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="400.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item1" type="task">
+    <display-name><![CDATA[Get Resource Folder Name]]></display-name>
+    <script encoded="false"><![CDATA[if (!resourceFolder){
+    System.error('No Resource Folder Specified, Set resource folder by running configureBulkOnboardingUtility Workflow.');
+    throw Error('No Resource Folder Specified, Set resource folder by running configureBulkOnboardingUtility Workflow.');
+}
+var resourceFolderName = resourceFolder.name;
+
+System.log('Resource Elements folder name: ' + resourceFolderName);]]></script>
+    <in-binding>
+      <bind name="resourceFolder" type="ResourceElementCategory" export-name="resourceFolder"/>
+    </in-binding>
+    <out-binding>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="200.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

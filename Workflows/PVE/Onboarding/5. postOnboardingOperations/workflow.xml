@@ -1,0 +1,1320 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item6" object-name="workflow:name=generic" id="b7cf3649-cb58-49a1-b50e-7cf5ca257ff8" version="0.1.4" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[5. postOnboardingOperations]]></display-name>
+  <position y="56.19047619047619" x="37.14285714285714"/>
+  <input>
+    <param name="configureLeases" type="boolean"/>
+    <param name="projectsIn" type="string"/>
+    <param name="addHistory" type="boolean"/>
+    <param name="addIcon" type="boolean"/>
+    <param name="leaveMetadata" type="boolean"/>
+    <param name="metadataFilename" type="string"/>
+  </input>
+  <attrib name="logFileName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[vra-onboarding-postOnboardingOperations.log]]></value>
+  </attrib>
+  <attrib name="dbFilename" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="dbFilename">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroNodeIP" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroNodeIP">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroUsername" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroUsername">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vroPassword" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vroPassword"/>
+  <attrib name="authtype" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="authtype">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="hostfqdn" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8host">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vra8Username" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8Username">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vra8Password" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="vra8Password"/>
+  <attrib name="cspfqdn" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="cspfqdn">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="refreshToken" type="SecureString" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="refreshToken"/>
+  <attrib name="savedPathFS" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathFS">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="savedPathContainer" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="savedPathContainer">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="projects" type="string" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="projects">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="threadCount" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="threadCount"/>
+  <attrib name="resourceFolder" type="ResourceElementCategory" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="resourceFolder"/>
+  <attrib name="resourceFolderName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="configurationElement" type="ConfigurationElement" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/ConfigurationElement?id='c390fb19-670c-4304-a7da-5f338a848c11'&dunesName='ConfigurationElement']]></value>
+  </attrib>
+  <attrib name="err_0" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="err_1" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="err_2" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="scpTimeout" type="number" read-only="false" conf-id="c390fb19-670c-4304-a7da-5f338a848c11" conf-key="scpTimeout"/>
+  <attrib name="err_3" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="err_4" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="metaDataStr" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <workflow-item name="item1" out-name="item5" catch-name="item8" throw-bind-name="err_0" type="task">
+    <runtime><![CDATA[environment:d5f3e6a0-7c59-4fa0-9053-aa71f7b8e8ad]]></runtime>
+    <display-name><![CDATA[Configure Leases]]></display-name>
+    <script encoded="false"><![CDATA[import onboardingUtils
+import logging
+import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import onboardingUtilsvRO
+import time
+
+logger = logging.getLogger()
+
+# set log level
+#logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+
+# define file handler and set formatter
+file_handler = logging.FileHandler('/tmp/vra-onboarding-postOnboardingOperations.log')
+formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+file_handler.setFormatter(formatter)
+
+# add file handler to logger
+logger.addHandler(file_handler)
+
+begin_time = datetime.datetime.now()
+
+def processDeployment(hostfqdn, token, thisItem, vra8Conn):
+    leaseSet = False
+    if thisItem['leaseEnd']:
+        #add check to see it is 48 hours in the future
+        print('Changing Lease on %s to %s.' % (thisItem['deploymentName'], thisItem['leaseEnd']))
+        thisDep = None
+        attempts = 0
+        while not thisDep and attempts <=3:
+            thisDep = onboardingUtils.getDeploymentByName(hostfqdn, token,thisItem['deploymentName'], thisItem['projectId'])
+            attempts = attempts + 1
+            
+            if thisDep:
+                deploymentId = thisDep['id']
+                print ('Deployment ID: %s' % deploymentId)
+                break
+            else:
+                time.sleep(300)
+        
+        if not thisDep:
+            return thisItem['deploymentName'], None
+
+        actionAvaliable = False
+        actionCounter = 0
+        while not actionAvaliable and actionCounter <= 5:
+            actionList = onboardingUtils.getDeploymentActions(hostfqdn, token, deploymentId)
+            actionCounter = actionCounter + 1
+            #print(actionList)
+            for action in actionList:
+                if action['id'] == 'Deployment.ChangeLease':
+                    if action['valid']:
+                        actionAvaliable = True
+                        print('Action is valid.')
+                    break
+            if not actionAvaliable:
+                time.sleep(45)
+                    
+        if actionAvaliable:
+
+            minLease = datetime.datetime.now() + datetime.timedelta(hours=48)
+            hours_from_now = datetime.datetime.now() + datetime.timedelta(hours=48)
+            leaseDate = datetime.datetime.fromisoformat(thisItem['leaseEnd'][:-1])
+            if leaseDate < minLease:
+                print('2022-07-14T13:46:49.550994'[:23], 'Z')
+                inputPayload = {'Lease Expiration Date': '%sZ' % minLease.isoformat()[:23]}
+            else:
+                inputPayload = {'Lease Expiration Date': thisItem['leaseEnd']}
+                
+            response = onboardingUtils.runDeploymentAction(hostfqdn, token, deploymentId, 'Deployment.ChangeLease', inputPayload)
+            print('Response: %s' % response)
+
+            if response:
+                requestFinished = False
+                timeout = datetime.datetime.now() + datetime.timedelta(minutes=10)
+                #need to include a timeout 
+                while not requestFinished or timeout > datetime.datetime.now():
+                    requestStatus = onboardingUtils.getDeploymentActionStatus(hostfqdn, token, response['id'])
+                    time.sleep(30)
+                    if requestStatus['status'] == 'SUCCESSFUL':
+                        leaseSet = True
+                        requestFinished  = True
+                        print('Request completed with status %s' % (requestStatus['status']))
+                        break
+                    elif requestStatus['status'] in ['APPROVAL_REJECTED', 'ABORTED', 'FAILED']:
+                        requestFinished  = True
+                        print('Request completed with status %s' % (requestStatus['status']))
+                        break
+                        
+
+        else:
+            print('Unable to request lease change, action not available')
+
+
+    return thisItem['deploymentName'], leaseSet
+
+def handler(context, inputs):
+
+    try:
+        authtype = inputs["authtype"]
+        username = inputs["vra8Username"]
+        password = inputs["vra8Password"]
+        hostfqdn = inputs["hostfqdn"]
+        cspfqdn = inputs["cspfqdn"]
+        refreshToken = inputs["refreshToken"]
+        vroNodeIP = inputs["vroNodeIP"]
+        vroUsername = inputs["vroUsername"]
+        vroPassword  = inputs["vroPassword"]
+        savedPathFS = inputs["savedPathFS"]
+        savedPathContainer = inputs["savedPathContainer"]
+        threadCount = inputs["threadCount"]
+        projects = inputs["projects"]
+        resourceFolderName = inputs["resourceFolderName"]
+        scpTimeout = int(inputs["scpTimeout"])
+
+        print('Target environment is ' + authtype)
+        logger.info('Target environment is ' + authtype)
+
+        vra8Conn = {
+            'hostfqdn': hostfqdn,
+            'username': username,
+            'password': password,
+            'cspfqdn': cspfqdn,
+            'refreshToken': refreshToken
+        }
+
+        database = inputs["dbFilename"]
+        hostname = vra8Conn['hostfqdn']
+
+        print('Target hostname is ' + hostname)
+        logger.info('Target hostname is ' + hostname)
+
+        if authtype == 'onprem':
+            vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], vra8Conn['username'], vra8Conn['password'], 'vra8')
+        else:
+            if not vra8Conn.get('refreshToken', None):
+                print('No refresh token configured in ini file')
+                logger.error('No refresh token configured in ini file')
+                raise ValueError('RefreshToken Not Provided')
+            else:
+                vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], None, vra8Conn['refreshToken'], 'vracloud')
+
+                vra8Conn['cspToken'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['cspfqdn'], None, vra8Conn['refreshToken'], 'vracloudcsp')
+                logger.debug('CSP Token: %s' % vra8Conn['cspToken'])
+
+        logger.debug(vra8Conn['token'])
+        print('Target hostname is ' + vra8Conn['hostfqdn'])
+        logger.info('Target hostname is ' + vra8Conn['hostfqdn'])
+
+        if authtype == 'onprem':
+            version = onboardingUtils.getVersionvRA(vra8Conn['hostfqdn'], 'ALL')
+            print('Target version is ' + version)
+            logger.info('Target version is ' + version)
+
+        if not vra8Conn['token']:
+            raise ValueError('Autherization Token not obtained')
+            exit(1)
+        
+        sourcePath = '%s/%s' % (savedPathFS, database)
+        destPath = '%s/%s' % (savedPathContainer,database)
+        database = destPath
+        
+        onboardingUtilsvRO.vROGetDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, destPath, scpTimeout=scpTimeout)
+
+        allProjects = projects.split(',')
+
+        for thisProject in projects.split(','):
+            thisProject = thisProject.strip()
+            print('--------------------- Processing Project %s ----------------' % thisProject)
+            logger.info('--------------------- Processing Project %s ----------------' % thisProject)
+            
+            allDeploymentLeaseData = onboardingUtils.getAllDeploymentLeaseData(database, thisProject)
+            
+            print('Deployment Count: %s' % len(allDeploymentLeaseData))
+            logger.info('Deployment Count: %s' % len(allDeploymentLeaseData))
+            threads = []
+            with ThreadPoolExecutor(max_workers=threadCount) as executor:
+                for thisItem in allDeploymentLeaseData:
+                    threads.append(executor.submit(processDeployment, vra8Conn['hostfqdn'], vra8Conn['token'], thisItem, vra8Conn))
+
+                for task in as_completed(threads):
+                    leaseName, leaseSet = task.result()
+                    print('Leases configured on deployment: %s with result: %s' % (leaseName, leaseSet))
+
+    #   record failures for reporting           
+
+    finally:    
+        vcoUrl = context['vcoUrl']
+        tokenvro = context['getToken']()
+
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, '/tmp/vra-onboarding-postOnboardingOperations.log', resourceFolderName)
+        
+        print('Run Time: ')
+        print(datetime.datetime.now() - begin_time)
+        logger.info('Run Time: %s' % (datetime.datetime.now() - begin_time))]]></script>
+    <in-binding>
+      <bind name="authtype" type="string" export-name="authtype"/>
+      <bind name="cspfqdn" type="string" export-name="cspfqdn"/>
+      <bind name="dbFilename" type="string" export-name="dbFilename"/>
+      <bind name="hostfqdn" type="string" export-name="hostfqdn"/>
+      <bind name="projects" type="string" export-name="projects"/>
+      <bind name="refreshToken" type="SecureString" export-name="refreshToken"/>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+      <bind name="vroUsername" type="string" export-name="vroUsername"/>
+      <bind name="vroPassword" type="SecureString" export-name="vroPassword"/>
+      <bind name="vroNodeIP" type="string" export-name="vroNodeIP"/>
+      <bind name="vra8Username" type="string" export-name="vra8Username"/>
+      <bind name="vra8Password" type="SecureString" export-name="vra8Password"/>
+      <bind name="threadCount" type="number" export-name="threadCount"/>
+      <bind name="savedPathFS" type="string" export-name="savedPathFS"/>
+      <bind name="savedPathContainer" type="string" export-name="savedPathContainer"/>
+      <bind name="scpTimeout" type="number" export-name="scpTimeout"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="141.26050420168067" x="393.78151260504205"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item4" type="task">
+    <display-name><![CDATA[Check Log File]]></display-name>
+    <script encoded="false"><![CDATA[var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    System.log('Deleting old log file ' + logFileName);
+    Server.removeResourceElement(resourceElemet);
+}else{
+    System.log('No Old Log file found for ' + logFileName);
+}
+
+resourceFolderName = resourceFolder.name;]]></script>
+    <in-binding>
+      <bind name="resourceFolder" type="ResourceElementCategory" export-name="resourceFolder"/>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="66.19047619047619" x="244.76190476190476"/>
+  </workflow-item>
+  <workflow-item name="item4" out-name="item1" type="condition" alt-out-name="item5" comparator="0">
+    <display-name><![CDATA[Decision]]></display-name>
+    <script encoded="false"><![CDATA[// Generated by the system, cannot be edited
+return (configureLeases === true);]]></script>
+    <in-binding>
+      <bind name="configureLeases" type="boolean" export-name="configureLeases"/>
+    </in-binding>
+    <out-binding/>
+    <condition name="configureLeases" type="boolean" comparator="0" label="null"/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="56.19047619047619" x="397.1428571428571"/>
+  </workflow-item>
+  <workflow-item name="item5" out-name="item10" type="task">
+    <display-name><![CDATA[Log Progress]]></display-name>
+    <script encoded="false"><![CDATA[if (configureLeases){
+    System.log('Leases Configured')
+}else{
+    System.log('Skipping Lease Configuration')
+}]]></script>
+    <in-binding>
+      <bind name="configureLeases" type="boolean" export-name="configureLeases"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="66.19047619047619" x="530.4761904761905"/>
+  </workflow-item>
+  <workflow-item name="item6" out-name="item2" type="task">
+    <display-name><![CDATA[Update Config]]></display-name>
+    <script encoded="false"><![CDATA[configurationElement.setAttributeWithKey('projects', projectsIn, 'String');
+
+var projects = projectsIn;]]></script>
+    <in-binding>
+      <bind name="configurationElement" type="ConfigurationElement" export-name="configurationElement"/>
+      <bind name="projectsIn" type="string" export-name="projectsIn"/>
+    </in-binding>
+    <out-binding>
+      <bind name="projects" type="string" export-name="projects"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="66.19047619047619" x="130.47619047619048"/>
+  </workflow-item>
+  <workflow-item name="item7" throw-bind-name="err_0" type="end" end-mode="1">
+    <in-binding/>
+    <position y="284.76190476190476" x="437.1428571428571"/>
+  </workflow-item>
+  <workflow-item name="item8" out-name="item7" catch-name="item7" throw-bind-name="err_2" type="task">
+    <display-name><![CDATA[Update Resource Logs]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+    System.log('Check for split log file.');
+    var partNumber = 0;
+    var found = true;
+    while (found){
+        thisPart = '_part' + partNumber + '.log' 
+        partFileName = logFileName.replace('.log', thisPart)
+        var partResourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ partFileName +"'");
+        partNumber = partNumber + 1
+        if (partResourceElements[0]){
+            var partResourceElemet =  partResourceElements[0];
+            var mimeAttachment = partResourceElements[0].getContentAsMimeAttachment();
+            System.log('Updating Log File type for file ' + partFileName);
+            mimeAttachment.mimeType = "text/plain";
+            partResourceElemet.setContentFromMimeAttachment(mimeAttachment);
+        }
+        else{
+            System.log('No Log file found for ' + partFileName);
+            found = false;
+        }
+
+    }
+}]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="218.57142857142856" x="397.1428571428571"/>
+  </workflow-item>
+  <workflow-item name="item10" out-name="item12" type="condition" alt-out-name="item11" comparator="0">
+    <display-name><![CDATA[Decision]]></display-name>
+    <script encoded="false"><![CDATA[// Generated by the system, cannot be edited
+return (addHistory === true);]]></script>
+    <in-binding>
+      <bind name="addHistory" type="boolean" export-name="addHistory"/>
+    </in-binding>
+    <out-binding/>
+    <condition name="addHistory" type="boolean" comparator="0" label="null"/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="56.19047619047619" x="663.8095238095237"/>
+  </workflow-item>
+  <workflow-item name="item11" out-name="item16" type="task">
+    <display-name><![CDATA[Log Progress]]></display-name>
+    <script encoded="false"><![CDATA[if (addHistory){
+    System.log('History Added to Deploymentsd')
+}else{
+    System.log('Skipping Adding History')
+}]]></script>
+    <in-binding>
+      <bind name="addHistory" type="boolean" export-name="addHistory"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="65.63025210084034" x="797.1428571428572"/>
+  </workflow-item>
+  <workflow-item name="item12" out-name="item11" catch-name="item13" throw-bind-name="err_1" type="task">
+    <runtime><![CDATA[environment:d5f3e6a0-7c59-4fa0-9053-aa71f7b8e8ad]]></runtime>
+    <display-name><![CDATA[Add history]]></display-name>
+    <script encoded="false"><![CDATA[import onboardingUtils
+import logging
+import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import onboardingUtilsvRO
+import onboardingUtilsHistory
+import time
+import json
+
+logger = logging.getLogger()
+
+# set log level
+#logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+
+# define file handler and set formatter
+file_handler = logging.FileHandler('/tmp/vra-onboarding-postOnboardingOperations.log')
+formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+file_handler.setFormatter(formatter)
+
+# add file handler to logger
+logger.addHandler(file_handler)
+
+begin_time = datetime.datetime.now()
+
+def processDeployment(hostfqdn, token, thisItem, vra8Conn):
+
+    if len(thisItem) == 0:
+        return thisItem['deploymentName'], None
+
+    if thisItem[0]['deploymentId']:
+        #add check to see it is 48 hours in the future
+        print('Adding historical requests to deployment %s.' % (thisItem[0]['deploymentName']))
+        logger.debug('Adding historical requests to deployment %s.' % (thisItem[0]['deploymentName']))
+        thisDep = None
+        attempts = 0
+        while not thisDep and attempts <=3:
+            thisDep = onboardingUtils.getDeploymentByName(hostfqdn, token,thisItem[0]['deploymentName'], thisItem[0]['projectId'])
+            attempts = attempts + 1
+            
+            if thisDep['lastRequest'].get('actionId', '').startswith('Deployment.custom.bou'):
+                print('History Already populated on deployment %s' % thisItem[0]['deploymentName'])
+                logger.warning('History Already populated on deployment %s' % thisItem[0]['deploymentName'])
+                return thisItem[0]['deploymentName'], False
+
+            if thisDep:
+                deploymentId = thisDep['id']
+                print ('Deployment ID: %s' % deploymentId)
+                break
+            else:
+                time.sleep(30)
+        
+        if not thisDep:
+            return thisItem[0]['deploymentName'], None
+
+        historyUpdated = False
+        for entry in thisItem:
+
+            thisActionName = entry['resourceActionName'].replace(' ', '').lower()
+            thisActionId = 'Deployment.custom.bou-%s' % thisActionName
+
+            actionAvaliable = False
+            actionCounter = 0
+
+            while not actionAvaliable and actionCounter <= 5:
+                actionList = onboardingUtils.getDeploymentActions(hostfqdn, token, deploymentId)
+                actionCounter = actionCounter + 1
+                print(actionList)
+                for action in actionList:
+                    if action['id'] == thisActionId:
+                        if action['valid']:
+                            actionAvaliable = True
+                            print('Action is valid.')
+                        break
+                if not actionAvaliable:
+                    time.sleep(15)
+                    
+            
+            if actionAvaliable:
+
+                availableInputs = {"requestCompletionState":"State", "description":"Description","reasons":"Reason", "requestedBy":"Requestor", 
+                                   "businessGroup":"Project", "dateCreated":"DateRequested", "dateApproved":"DateApproved", 
+                                   "completionDetails":"CompletionDetails", "resourceName":"Resource", "resourceActionName":"Action"}
+
+                inputPayload = {}
+                for thisInput in availableInputs.keys():
+                    if entry[thisInput]:
+                        print(thisInput)
+                        print(entry[thisInput])
+                        inputPayload[availableInputs[thisInput]] = entry[thisInput]
+
+                reqInputObj = json.loads(entry['requestData'])
+                
+                inputCounter = 1
+                padding = ['00','0','']
+
+                if reqInputObj.get('entries',None):
+                    for reqInput in reqInputObj.get('entries',[]):
+                        print(reqInput)
+
+                        paddingKey = len(str(inputCounter))
+                        inputKey = "input%s%s" % (padding[paddingKey],inputCounter)
+                        thisVal = None 
+                        if reqInput.get("value", None ):
+                            thisVal =reqInput["value"].get("value", None )
+
+                        inputValue = "%s:%s" % (reqInput["key"], str(thisVal))
+                        inputPayload[inputKey] = inputValue
+                        inputCounter = inputCounter + 1
+                else:
+                    for reqInput in reqInputObj.keys():
+                        print(reqInput)
+
+                        paddingKey = len(str(inputCounter))
+                        inputKey = "input%s%s" % (padding[paddingKey],inputCounter)
+                        thisVal = None 
+                        if reqInputObj.get(reqInput, None ):
+                            thisVal =reqInputObj[reqInput]
+
+                        inputValue = "%s:%s" % (reqInput, str(thisVal))
+                        inputPayload[inputKey] = inputValue
+                        inputCounter = inputCounter + 1
+
+    
+                response = onboardingUtils.runDeploymentAction(hostfqdn, token, deploymentId, thisActionId, inputPayload)
+                print('Response: %s' % response)
+
+                if response:
+                    requestFinished = False
+                    timeout = datetime.datetime.now() + datetime.timedelta(minutes=10)
+                    #need to include a timeout 
+                    while not requestFinished or timeout > datetime.datetime.now():
+                        requestStatus = onboardingUtils.getDeploymentActionStatus(hostfqdn, token, response['id'])
+                        time.sleep(30)
+                        if requestStatus['status'] == 'SUCCESSFUL':
+                            historyUpdated = True
+                            requestFinished  = True
+                            print('Request completed with status %s' % (requestStatus['status']))
+                            break
+                        elif requestStatus['status'] in ['APPROVAL_REJECTED', 'ABORTED', 'FAILED']:
+                            requestFinished  = True
+                            historyUpdated = False
+                            print('Request completed with status %s' % (requestStatus['status']))
+                            break
+            else:
+                print('Unable to add history, action not available')
+
+    return thisItem[0]['deploymentName'], historyUpdated
+
+def handler(context, inputs):
+
+    try:
+        authtype = inputs["authtype"]
+        username = inputs["vra8Username"]
+        password = inputs["vra8Password"]
+        hostfqdn = inputs["hostfqdn"]
+        cspfqdn = inputs["cspfqdn"]
+        refreshToken = inputs["refreshToken"]
+        vroNodeIP = inputs["vroNodeIP"]
+        vroUsername = inputs["vroUsername"]
+        vroPassword  = inputs["vroPassword"]
+        savedPathFS = inputs["savedPathFS"]
+        savedPathContainer = inputs["savedPathContainer"]
+        threadCount = inputs["threadCount"]
+        projects = inputs["projects"]
+        resourceFolderName = inputs["resourceFolderName"]
+        scpTimeout = int(inputs["scpTimeout"])
+
+        print('Target environment is ' + authtype)
+        logger.info('Target environment is ' + authtype)
+
+        vra8Conn = {
+            'hostfqdn': hostfqdn,
+            'username': username,
+            'password': password,
+            'cspfqdn': cspfqdn,
+            'refreshToken': refreshToken
+        }
+
+        database = inputs["dbFilename"]
+        hostname = vra8Conn['hostfqdn']
+
+        print('Target hostname is ' + hostname)
+        logger.info('Target hostname is ' + hostname)
+
+        if authtype == 'onprem':
+            vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], vra8Conn['username'], vra8Conn['password'], 'vra8')
+        else:
+            if not vra8Conn.get('refreshToken', None):
+                print('No refresh token configured in ini file')
+                logger.error('No refresh token configured in ini file')
+                raise ValueError('RefreshToken Not Provided')
+            else:
+                vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], None, vra8Conn['refreshToken'], 'vracloud')
+
+                vra8Conn['cspToken'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['cspfqdn'], None, vra8Conn['refreshToken'], 'vracloudcsp')
+                logger.debug('CSP Token: %s' % vra8Conn['cspToken'])
+
+        logger.debug(vra8Conn['token'])
+        print('Target hostname is ' + vra8Conn['hostfqdn'])
+        logger.info('Target hostname is ' + vra8Conn['hostfqdn'])
+
+        if authtype == 'onprem':
+            version = onboardingUtils.getVersionvRA(vra8Conn['hostfqdn'], 'ALL')
+            print('Target version is ' + version)
+            logger.info('Target version is ' + version)
+
+        if not vra8Conn['token']:
+            raise ValueError('Autherization Token not obtained')
+            exit(1)
+        
+        sourcePath = '%s/%s' % (savedPathFS, database)
+        destPath = '%s/%s' % (savedPathContainer,database)
+        database = destPath
+
+        onboardingUtilsvRO.vROGetDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, destPath, scpTimeout=scpTimeout)
+
+        allIntegrations = onboardingUtils.getAllIntegrations(vra8Conn['hostfqdn'], vra8Conn['token'])
+
+        vroId = None
+        endpointLink = None
+        for integration in allIntegrations:
+            if integration['name'] == 'embedded-VRO':
+                vroId = integration['id']
+                break
+        
+        if vroId:    
+            endpointLink = '/resources/endpoints/%s' % vroId
+
+        allActions = onboardingUtilsHistory.getHistoryActionName(database)
+
+        if endpointLink:
+            onboardingUtilsHistory.addCustomResourceActions(vra8Conn['hostfqdn'], vra8Conn['token'], allActions, endpointLink)
+        else:
+            raise ValueError('Unable to get vRO Endpoint Link ID, unable to create custom resource actions.')
+            exit(1)
+
+        allProjects = projects.split(',')
+
+        for thisProject in projects.split(','):
+            thisProject = thisProject.strip()
+            print('--------------------- Processing Project %s ----------------' % thisProject)
+            logger.info('--------------------- Processing Project %s ----------------' % thisProject)
+            
+            allDeploymentHistoryData = onboardingUtilsHistory.getAllDeploymentHistoryData(database, thisProject)
+            
+            print('Historical Request Count: %s' % len(allDeploymentHistoryData))
+            logger.info('Historical Request Count: %s' % len(allDeploymentHistoryData))
+         
+            allDeploymentsData = {}
+            for thisItem in allDeploymentHistoryData:
+                if allDeploymentsData.get(thisItem['deploymentId'], None):
+                    allDeploymentsData[thisItem['deploymentId']].append(thisItem)
+                else:
+                    allDeploymentsData[thisItem['deploymentId']] = [thisItem]
+
+            threads = []
+            with ThreadPoolExecutor(max_workers=threadCount) as executor:
+                for thisDepId in allDeploymentsData.keys():
+                    print(thisDepId)
+                    threads.append(executor.submit(processDeployment, vra8Conn['hostfqdn'], vra8Conn['token'], allDeploymentsData[thisDepId], vra8Conn))
+
+                for task in as_completed(threads):
+                    depName, historySet = task.result()
+                    print('History configured on deployment: %s with result: %s' % (depName, historySet))
+
+    #   record failures for reporting           
+
+    finally:    
+        vcoUrl = context['vcoUrl']
+        tokenvro = context['getToken']()
+
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, '/tmp/vra-onboarding-postOnboardingOperations.log', resourceFolderName)
+        
+        print('Run Time: ')
+        print(datetime.datetime.now() - begin_time)
+        logger.info('Run Time: %s' % (datetime.datetime.now() - begin_time))
+]]></script>
+    <in-binding>
+      <bind name="authtype" type="string" export-name="authtype"/>
+      <bind name="cspfqdn" type="string" export-name="cspfqdn"/>
+      <bind name="dbFilename" type="string" export-name="dbFilename"/>
+      <bind name="vroUsername" type="string" export-name="vroUsername"/>
+      <bind name="vroPassword" type="SecureString" export-name="vroPassword"/>
+      <bind name="vroNodeIP" type="string" export-name="vroNodeIP"/>
+      <bind name="vra8Username" type="string" export-name="vra8Username"/>
+      <bind name="vra8Password" type="SecureString" export-name="vra8Password"/>
+      <bind name="threadCount" type="number" export-name="threadCount"/>
+      <bind name="savedPathFS" type="string" export-name="savedPathFS"/>
+      <bind name="savedPathContainer" type="string" export-name="savedPathContainer"/>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+      <bind name="refreshToken" type="SecureString" export-name="refreshToken"/>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+      <bind name="hostfqdn" type="string" export-name="hostfqdn"/>
+      <bind name="projects" type="string" export-name="projects"/>
+      <bind name="scpTimeout" type="number" export-name="scpTimeout"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="140.0" x="660.0"/>
+  </workflow-item>
+  <workflow-item name="item13" out-name="item14" catch-name="item14" throw-bind-name="err_2" type="task">
+    <display-name><![CDATA[Update Resource Logs]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+    System.log('Check for split log file.');
+    var partNumber = 0;
+    var found = true;
+    while (found){
+        thisPart = '_part' + partNumber + '.log' 
+        partFileName = logFileName.replace('.log', thisPart)
+        var partResourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ partFileName +"'");
+        partNumber = partNumber + 1
+        if (partResourceElements[0]){
+            var partResourceElemet =  partResourceElements[0];
+            var mimeAttachment = partResourceElements[0].getContentAsMimeAttachment();
+            System.log('Updating Log File type for file ' + partFileName);
+            mimeAttachment.mimeType = "text/plain";
+            partResourceElemet.setContentFromMimeAttachment(mimeAttachment);
+        }
+        else{
+            System.log('No Log file found for ' + partFileName);
+            found = false;
+        }
+
+    }
+}]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="218.57142857142856" x="663.8095238095237"/>
+  </workflow-item>
+  <workflow-item name="item14" throw-bind-name="err_1" type="end" end-mode="1">
+    <in-binding/>
+    <position y="290.0" x="700.0"/>
+  </workflow-item>
+  <workflow-item name="item16" out-name="item18" type="condition" alt-out-name="item17" comparator="0">
+    <display-name><![CDATA[Decision]]></display-name>
+    <script encoded="false"><![CDATA[// Generated by the system, cannot be edited
+return (addIcon === true);]]></script>
+    <in-binding>
+      <bind name="addIcon" type="boolean" export-name="addIcon"/>
+    </in-binding>
+    <out-binding/>
+    <condition name="addIcon" type="boolean" comparator="0" label="null"/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="55.63025210084034" x="948.4033613445379"/>
+  </workflow-item>
+  <workflow-item name="item17" out-name="item22" type="task">
+    <display-name><![CDATA[Log Progress]]></display-name>
+    <script encoded="false"><![CDATA[if (addIcon){
+    System.log('Deployment Icons Updated')
+}else{
+    System.log('Skipping Updating Icons')
+}]]></script>
+    <in-binding>
+      <bind name="addIcon" type="boolean" export-name="addIcon"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="65.63025210084034" x="1082.857142857143"/>
+  </workflow-item>
+  <workflow-item name="item18" out-name="item17" catch-name="item19" throw-bind-name="err_3" type="task">
+    <runtime><![CDATA[environment:d5f3e6a0-7c59-4fa0-9053-aa71f7b8e8ad]]></runtime>
+    <display-name><![CDATA[Update Icons]]></display-name>
+    <script encoded="false"><![CDATA[import onboardingUtils
+import logging
+import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import onboardingUtilsvRO
+import onboardingUtilsHistory
+import time
+import json
+
+logger = logging.getLogger()
+
+# set log level
+#logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+
+# define file handler and set formatter
+file_handler = logging.FileHandler('/tmp/vra-onboarding-postOnboardingOperations.log')
+formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+file_handler.setFormatter(formatter)
+
+# add file handler to logger
+logger.addHandler(file_handler)
+
+begin_time = datetime.datetime.now()
+
+def processDeployment(hostfqdn, token, thisDepName, projectId, iconCache):
+
+    iconUpdated = False
+    print('Updating icon on deployment %s.' % (thisDepName))
+    logger.debug('Updating icon on deployment %s.' % (thisDepName))
+    thisDep = None
+    attempts = 0
+    while not thisDep and attempts <=3:
+        thisDep = onboardingUtils.getDeploymentByName(hostfqdn, token,thisDepName, projectId)
+        attempts = attempts + 1
+            
+        if thisDep:
+            deploymentId = thisDep['id']
+            print ('Deployment ID: %s' % deploymentId)
+            break
+        else:
+            time.sleep(30)
+        
+    if not thisDep:
+        return thisDepName, iconUpdated
+
+    thisIconId = iconCache.get(thisDep['blueprintId'], None)
+    
+    if not thisIconId:
+        return thisDepName, iconUpdated
+    
+    iconUpdated = onboardingUtils.updateDeploymentIcon(hostfqdn, token, deploymentId, thisIconId)
+
+    return thisDepName, iconUpdated
+
+def handler(context, inputs):
+
+    try:
+        authtype = inputs["authtype"]
+        username = inputs["vra8Username"]
+        password = inputs["vra8Password"]
+        hostfqdn = inputs["hostfqdn"]
+        cspfqdn = inputs["cspfqdn"]
+        refreshToken = inputs["refreshToken"]
+        vroNodeIP = inputs["vroNodeIP"]
+        vroUsername = inputs["vroUsername"]
+        vroPassword  = inputs["vroPassword"]
+        savedPathFS = inputs["savedPathFS"]
+        savedPathContainer = inputs["savedPathContainer"]
+        threadCount = inputs["threadCount"]
+        projects = inputs["projects"]
+        resourceFolderName = inputs["resourceFolderName"]
+        scpTimeout = int(inputs["scpTimeout"])
+
+        print('Target environment is ' + authtype)
+        logger.info('Target environment is ' + authtype)
+
+        vra8Conn = {
+            'hostfqdn': hostfqdn,
+            'username': username,
+            'password': password,
+            'cspfqdn': cspfqdn,
+            'refreshToken': refreshToken
+        }
+
+        database = inputs["dbFilename"]
+        hostname = vra8Conn['hostfqdn']
+
+        print('Target hostname is ' + hostname)
+        logger.info('Target hostname is ' + hostname)
+
+        if authtype == 'onprem':
+            vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], vra8Conn['username'], vra8Conn['password'], 'vra8')
+        else:
+            if not vra8Conn.get('refreshToken', None):
+                print('No refresh token configured in ini file')
+                logger.error('No refresh token configured in ini file')
+                raise ValueError('RefreshToken Not Provided')
+            else:
+                vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], None, vra8Conn['refreshToken'], 'vracloud')
+
+                vra8Conn['cspToken'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['cspfqdn'], None, vra8Conn['refreshToken'], 'vracloudcsp')
+                logger.debug('CSP Token: %s' % vra8Conn['cspToken'])
+
+        logger.debug(vra8Conn['token'])
+        print('Target hostname is ' + vra8Conn['hostfqdn'])
+        logger.info('Target hostname is ' + vra8Conn['hostfqdn'])
+
+        if authtype == 'onprem':
+            version = onboardingUtils.getVersionvRA(vra8Conn['hostfqdn'], 'ALL')
+            print('Target version is ' + version)
+            logger.info('Target version is ' + version)
+
+        if not vra8Conn['token']:
+            raise ValueError('Autherization Token not obtained')
+            exit(1)
+        
+        sourcePath = '%s/%s' % (savedPathFS, database)
+        destPath = '%s/%s' % (savedPathContainer,database)
+        database = destPath
+
+        onboardingUtilsvRO.vROGetDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, destPath, scpTimeout=scpTimeout)
+
+        for thisProject in projects.split(','):
+            thisProject = thisProject.strip()
+            print('--------------------- Processing Project %s ----------------' % thisProject)
+            logger.info('--------------------- Processing Project %s ----------------' % thisProject)
+            
+            iconCache = onboardingUtils.iconCacheBuilder(hostname, vra8Conn['token'], database)
+
+            logger.debug(iconCache)        
+
+            logger.info('Icon Cache Generated')
+            print('Icon Cache Generated') 
+
+            allDeploymentNames = onboardingUtils.getDeploymentDataForLookup(database, [thisProject])
+
+            threads = []
+            with ThreadPoolExecutor(max_workers=threadCount) as executor:
+                for thisProjectId in allDeploymentNames.keys():
+                    for thisDepName in allDeploymentNames[thisProjectId]:
+                        print(thisDepName)
+                        threads.append(executor.submit(processDeployment, vra8Conn['hostfqdn'], vra8Conn['token'], thisDepName, thisProjectId, iconCache))
+
+                for task in as_completed(threads):
+                    depName, iconSet = task.result()
+                    print('Icon configured on deployment: %s with result: %s' % (depName, iconSet))
+
+    #   record failures for reporting           
+
+    finally:    
+        vcoUrl = context['vcoUrl']
+        tokenvro = context['getToken']()
+
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, '/tmp/vra-onboarding-postOnboardingOperations.log', resourceFolderName)
+        
+        print('Run Time: ')
+        print(datetime.datetime.now() - begin_time)
+        logger.info('Run Time: %s' % (datetime.datetime.now() - begin_time))
+]]></script>
+    <in-binding>
+      <bind name="authtype" type="string" export-name="authtype"/>
+      <bind name="cspfqdn" type="string" export-name="cspfqdn"/>
+      <bind name="vroUsername" type="string" export-name="vroUsername"/>
+      <bind name="vroPassword" type="SecureString" export-name="vroPassword"/>
+      <bind name="vroNodeIP" type="string" export-name="vroNodeIP"/>
+      <bind name="vra8Username" type="string" export-name="vra8Username"/>
+      <bind name="vra8Password" type="SecureString" export-name="vra8Password"/>
+      <bind name="threadCount" type="number" export-name="threadCount"/>
+      <bind name="scpTimeout" type="number" export-name="scpTimeout"/>
+      <bind name="dbFilename" type="string" export-name="dbFilename"/>
+      <bind name="savedPathFS" type="string" export-name="savedPathFS"/>
+      <bind name="savedPathContainer" type="string" export-name="savedPathContainer"/>
+      <bind name="refreshToken" type="SecureString" export-name="refreshToken"/>
+      <bind name="hostfqdn" type="string" export-name="hostfqdn"/>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+      <bind name="projects" type="string" export-name="projects"/>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="141.26050420168067" x="948.4033613445379"/>
+  </workflow-item>
+  <workflow-item name="item19" out-name="item20" catch-name="item20" throw-bind-name="err_2" type="task">
+    <display-name><![CDATA[Update Resource Logs]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+    System.log('Check for split log file.');
+    var partNumber = 0;
+    var found = true;
+    while (found){
+        thisPart = '_part' + partNumber + '.log' 
+        partFileName = logFileName.replace('.log', thisPart)
+        var partResourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ partFileName +"'");
+        partNumber = partNumber + 1
+        if (partResourceElements[0]){
+            var partResourceElemet =  partResourceElements[0];
+            var mimeAttachment = partResourceElements[0].getContentAsMimeAttachment();
+            System.log('Updating Log File type for file ' + partFileName);
+            mimeAttachment.mimeType = "text/plain";
+            partResourceElemet.setContentFromMimeAttachment(mimeAttachment);
+        }
+        else{
+            System.log('No Log file found for ' + partFileName);
+            found = false;
+        }
+
+    }
+}]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="216.89075630252103" x="948.4033613445379"/>
+  </workflow-item>
+  <workflow-item name="item20" throw-bind-name="err_3" type="end" end-mode="1">
+    <in-binding/>
+    <position y="290.92436974789916" x="988.4033613445379"/>
+  </workflow-item>
+  <workflow-item name="item21" type="end" end-mode="0">
+    <in-binding/>
+    <position y="55.63025210084034" x="1677.4789915966387"/>
+  </workflow-item>
+  <workflow-item name="item22" out-name="item24" type="condition" alt-out-name="item23" comparator="0">
+    <display-name><![CDATA[Decision]]></display-name>
+    <script encoded="false"><![CDATA[// Generated by the system, cannot be edited
+return (leaveMetadata === true);]]></script>
+    <in-binding>
+      <bind name="leaveMetadata" type="boolean" export-name="leaveMetadata"/>
+    </in-binding>
+    <out-binding/>
+    <condition name="leaveMetadata" type="boolean" comparator="0" label="null"/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="55.63025210084034" x="1217.310924369748"/>
+  </workflow-item>
+  <workflow-item name="item23" out-name="item21" type="task">
+    <display-name><![CDATA[Log Progress]]></display-name>
+    <script encoded="false"><![CDATA[if (leaveMetadata){
+    System.log('Metadata File Generated')
+}else{
+    System.log('Skipping Metadata File Creation')
+}]]></script>
+    <in-binding>
+      <bind name="leaveMetadata" type="boolean" export-name="leaveMetadata"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="65.63025210084034" x="1385.3781512605042"/>
+  </workflow-item>
+  <workflow-item name="item24" out-name="item23" catch-name="item25" throw-bind-name="err_4" type="task">
+    <runtime><![CDATA[environment:d5f3e6a0-7c59-4fa0-9053-aa71f7b8e8ad]]></runtime>
+    <display-name><![CDATA[Generated Metadata File]]></display-name>
+    <script encoded="false"><![CDATA[import onboardingUtils
+import logging
+import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import onboardingUtilsvRO
+import onboardingUtilsHistory
+import time
+import json
+
+logger = logging.getLogger()
+
+# set log level
+#logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+
+# define file handler and set formatter
+file_handler = logging.FileHandler('/tmp/vra-onboarding-postOnboardingOperations.log')
+formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+file_handler.setFormatter(formatter)
+
+# add file handler to logger
+logger.addHandler(file_handler)
+
+begin_time = datetime.datetime.now()
+
+def processDeployment(hostfqdn, token, thisDepName, projectId):
+
+    deploymentFound = False
+    print('Looking Up deployment %s.' % (thisDepName))
+    logger.debug('Looking Up deployment %s.' % (thisDepName))
+    thisDep = None
+    deploymentId = None
+    attempts = 0
+    while not thisDep and attempts <=3:
+        thisDep = onboardingUtils.getDeploymentByName(hostfqdn, token,thisDepName, projectId)
+        attempts = attempts + 1
+            
+        if thisDep:
+            deploymentId = thisDep['id']
+            print ('Deployment ID: %s' % deploymentId)
+            break
+        else:
+            time.sleep(30)
+        
+    if not thisDep:
+        return thisDepName, None, projectId, deploymentFound
+
+    if not deploymentId:
+        return thisDepName, None, projectId, deploymentFound
+    else:
+        return thisDepName, deploymentId, projectId, True
+
+def handler(context, inputs):
+
+    try:
+        authtype = inputs["authtype"]
+        username = inputs["vra8Username"]
+        password = inputs["vra8Password"]
+        hostfqdn = inputs["hostfqdn"]
+        cspfqdn = inputs["cspfqdn"]
+        refreshToken = inputs["refreshToken"]
+        vroNodeIP = inputs["vroNodeIP"]
+        vroUsername = inputs["vroUsername"]
+        vroPassword  = inputs["vroPassword"]
+        savedPathFS = inputs["savedPathFS"]
+        savedPathContainer = inputs["savedPathContainer"]
+        threadCount = inputs["threadCount"]
+        projects = inputs["projects"]
+        resourceFolderName = inputs["resourceFolderName"]
+        scpTimeout = int(inputs["scpTimeout"])
+        metadataFilename = inputs["metadataFilename"]
+
+        print('Target environment is ' + authtype)
+        logger.info('Target environment is ' + authtype)
+
+        vra8Conn = {
+            'hostfqdn': hostfqdn,
+            'username': username,
+            'password': password,
+            'cspfqdn': cspfqdn,
+            'refreshToken': refreshToken
+        }
+
+        database = inputs["dbFilename"]
+        hostname = vra8Conn['hostfqdn']
+
+        print('Target hostname is ' + hostname)
+        logger.info('Target hostname is ' + hostname)
+
+        if authtype == 'onprem':
+            vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], vra8Conn['username'], vra8Conn['password'], 'vra8')
+        else:
+            if not vra8Conn.get('refreshToken', None):
+                print('No refresh token configured in ini file')
+                logger.error('No refresh token configured in ini file')
+                raise ValueError('RefreshToken Not Provided')
+            else:
+                vra8Conn['token'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['hostfqdn'], None, vra8Conn['refreshToken'], 'vracloud')
+
+                vra8Conn['cspToken'] = 'Bearer %s' % onboardingUtils.getToken(vra8Conn['cspfqdn'], None, vra8Conn['refreshToken'], 'vracloudcsp')
+                logger.debug('CSP Token: %s' % vra8Conn['cspToken'])
+
+        logger.debug(vra8Conn['token'])
+        print('Target hostname is ' + vra8Conn['hostfqdn'])
+        logger.info('Target hostname is ' + vra8Conn['hostfqdn'])
+
+        if authtype == 'onprem':
+            version = onboardingUtils.getVersionvRA(vra8Conn['hostfqdn'], 'ALL')
+            print('Target version is ' + version)
+            logger.info('Target version is ' + version)
+
+        if not vra8Conn['token']:
+            raise ValueError('Autherization Token not obtained')
+            exit(1)
+        
+        sourcePath = '%s/%s' % (savedPathFS, database)
+        destPath = '%s/%s' % (savedPathContainer,database)
+        database = destPath
+
+        onboardingUtilsvRO.vROGetDatabase(vroNodeIP, vroUsername, vroPassword, sourcePath, destPath, scpTimeout=scpTimeout)
+
+        cleanMetadataFilename = metadataFilename.split('.')
+        resourceName = "/tmp/%s_%s.json" % (cleanMetadataFilename[0], begin_time)
+        onboardedData = {}
+        projectList = []
+
+        for thisProject in projects.split(','):
+            projectList.append(thisProject.strip())
+
+        allDeploymentsData = onboardingUtils.getDeploymentDataForMetadatFile(database, projectList)
+        allProjectData = onboardingUtils.getProjectDataForMetadatFile(database, projectList)
+        metadataDumpContent = {}
+
+        for thisProject in allProjectData:
+            metadataDumpContent[allProjectData[thisProject]] = {
+                "machineIds": [],
+    		    "deploymentIds": []
+            }
+
+        print(metadataDumpContent)
+
+        threads = []
+        with ThreadPoolExecutor(max_workers=threadCount) as executor:
+            for thisProjectId in allDeploymentsData.keys():
+                for thisDepName in allDeploymentsData[thisProjectId].keys():
+                    print("Looking up deployment: %s" % thisDepName)
+                    threads.append(executor.submit(processDeployment, vra8Conn['hostfqdn'], vra8Conn['token'], thisDepName, thisProjectId))
+
+            for task in as_completed(threads):
+                depName, depId, projectId, deploymentFound = task.result()
+                if deploymentFound:
+                    metadataDumpContent[allProjectData[projectId]]['machineIds'].extend(allDeploymentsData[projectId][depName])
+                    metadataDumpContent[allProjectData[projectId]]['deploymentIds'].append(depId)
+                    
+                print('Found deployment for : %s with result: %s' % (depName, deploymentFound))
+
+        print(metadataDumpContent)
+        with open(resourceName, 'w') as outfile:
+            outfile.write(json.dumps(metadataDumpContent, indent=2, sort_keys=True))
+        
+        vcoUrl = context['vcoUrl']
+        tokenvro = context['getToken']()
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, resourceName, resourceFolderName)
+    #   record failures for reporting           
+
+    finally:    
+        vcoUrl = context['vcoUrl']
+        tokenvro = context['getToken']()
+
+        onboardingUtilsvRO.saveDataResourceElementvRO(vcoUrl, tokenvro, '/tmp/vra-onboarding-postOnboardingOperations.log', resourceFolderName)
+        
+        print('Run Time: ')
+        print(datetime.datetime.now() - begin_time)
+        logger.info('Run Time: %s' % (datetime.datetime.now() - begin_time))
+]]></script>
+    <in-binding>
+      <bind name="authtype" type="string" export-name="authtype"/>
+      <bind name="cspfqdn" type="string" export-name="cspfqdn"/>
+      <bind name="dbFilename" type="string" export-name="dbFilename"/>
+      <bind name="hostfqdn" type="string" export-name="hostfqdn"/>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+      <bind name="projects" type="string" export-name="projects"/>
+      <bind name="refreshToken" type="SecureString" export-name="refreshToken"/>
+      <bind name="resourceFolderName" type="string" export-name="resourceFolderName"/>
+      <bind name="savedPathContainer" type="string" export-name="savedPathContainer"/>
+      <bind name="savedPathFS" type="string" export-name="savedPathFS"/>
+      <bind name="scpTimeout" type="number" export-name="scpTimeout"/>
+      <bind name="threadCount" type="number" export-name="threadCount"/>
+      <bind name="vra8Password" type="SecureString" export-name="vra8Password"/>
+      <bind name="vra8Username" type="string" export-name="vra8Username"/>
+      <bind name="vroNodeIP" type="string" export-name="vroNodeIP"/>
+      <bind name="vroPassword" type="SecureString" export-name="vroPassword"/>
+      <bind name="vroUsername" type="string" export-name="vroUsername"/>
+      <bind name="metadataFilename" type="string" export-name="metadataFilename"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="150.0" x="1220.0"/>
+  </workflow-item>
+  <workflow-item name="item25" out-name="item26" catch-name="item26" throw-bind-name="err_2" type="task">
+    <display-name><![CDATA[Update Resource Logs]]></display-name>
+    <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ logFileName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Log File type for file ' + logFileName);
+    mimeAttachment.mimeType = "text/plain";
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+}else{
+    System.log('No Log file found for ' + logFileName);
+    System.log('Check for split log file.');
+    var partNumber = 0;
+    var found = true;
+    while (found){
+        thisPart = '_part' + partNumber + '.log' 
+        partFileName = logFileName.replace('.log', thisPart)
+        var partResourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ partFileName +"'");
+        partNumber = partNumber + 1
+        if (partResourceElements[0]){
+            var partResourceElemet =  partResourceElements[0];
+            var mimeAttachment = partResourceElements[0].getContentAsMimeAttachment();
+            System.log('Updating Log File type for file ' + partFileName);
+            mimeAttachment.mimeType = "text/plain";
+            partResourceElemet.setContentFromMimeAttachment(mimeAttachment);
+        }
+        else{
+            System.log('No Log file found for ' + partFileName);
+            found = false;
+        }
+
+    }
+}]]></script>
+    <in-binding>
+      <bind name="logFileName" type="string" export-name="logFileName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="216.89075630252103" x="1217.310924369748"/>
+  </workflow-item>
+  <workflow-item name="item26" throw-bind-name="err_4" type="end" end-mode="1">
+    <in-binding/>
+    <position y="290.92436974789916" x="1257.310924369748"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

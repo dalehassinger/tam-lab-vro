@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="df3dd813-31f4-4712-ba44-8a0ca6019d12" version="0.1.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[HistoryPlayer]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="State" type="string"/>
+    <param name="Description" type="string"/>
+    <param name="Reason" type="string"/>
+    <param name="Requestor" type="string"/>
+    <param name="Project" type="string"/>
+    <param name="DateRequested" type="string"/>
+    <param name="DateApproved" type="string"/>
+    <param name="CompletionDetails" type="string"/>
+    <param name="Resource" type="string"/>
+    <param name="Action" type="string"/>
+    <param name="input01" type="string"/>
+    <param name="input02" type="string"/>
+    <param name="input03" type="string"/>
+    <param name="input04" type="string"/>
+    <param name="input05" type="string"/>
+    <param name="input06" type="string"/>
+    <param name="input07" type="string"/>
+    <param name="input08" type="string"/>
+    <param name="input09" type="string"/>
+    <param name="input10" type="string"/>
+    <param name="input11" type="string"/>
+    <param name="input12" type="string"/>
+    <param name="input13" type="string"/>
+    <param name="input14" type="string"/>
+    <param name="input15" type="string"/>
+    <param name="input16" type="string"/>
+    <param name="input17" type="string"/>
+    <param name="input18" type="string"/>
+    <param name="input19" type="string"/>
+    <param name="input20" type="string"/>
+    <param name="input21" type="string"/>
+    <param name="input22" type="string"/>
+    <param name="input23" type="string"/>
+    <param name="input24" type="string"/>
+    <param name="input25" type="string"/>
+    <param name="input26" type="string"/>
+    <param name="input27" type="string"/>
+    <param name="input28" type="string"/>
+    <param name="input29" type="string"/>
+    <param name="input30" type="string"/>
+  </input>
+  <output>
+    <param name="Result" type="string"/>
+  </output>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.0" x="360.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[
+if (State != 'SUCCESSFUL'){
+    throw Error ( Action + ' failed to complete successfully. End State: ' + State);
+}
+else{
+    if (CompletionDetails){
+        result = CompletionDetails;
+    }else{
+        result = Action + ' completed ' + State + ' on resource: ' + Resource;
+    }
+}]]></script>
+    <in-binding>
+      <bind name="Action" type="string" export-name="Action"/>
+      <bind name="State" type="string" export-name="State"/>
+      <bind name="CompletionDetails" type="string" export-name="CompletionDetails"/>
+      <bind name="Resource" type="string" export-name="Resource"/>
+    </in-binding>
+    <out-binding>
+      <bind name="result" type="string" export-name="Result"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="200.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

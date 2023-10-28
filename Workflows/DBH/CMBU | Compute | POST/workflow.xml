@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item0" object-name="Workflow:name=generic" id="cf797416-db9b-4d35-937d-d27da931bb06" editor-version="2.0" version="4.0.3" api-version="6.0.0" allowed-operations="vfe" restartMode="1" resumeFromFailedMode="0">
+    <display-name>CMBU | Compute | POST</display-name>
+    <description>Run a PS Script with arguments on a PS host.</description>
+    <position y="80.0" x="140.0"/>
+    <input>
+        <param name="host" type="PowerShell:PowerShellHost">
+            <description>PowerShell host</description>
+        </param>
+        <param name="inputProperties" type="Properties"/>
+    </input>
+    <output>
+        <param name="output" type="PowerShell:PowerShellRemotePSObject">
+            <description>Script execution result</description>
+        </param>
+    </output>
+    <workflow-item name="item5" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="460.0"/>
+    </workflow-item>
+    <workflow-item name="item0" out-name="item5" type="task" comparator="0">
+        <display-name>Invoke script</display-name>
+        <script encoded="false">var vmName2 = inputProperties.resourceNames[0];
+var customProperties = inputProperties.customProperties;
+var vmFlavor = customProperties.flavor;
+var vmName = customProperties.name;
+
+//Set Values
+var script = "C:\\scripts\\create-file-post-compute.ps1 -fileName '" + vmName + "'";
+
+var output;
+var session;
+try {
+	session = host.openSession();
+	output = System.getModule("com.vmware.library.powershell").invokeScript(host,script,session.getSessionId()) ;
+} finally {
+	if (session){
+		host.closeSession(session.getSessionId());
+	}
+}
+
+//Send values to Log
+System.log("VM Name: " + vmName);
+System.log("VM Name2: " + vmName2);
+System.log("VM Flavor: " + vmFlavor);
+</script>
+        <in-binding>
+            <bind name="inputProperties" type="Properties" export-name="inputProperties"/>
+            <bind name="host" type="PowerShell:PowerShellHost" export-name="host"/>
+        </in-binding>
+        <out-binding>
+            <bind name="output" type="PowerShell:PowerShellRemotePSObject" export-name="output"/>
+        </out-binding>
+        <position y="60.0" x="260.0"/>
+    </workflow-item>
+</ns2:workflow>

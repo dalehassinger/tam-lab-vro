@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<package>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='5849bd2b-38fd-42d5-babe-9eb2d7ad407d'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='F5858080808080808080808080808080158080800126658240472157fdafc0fce'&dunesName='Action'&name='invokeScript'&category='com.vmware.library.powershell']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='c955af27-40ac-493f-a32e-ef7a575d9fe1'&dunesName='Action'&name='TAM_Date_Time'&category='TAM']]></elm>
+<used-plugin name='PowerShell' version='1.1.2' />
+</package>

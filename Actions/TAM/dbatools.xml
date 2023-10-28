@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="dbatools" result-type="Array/string" api-version="6.0.0" id="a7f33ec3-9053-4948-8324-f8c2c5f61343" version="0.0.1" category-name="TAM" memory-limit="256000000">
+  <environment><![CDATA[ab6cc5e9-1431-4e76-8b43-079b1cd06b15]]></environment>
+  <script encoded="false"><![CDATA[function Handler($context, $inputs) {
+    #$inputsString = $inputs | ConvertTo-Json -Compress
+
+    #Write-Host "Inputs were $inputsString"
+
+    #Set-DbatoolsConfig -Name Import.EncryptionMessageCheck -Value $false -PassThru | infoRegister-DbatoolsConfig
+
+    # Define clear text string for username and password
+    [string]$userName = 'sa'
+    [string]$userPassword = 'VMware1!'
+
+    # Convert to SecureString
+    [securestring]$secStringPassword = ConvertTo-SecureString $userPassword -AsPlainText -Force
+    [pscredential]$credObject = New-Object System.Management.Automation.PSCredential ($userName, $secStringPassword)
+
+
+    $sqlServer = 'MS-SQL-SERVER.corp.local'
+    $server = Connect-DbaInstance -SqlInstance $sqlServer -SqlCredential $credObject -Database Hackathon -TrustServerCertificate:$true
+
+    $a = Invoke-DbaQuery -SqlInstance $server -Query "SELECT topic FROM [Hackathon].[dbo].[Topics] Order by topic"
+    #$a = $a | ConvertTo-Json -depth 50
+    #Write-Host $a.topic
+
+    #Write-Host $a
+
+
+    #$output=@{status = 'done'}
+
+    return $a.topic
+}
+]]></script>
+</dunes-script-module>

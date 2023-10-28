@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getAllVirtualMachinesByFolder_Copy" result-type="Array/VC:VirtualMachine" api-version="6.0.0" id="53ac3a48-cd13-4cb3-92bc-0eaf4c0e5e8e" version="0.1.0" category-name="com.vmware.library.vc.folder">
+  <description><![CDATA[Get all VMs in a folder without checking authorization]]></description>
+  <param n="vmFolder" t="VC:VmFolder"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[if(!vmFolder){
+	throw "UndefinedParameter: vmFolder mandatory input is not defined.";
+}
+return vmFolder.vm;]]></script>
+</dunes-script-module>

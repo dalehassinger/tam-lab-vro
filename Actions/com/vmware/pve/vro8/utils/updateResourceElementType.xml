@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="updateResourceElementType" result-type="boolean" api-version="6.0.0" id="fee5ad53-bf4d-4a4a-890b-748a28c0beac" version="0.1.0" allowed-operations="vfe" category-name="com.vmware.pve.vro8.utils">
+  <param n="resourceElementName" t="string"><![CDATA[]]></param>
+  <param n="fileType" t="string"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[
+var resourceElements = Server.findAllForType( 'ResourceElement' , "c.name='"+ resourceElementName +"'");
+
+if (resourceElements[0]){
+    var resourceElemet =  resourceElements[0];
+    var mimeAttachment = resourceElements[0].getContentAsMimeAttachment();
+    System.log('Updating Resource Element File type for file ' + resourceElementName);
+    mimeAttachment.mimeType = fileType;
+    resourceElemet.setContentFromMimeAttachment(mimeAttachment);
+    return true;
+}else if (resourceElements.length == 0){
+    System.error('No resource element found with name ' + resourceElementName);
+    return false;
+}else{
+    System.error('Multiple resource element found with name ' + resourceElementName);
+    return false;
+}
+]]></script>
+</dunes-script-module>
