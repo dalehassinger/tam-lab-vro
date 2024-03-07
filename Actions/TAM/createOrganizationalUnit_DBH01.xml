@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="createOrganizationalUnit_DBH01" result-type="void" api-version="6.0.0" id="617aa19a-abb4-450e-86d9-cf7831f02ab7" version="1.1.1" category-name="TAM">
+  <description><![CDATA[Create an OU in an existing OU]]></description>
+  <script encoded="false"><![CDATA[var category = Server.getConfigurationElementCategoryWithPath("DBH");
+if (category == null) {System.log("Nothing found")};
+
+var elements = category.configurationElements;
+System.log("Elements: " + elements);
+var parentOU;
+for each(var element in elements) {
+    if(element.name == "AD") {
+        parentOU = element.getAttributeWithKey("parentOU").value;
+        break;
+    }
+}
+
+System.log("Parent OU: " + parentOU);
+
+var ouName = "TEST1236"
+
+//container.createOrganizationalUnit(ouName);
+parentOU.createOrganizationalUnit(ouName);]]></script>
+</dunes-script-module>

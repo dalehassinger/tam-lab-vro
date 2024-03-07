@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="setOUStructure_Copy" result-type="string" api-version="6.0.0" id="ec9c24d0-d165-4634-8452-1cbbe924f5b5" version="0.0.1" category-name="TAM">
+  <script encoded="false"><![CDATA[// Orchestrator Action to make sure an AD OU has sub OUs Servers, Groups, Computers
+// Created by the VMware by Broadcom Healthcare Aria Team
+
+// Before you use this Action you MUST run the next 2 Workflows
+// You MUST run the Workflow "Add an Active Directory server" to add Active Directory Server to Orchestrator
+// You MUST also run the Workflow "Configure Active Directory plug-in options" and set the "Default Active Directory server"
+// Make sure there is an input "appOU" with type as string.
+
+
+// Set the Parent OU value (APP Name)
+var parentOU = "ARIA";
+
+//Search for Parent OU Value
+var parentOUPath = ActiveDirectory.search('OrganizationalUnit',parentOU);
+System.log("Parent OU: " + parentOUPath);
+
+// Create Array of Sub OUs
+for each (ou in parentOUPath){
+    var childOUs = ou.organizationalUnits;
+    //System.log("Child OUs: " + childOUs);
+}
+System.log("Child OUs Length: " + childOUs.length);
+
+
+var data = new Array();
+for each (var ouObject in childOUs){
+    data.push(ouObject.name)
+    //data.push(ouObject.distinguishedName)
+    
+    //System.log("Existing OU Name: " + ouObject.name);
+}
+System.log("Existing Sub OUs: " + data);
+
+var ouName = "TEST4232"
+System.log("123: " + parentOUPath);
+
+
+
+//parentOUPath.createOrganizationalUnit(ouName);
+
+
+//var parent123 = getAttributeWithKey("parentOUPath").value;
+//parent123.createOrganizationalUnit(ouName);
+
+
+/*
+// Set the Parent OU value (APP Name)
+//var parentOU = "Aria";
+var parentOU = "Epic";
+
+//Search for Parent OU Value
+var ous = ActiveDirectory.search('OrganizationalUnit',parentOU);
+System.log("ous: " + ous);
+
+// Create Array of Sub OUs
+for each (ou in ous){
+    var childOUs = ou.organizationalUnits;
+    //System.log("Child OUs: " + childOUs);
+}
+
+
+
+
+
+
+
+// Build a string of Sub OU Values
+var subOUs = "";
+for each (var ouObject in childOUs){
+    subOUs = subOUs + ouObject.name + ":"
+    System.log("Existing OU Name: " + ouObject.name);
+}
+System.log("Existing Sub OUs: " + subOUs);
+
+
+// Define the array of sub OU Names to look for
+var subOUNames = ["Groups", "Servers", "Computers"];
+
+// Loop through each substring
+subOUNames.forEach(function(substring) {
+    // Check if the string contains the substring
+    if (subOUs.indexOf(substring) !== -1) {
+        System.log("Sub OU '" + substring + "' Exists.");
+    } else {
+        System.log("Sub OU '" + substring + "' DOES NOT Exist! Creating..");
+        // Add code to create the AD OUs
+        
+    }
+});
+
+
+var ouName = "TEST000"
+var category = Server.getConfigurationElementCategoryWithPath("DBH");
+if (category == null) {System.log("Nothing found")};
+
+var elements = category.configurationElements;
+var parentOU;
+for each(var element in elements) {
+    if(element.name == "AD") {
+        parentOU = element.getAttributeWithKey("parentOU").value;
+        break;
+    }
+}
+
+System.log("Parent OU: " + parentOU);
+
+//container.createOrganizationalUnit(ouName);
+parentOU.createOrganizationalUnit(ouName);
+
+
+
+// Create Array of Sub OUs
+for each (ou in parentOUPath){
+    var childOUs = ou.organizationalUnits;
+    //System.log("Child OUs: " + childOUs);
+}
+//System.log("Child OUs Length: " + childOUs.length);
+
+
+var data = new Array();
+for each (var ouObject in childOUs){
+    data.push(ouObject.name)
+    //data.push(ouObject.distinguishedName)
+    
+    //System.log("Existing OU Name: " + ouObject.name);
+}
+System.log("Existing Sub OUs: " + data);
+
+
+
+
+
+
+//var dbh = AD_OrganizationalUnit
+
+//var serverInfo = ActiveDirectory.getComputerAD(ServerName);
+//var container = "OU=MGMT,OU=APPS,DC=CORP,DC=LOCAL"
+//var container = "EPIC"
+//var ouName = "TEST1"
+//appOU.createOrganizationalUnit(ouName);
+//createOrganizationalUnit(ouName,container);
+
+//System.getModule("com.vmware.library.microsoft.activeDirectory").createOrganizationalUnit( ouName , container );
+
+//AD_OrganizationalUnit.distinguishedName("OU=MGMT,OU=APPS,DC=CORP,DC=LOCAL")
+
+// The next line was used for testing. Fast way to Test. Remove the ServerName input and hard code the server name.
+//var serverInfo = ActiveDirectory.getComputerAD("WIN-19-000");
+
+//var ADInfo = ActiveDirectory.search("OrganizationalUnit","EPIC");
+//var ADInfo = ActiveDirectory.searchRecursively("OrganizationalUnit","EPIC");
+
+//System.log("AD Info: " + ADInfo);
+
+//var removeAD = AD_OrganizationalUnit.name
+//System.log("AD CN: " + removeAD);
+
+
+/*
+var serverInfo = ActiveDirectory.getComputerAD(ServerName);
+
+if(serverInfo !== null){
+    var removeAD = serverInfo.distinguishedName.split(",")[0]
+
+    //Logging to make sure code is working
+    System.log("Server Distinguished Name: " + serverInfo.distinguishedName);
+    System.log("              Server Name: " + serverInfo.name);
+    System.log("                    AD CN: " + removeAD);
+
+    // Complete AD string
+    var serverOU = serverInfo.distinguishedName;
+
+    // Define the string to remove
+    const partToRemove = removeAD;
+
+    // Remove the String and the following comma if it exists
+    serverOU = serverOU.replace(partToRemove + ",", "");
+
+    // If the string was at the end or middle without a following comma, remove it
+    serverOU = serverOU.replace(partToRemove, "");
+
+    // Logging to show the results
+    System.log("                    AD OU: " + serverOU);
+
+    return serverOU
+
+} else {
+
+    return "Not Found"
+
+}
+
+
+
+// Define the sub OU Name to look for
+var substring = "Groups";
+
+// Check if the string contains the substring
+if (subOUs.indexOf(substring) !== -1) {
+    System.log("Sub OU '" + substring + "' Exists.");
+} else {
+    System.log("Sub OU '" + substring + "' DOES NOT Exist! Creating..");
+}
+
+// Define the sub OU Name to look for
+var substring = "Servers";
+
+// Check if the string contains the substring
+if (subOUs.indexOf(substring) !== -1) {
+    System.log("Sub OU '" + substring + "' Exists.");
+} else {
+    System.log("Sub OU '" + substring + "' DOES NOT Exist! Creating..");
+}
+
+// Define the sub OU Name to look for
+var substring = "Computers";
+
+// Check if the string contains the substring
+if (subOUs.indexOf(substring) !== -1) {
+    System.log("Sub OU '" + substring + "' Exists.");
+} else {
+    System.log("Sub OU '" + substring + "' DOES NOT Exist! Creating..");
+}
+
+//corp.local/APPS/MGMT
+//var ouName = "OU=Servers,OU=MGMT,OU=APPS,DC=CORP,DC=LOCAL"
+//var ouName = "TEST2"
+//var container = "OU=MGMT,OU=APPS,DC=CORP,DC=LOCAL"
+//var container = "MGMT"
+//System.getModule("com.vmware.library.microsoft.activeDirectory").createOrganizationalUnit(ouName,container);
+
+
+
+ distinguishedName
+OU=MGMT,OU=APPS,DC=corp,DC=local
+
+
+var parentOU = "Departments";
+var ous = ActiveDirectory.search('OrganizationalUnit',parentOU);
+
+for each (ou in ous){
+var childOUs = ou.organizationalUnits;
+}
+
+Will give you an array of child OU objects stored in the variable childOUs. You can now loop through these and get the name of each OU like so:
+
+for each (var ouObject in childOUs){
+
+     System.log("OU Name: " + ouObject.name);
+
+}
+
+
+
+
+
+
+
+// Define the original string
+var originalString = "OU=EPIC,OU=APPS,DC=corp,DC=local";
+
+// Define the string to add to the beginning
+var stringToAdd = "OU=Servers,";
+
+// Concatenate the strings
+var resultString = stringToAdd + originalString;
+
+console.log(resultString); // This will log: "OU=Servers,OU=EPIC,OU=APPS,DC=corp,DC=local"
+
+
+var serverInfo = ActiveDirectory.getComputerAD(ServerName);
+
+if(serverInfo !== null){
+    var removeAD = serverInfo.distinguishedName.split(",")[0]
+
+    //Logging to make sure code is working
+    System.log("Server Distinguished Name: " + serverInfo.distinguishedName);
+    System.log("              Server Name: " + serverInfo.name);
+    System.log("                    AD CN: " + removeAD);
+
+    // Complete AD string
+    var serverOU = serverInfo.distinguishedName;
+
+    // Define the string to remove
+    const partToRemove = removeAD;
+
+    // Remove the String and the following comma if it exists
+    serverOU = serverOU.replace(partToRemove + ",", "");
+
+    // If the string was at the end or middle without a following comma, remove it
+    serverOU = serverOU.replace(partToRemove, "");
+
+    // Logging to show the results
+    System.log("                    AD OU: " + serverOU);
+
+    return serverOU
+
+} else {
+
+    return "Not Found"
+
+}
+
+*/]]></script>
+</dunes-script-module>

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dunes-script-module name="TEST_01" result-type="string" api-version="6.0.0" id="48e91dd9-3cc0-4467-953a-7d3193b77f6d" version="0.0.0" category-name="TAM">
-  <runtime><![CDATA[powercli:12-powershell-7.1]]></runtime>
+  <runtime><![CDATA[powershell:7.3]]></runtime>
   <param n="pw" t="EncryptedString"><![CDATA[]]></param>
   <param n="username" t="string"><![CDATA[]]></param>
   <param n="vcenter" t="string"><![CDATA[]]></param>

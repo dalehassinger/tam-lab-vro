@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config-element id="61717cb5-3c0a-427b-9ed3-01160b76e7f8" version="0.0.1">
+  <display-name><![CDATA[AD]]></display-name>
+  <atts>
+    <att name="parentOU" type="AD:OrganizationalUnit" read-only="false">
+      <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='%23_v2_%23%2C%23OU%23%2C%23ad41c168-c4bb-4de1-9886-977d56395a75%23%2C%23OU%3DAria%2COU%3DAPPS%2CDC%3Dcorp%2CDC%3Dlocal%23'&dunesName='AD:OrganizationalUnit']]></value>
+    </att>
+  </atts>
+</config-element>

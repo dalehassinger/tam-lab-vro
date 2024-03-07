@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<dunes-script-module name="TAM_AI_Conversation" result-type="string" api-version="6.0.0" id="a92f11fe-b1eb-41d8-a952-aab176c90cf1" version="0.0.0" category-name="TAM">
+<dunes-script-module name="AI_Conversation" result-type="string" api-version="6.0.0" id="a92f11fe-b1eb-41d8-a952-aab176c90cf1" version="0.0.0" category-name="com.vCROCS.Hackathon">
   <param n="host" t="PowerShell:PowerShellHost"><![CDATA[]]></param>
   <param n="startconvo" t="string"><![CDATA[]]></param>
   <param n="conversation" t="string"><![CDATA[]]></param>

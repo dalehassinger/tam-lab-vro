@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item0" object-name="Workflow:name=generic" id="fc14e38f-63dc-465f-8e6a-12915e614f7a" editor-version="2.0" version="1.1.0" api-version="3.1.0" allowed-operations="vef" restartMode="1">
+    <display-name>Create an organizational unit - DBH</display-name>
+    <description>Creates an organizational unit in an existing organizational unit.</description>
+    <ref-types>(AD:OrganizationalUnit)</ref-types>
+    <position y="40.0" x="180.0"/>
+    <input>
+        <param name="ouName" type="string">
+            <description>The name for the new organizational unit</description>
+        </param>
+        <param name="ouContainer" type="string">
+            <description>Organizational unit in which to put the newly created organizational unit</description>
+        </param>
+    </input>
+    <output>
+        <param name="newOU" type="AD:OrganizationalUnit"/>
+    </output>
+    <workflow-item name="item2" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="210.0" x="180.0"/>
+    </workflow-item>
+    <workflow-item name="item0" out-name="item1" type="task" script-module="com.vmware.library.microsoft.activeDirectory/createOrganizationalUnit" comparator="0">
+        <display-name>createOrganizationalUnit</display-name>
+        <script encoded="false">//Auto generated script, cannot be modified !
+System.getModule("com.vmware.library.microsoft.activeDirectory").createOrganizationalUnit(ouName,container) ;</script>
+        <in-binding>
+            <bind name="ouName" type="string" export-name="ouName">
+                <description>The name for the organizational unit</description>
+            </bind>
+            <bind name="container" type="string" export-name="ouContainer">
+                <description>Existing organizational unit in which to put the new organizational unit</description>
+            </bind>
+        </in-binding>
+        <out-binding/>
+        <description>Creates an organizational unit in an existing organizational unit.</description>
+        <position y="100.0" x="140.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item2" type="task" script-module="com.vmware.library.microsoft.activeDirectory/getOrganizationUnitFromOrganizationUnit" comparator="0">
+        <display-name>getOrganizationUnitFromOrganizationUnit</display-name>
+        <script encoded="false">//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.library.microsoft.activeDirectory").getOrganizationUnitFromOrganizationUnit(container,ouName) ;</script>
+        <in-binding>
+            <bind name="container" type="string" export-name="ouContainer">
+                <description>Organizational unit / group</description>
+            </bind>
+            <bind name="ouName" type="string" export-name="ouName">
+                <description>Name of the computer</description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="actionResult" type="AD:OrganizationalUnit" export-name="newOU"/>
+        </out-binding>
+        <description>Gets a computer by its name in the given organizational unit or group (container).</description>
+        <position y="160.0" x="140.0"/>
+    </workflow-item>
+</ns2:workflow>

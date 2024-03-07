@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getOUbyName" result-type="string" api-version="6.0.0" id="3ee3722a-ee4d-443e-b511-fc81de6b0c26" version="0.0.1" category-name="TAM">
+  <param n="ouName" t="string"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[//OU=Servers,DC=corp,DC=local
+// Get the Common Name of the Organization Unit we are looking for:
+
+
+var cn = ouName.split(",")[0].split("=")[1];
+
+
+//System.log("CN: "+cn);
+
+
+// Use the AD Plug-in to search for that common name
+
+
+var orgUnits = ActiveDirectory.search("OrganizationalUnit" , cn);
+
+
+System.log("orgUnit count: "+orgUnits.length);
+
+
+// Loop through the results and make sure the DN is the correct one
+
+
+for each (ou in orgUnits){
+
+
+    System.log("Checking OU: "+ou.distinguishedName);
+
+
+    if (ouName.toLowerCase() == ou.distinguishedName.toLowerCase()){
+
+
+        System.log("Found Org: "+ou);
+
+
+        return ou;
+
+
+    }
+
+
+}
+
+
+throw "No matching Organizational Unit found: " + ouName;]]></script>
+</dunes-script-module>

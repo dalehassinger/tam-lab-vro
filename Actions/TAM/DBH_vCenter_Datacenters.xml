@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="DBH_vCenter_Datacenters" result-type="Array/string" api-version="6.0.0" id="769d7565-9722-4163-87cc-f64cbfc0c263" version="0.0.0" category-name="TAM">
+  <script encoded="false"><![CDATA[//Define the array
+var vCenterDatacenters = new Array();
+
+//Get all DataCenters
+dataCenters = VcPlugin.getAllDatacenters()
+
+//Loop thru the DataCenters
+for each (dataCenter in dataCenters) {
+    vCenterDatacenters.push(dataCenter.name);
+}
+
+//Return an array of DataCenter Names
+return vCenterDatacenters;]]></script>
+</dunes-script-module>

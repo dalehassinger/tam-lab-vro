@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getComputerFromContainer_DBH" result-type="AD:OrganizationalUnit" api-version="6.0.0" id="3e2f3b28-934d-4af3-8fe4-19ea85b880f1" version="1.1.1" category-name="TAM">
+  <description><![CDATA[Get a computer by its name in the given OU or Group (container)]]></description>
+  <param n="container" t="AD:OrganizationalUnit"/>
+  <script encoded="false"><![CDATA[computers = container.computers;
+for (var index in computers) {
+	if (computers[index].name.toLowerCase() == computerName.toLowerCase()) {
+		return computers[index];
+	}
+}
+return null;
+
+
+
+System.log("Searching for computer: " + vmName.name)
+System.log("Found computer: " + object)
+
+
+
+
+//computers = container.organizationalUnits;
+//ouName = getComputerAD("WIN-19-000");
+
+//System.log("VM Name: " + computers);
+
+//computers = container.computers;
+//for (var index in computers) {
+//	if (computers[index].name.toLowerCase() == computerName.toLowerCase()) {
+//		return computers[index];
+//	}
+//}
+//return null;]]></script>
+</dunes-script-module>

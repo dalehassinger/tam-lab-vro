@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="createOrganizationalUnit_DBH02" result-type="void" api-version="6.0.0" id="cb5203be-3a9c-4824-94ab-ebb963223c9f" version="1.1.1" category-name="TAM">
+  <description><![CDATA[Create an OU in an existing OU]]></description>
+  <script encoded="false"><![CDATA[var category = Server.getConfigurationElementCategoryWithPath("DBH");
+if (category == null) {System.log("Nothing found")};
+System.log("category: " + category);
+
+var elements = category.configurationElements;
+System.log("Elements: " + elements);
+var parentOUELE;
+for each(var element in elements) {
+    if(element.name == "AD") {
+        parentOUELE = element.getAttributeWithKey("parentOU").value;
+        break;
+    }
+}
+
+System.log("ParentOU1: " + parentOUELE);
+
+var ouName1 = "TEST1230"
+
+//parentOUELE.createOrganizationalUnit(ouName1);
+
+//System.log("ParentOU1: " + parentOU);
+
+var ouName2 = "TEST1240"
+
+// Set the Parent OU value (APP Name)
+var parentOUAPP = "ARIA";
+
+//Search for Parent OU Value
+//var parentOUPath = ActiveDirectory.search('OrganizationalUnit',parentOUAPP);
+var parentOUPath = ActiveDirectory.searchExactMatch('OrganizationalUnit',parentOUAPP);
+System.log("ParentOU2: " + parentOUPath);
+System.log("ParentOU2: " + parentOUAPP);
+//System.log("ParentOU2: " + parentOUPath('VALUE'));
+
+//parentOU.createOrganizationalUnit(ouName);
+//parentOUPath.createOrganizationalUnit(ouName2);
+//parentOUAPP.createOrganizationalUnit(ouName2);
+
+//System.log("ParentOU3: " + picker);
+//picker.createOrganizationalUnit(ouName2);
+
+var testou = AD_OrganizationalUnit;
+System.log(testou);
+
+//var custSpec = new VcCustomizationSpec();
+//custSpec.identity = new VcCustomizationIdentitySettings();
+//System.log(System.getObjectType(custSpec));
+//System.log(custSpec);]]></script>
+</dunes-script-module>
