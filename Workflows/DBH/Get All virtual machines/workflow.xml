@@ -2,7 +2,7 @@
 <ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item0" object-name="Workflow:name=generic" id="940c2ec4-32d1-46a2-8f77-74b66c0bae89" editor-version="2.0" version="0.1.1" api-version="6.0.0" allowed-operations="vef" restartMode="1" resumeFromFailedMode="0">
     <display-name>Get All virtual machines</display-name>
     <description></description>
-    <position y="190.0" x="180.0"/>
+    <position y="220.0" x="180.0"/>
     <input/>
     <output/>
     <workflow-item name="item0" out-name="item1" type="task" comparator="0">
@@ -32,14 +32,20 @@ for (var i in abc) {
     System.log(abc[i]);
 }
 
+
+//let filteredArray = array.filter(abc =&gt; !abc.startsWith('vCLS'));
+
+//for (var i in filteredArray) {    
+//    System.log(filteredArray[i]);
+//}
 </script>
         <in-binding/>
         <out-binding/>
-        <position y="150.0" x="140.0"/>
+        <position y="200.0" x="340.0"/>
     </workflow-item>
     <workflow-item name="item1" type="end" end-mode="0" comparator="0">
         <in-binding/>
         <out-binding/>
-        <position y="270.0" x="180.0"/>
+        <position y="190.0" x="600.0"/>
     </workflow-item>
 </ns2:workflow>
