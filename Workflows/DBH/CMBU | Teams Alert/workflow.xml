@@ -61,7 +61,7 @@
 
 
     # Define the webhook URL
-    $webhookUrl = 'https://thornhilllanecom.webhook.office.com/webhookb2/82ce2fbd4572@015568c1-bbe7-4050-add6-6f36b7b44adb/IncomingWebhook/be554-9960-4590-9251-65db25f05419'
+    $webhookUrl = 'https://thornhilllanecom.webhook.office.com/webhookb2/82ce2fbd4572@015568c1-bbe7-4050-add6-6f36b7b44adb/IncomingWebhook/be554-9960-451-65db25f05419'
 
 # Create the message card
 $messageCard = @{
@@ -172,11 +172,11 @@ $body = @'
     
     # --- Next line is to send to Dale's O365 | Teams | Misc | General for testing
     Write-Output "Adding entry to Teams Automation Alert Chat"
-    $results = Invoke-RestMethod -Method post -ContentType 'Application/Json' -Body $body -Uri "https://thornhilllanecom.webhook.office.com/webhookb2/ac73a8c3-59a2-4df2-b6bd-82ce2fbd4572@015568c1-bbe7-4050-add6-6f36b7b44adb/IncomingWebhook/b41cd4d2fcbd4531892b8a4626340212/925be554-9960-4590-9251-65db25f05419"
+    $results = Invoke-RestMethod -Method post -ContentType 'Application/Json' -Body $body -Uri "https://thornhilllanecom.webhook.office.com/webhookb2/ac73a8c3-59a2-4df2db/IncomingWebhook/b41cd4d2fcbd4531892b9960-4590-9251-65db25f05419"
 
-    #https://thornhilllanecom.webhook.office.com/webhookb2/ac73a8c3-59a2-4df2-b6bd-82ce2fbd4572@015568c1-bbe7-4050-add6-6f36b7b44adb/IncomingWebhook/b41cd4d2fcbd4531892b8a4626340212/925be554-9960-4590-9251-65db25f05419
+    #https://thornhilllanecom.webhook.office.com/webhookb2/ac73a8c3-59a2-4df2-b7b44adb/IncomingWebhook/b41cd4d2fcbd4531892b8a4626340212/925be554-9960-4590-9251-65db25f05419
 
-    #https://chat.googleapis.com/v1/spaces/AAAAvSYSmfg/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&amp;token=Vj-NoThfrmjLnkIW_iQRQw71qcE2CGxG1tkjs2ArM7o
+    #https://chat.googleapis.com/v1/spaces/AAAAvSYSmfg/messages?key=AIzaSyDdI0h3CPzqKqqsHI&amp;token=Vj-NoThfrmjLnkIW_iQRQw71qcE2CGxG1tkjs2ArM7o
 #&gt;</script>
         <in-binding>
             <bind name="inputProperties" type="Properties" export-name="inputProperties"/>
