@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item3" object-name="workflow:name=generic" id="667d0689-1efe-4321-ba6e-20365965ecb6" editor-version="2.0" version="0.0.1" api-version="6.0.0" allowed-operations="vef" restartMode="1" resumeFromFailedMode="2">
+    <display-name>CMBU | Teams Alert</display-name>
+    <position y="50.0" x="100.0"/>
+    <input>
+        <param name="inputProperties" type="Properties"/>
+    </input>
+    <output/>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="40.0" x="620.0"/>
+    </workflow-item>
+    <workflow-item name="item3" out-name="item0" type="task" comparator="0">
+        <display-name>Send-Teams-Alert</display-name>
+        <runtime>powershell:7.3</runtime>
+        <script encoded="false">function Handler($context, $inputs) {
+    #$inputsString = $inputs | ConvertTo-Json -Compress
+
+    #Write-Host "Inputs were $inputsString"
+
+    # Build PowerShell variables
+    # Build PowerShell variables
+    if(!$inputs.inputProperties.resourceNames){
+        $vmName = "NA"
+    }else{
+        $vmName = $inputs.inputProperties.resourceNames
+    }
+    if(!$inputs.inputProperties.customProperties.image){
+        $image = "NA"
+    }else{
+        $image = $inputs.inputProperties.customProperties.image
+    }
+    if(!$inputs.inputProperties.customProperties.flavor){
+        $flavor = "NA"
+    }else{
+        $flavor = $inputs.inputProperties.customProperties.flavor
+    }
+    if(!$inputs.inputProperties.customProperties.folderName){
+        $folder = "NA"
+    }else{
+        $folder = $inputs.inputProperties.customProperties.folderName
+    }
+    if(!$inputs.inputProperties.customProperties.vmIP){
+        $vmIP = "NA"
+    }else{
+        $vmIP = $inputs.inputProperties.customProperties.vmIP
+    }
+    if(!$inputs.inputProperties.__metadata_userName){
+        $userName = "NA"
+    }else{
+        $userName = $inputs.inputProperties.__metadata_userName
+    }
+    
+    Write-Host "--vmName:"$vmName
+    Write-Host "---image:"$image
+    Write-Host "--flavor:"$flavor
+    Write-Host "--folder:"$folder
+    Write-Host "userName:"$userName
+    Write-Host "----vmIP:"$vmIP
+
+
+    # Define the webhook URL
+    $webhookUrl = 'https://thornhilllanecom.webhook.office.com/webhookb2/ac73a8c3-59a2-4df2-b6bd-82ce2fbd4572@015568c1-bbe7-4050-add6-6f36b7b44adb/IncomingWebhook/b41cd4d2fcbd4531892b8a4626340212/925be554-9960-4590-9251-65db25f05419'
+
+# Create the message card
+$messageCard = @{
+    "@type"    = "MessageCard"
+    "@context" = "http://schema.org/extensions"
+    "summary"  = "Issue 176715375"
+    "sections" = @(
+        @{
+            "activityTitle"    = "vRA Automated VM Build:"
+            "facts"            = @(
+                @{
+                    "name"  = "VM Name:"
+                    "value" = "$vmName"
+                },
+                @{
+                    "name"  = "VM IP:"
+                    "value" = "$vmIP"
+                },
+                @{
+                    "name"  = "Created By:"
+                    "value" = "$userName"
+                },
+                @{
+                    "name"  = "VM Image:"
+                    "value" = "$image"
+                },
+                @{
+                    "name"  = "vCenter Folder:"
+                    "value" = "$folder"
+                },
+                @{
+                    "name"  = "VM Flavor:"
+                    "value" = "$flavor"
+                }
+            )
+            "markdown" = $true
+        }
+    )
+} | ConvertTo-Json -Depth 10
+
+    # Send the message card
+    Invoke-RestMethod -Uri $webhookUrl -Method Post -ContentType 'application/json' -Body $messageCard
+
+    $output=@{status = 'done'}
+
+    return $output
+}
+
+#{"__metadata_userName":"configadmin","__metadata_hdr_uberctx-org-id":"5d406eab-9fca-4c4a-a537-754d500b4f31","__metadata_contextOrgId":null,"__metadata_correlationType":"contextId","__metadata_orgId":"5d406eab-9fca-4c4a-a537-754d500b4f31","__metadata_eventTopicId":"compute.allocation.pre","__metadata_sourceIdentity":"ff78c2df-e195-4531-92fa-3b1cf9ebcda0","__metadata_targetId":"139d061f-a5de-49db-a44e-675ac9a57ca6","__metadata_sourceType":"provisioning","inputProperties":{"image":"vCenter-ubuntu-20","hostSelectionIds":["4ee9bb78-44ff-43a8-b94c-3c4588a0a301"],"componentId":"Cloud_vSphere_Machine_1","endpointId":"a8b124fb-b9a9-483a-bdf1-82d796199f5d","externalIds":["637508b6-ff18-409b-95cc-977733d20b49"],"blueprintId":"ea4e3467-93d1-4e67-8418-84ee36d85c97","tags":{},"resourceNames":["LINUX-U-169"],"customProperties":{"neglectPowerOffVms":"false","flavor":"vCenter-1CPU-2GB","customizationSpec":"Customization-Ubuntu-22","image":"vCenter-ubuntu-20","resourceGroupName":"","BuildTime":"2024-03-16T12:29:00Z","folderName":"BLOGS","coreCount":"1","isSimulate":"false"},"componentTypeId":"Cloud.vSphere.Machine","requestId":"78708c0b-5b30-440b-945d-4e6b03f0b7d1","deploymentId":"0a0b5c09-1e35-4e84-95bd-039251fe80b0","zoneId":"f71695c9-de96-4bdb-a49d-eba88754b335","projectId":"d2108a66-5c88-4c3b-811d-b4a6dc9413f5","resourceIds":["a17e51fb-7b12-458d-b967-87a2aa1b4e6c"]},"__metadata_hdr_uberctx-user-id":"provisioning-pg8W2q6tl8nIe5lW","__metadata_hdr_uberctx-request-trace-id":"7c6b4c0c-b45a-43a1-ad0c-6b26e8f0263a","__metadata_hdr_uber-trace-id":"f9a416d752954367820060b06a460187:9d17f7c7f1c4b33826cd8e70ad1894d:12ee49fa-78f2-4d61-965a-09a8b2993f3a:0","__metadata_hdr_runnableType":"extensibility.vro","__metadata_hdr_blocking":"true","__metadata_hdr_sampling-decision":"false","__metadata_hdr_tokenId":"l6rEDfU651uICtx9ZusxDSb0lb9xRze8SO5DI5kD6AE=","__metadata_hdr_eventTraceEntryId":"b59e4cda-2c27-4feb-9482-db5243cf8f36","__metadata_hdr_uberctx-parent-id":"12ee49fa-78f2-4d61-965a-09a8b2993f3a","__metadata_description":null,"__metadata_targetType":"ComputeAllocationTaskState","__metadata_hdr_uberctx-serviceurl":"http://10.244.0.47:8282/provisioning/requests/compute-reservation-tasks/139d061f-a5de-49db-a44e-675ac9a57ca6","__metadata_eventType":"EVENT","__metadata_hdr_provisioning-callback-uri":"/provisioning/config/extensibility-callbacks/8b05b801-1ca3-388e-89bd-dc43e81f1c9c","__metadata_id":"8b05b801-1ca3-388e-89bd-dc43e81f1c9c","__metadata_hdr_encryption-context":"0a0b5c09-1e35-4e84-95bd-039251fe80b0","__metadata_hdr_runnableId":"667d0689-1efe-4321-ba6e-20365965ecb6","__metadata_correlationId":"0a0b5c09-1e35-4e84-95bd-039251fe80b0--78708c0b-5b30-440b-945d-4e6b03f0b7d1"}
+
+&lt;#
+    # --- [ Start Add Alert to Teams Channel ] ---
+    
+    # --- Create json body for Teams Alert   
+$body = @'
+{
+    "type":"message",
+    "attachments":[
+        {
+          "contentType":"application/vnd.microsoft.card.adaptive",
+          "contentUrl":null,
+          "content":{
+              "$schema":"http://adaptivecards.io/schemas/adaptive-card.json",
+              "type":"AdaptiveCard",
+              "version":"1.5",
+              "body": [
+                {
+                    "type": "TextBlock",
+                    "text": "**vRA Automated VM Snap:**"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "- **VM Name:** strvmName \r- **vCenter:** strvCenterName \r- **Created By:** strCreatedBy",
+                    "wrap": true                    
+                },
+                {
+                    "type": "TextBlock",
+                    "text": " "
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "- **Snap Date | Time:** strsnapTime \r- **Snap Name:** strsnapName \r- **Snap Description:** strsnapDescription",
+                    "wrap": true
+                }
+            ]
+        }
+        }
+    ]
+  }
+'@
+  
+    #$body = $body.Replace("strvCenterName",$VMvCenter)
+    #$body = $body.Replace("strvmName",$vmName)
+    #$body = $body.Replace("strCreatedBy",$emailAddress)
+    #$body = $body.Replace("strsnapTime",$snapTime)
+    #$body = $body.Replace("strsnapName",$snapName)
+    #$body = $body.Replace("strsnapDescription",$snapDescription)
+    #$body
+
+    $body = $body.Replace("strvCenterName","vCenter.vCROCS.info")
+    $body = $body.Replace("strvmName",$vmName)
+    $body = $body.Replace("strCreatedBy","Brock Peterson")
+    $body = $body.Replace("strsnapTime","03-16-2024-10:00")
+    $body = $body.Replace("strsnapName",$folder)
+    $body = $body.Replace("strsnapDescription",$flavor)
+
+
+    
+    # --- Next line is to send to Dale's O365 | Teams | Misc | General for testing
+    Write-Output "Adding entry to Teams Automation Alert Chat"
+    $results = Invoke-RestMethod -Method post -ContentType 'Application/Json' -Body $body -Uri "https://thornhilllanecom.webhook.office.com/webhookb2/ac73a8c3-59a2-4df2-b6bd-82ce2fbd4572@015568c1-bbe7-4050-add6-6f36b7b44adb/IncomingWebhook/b41cd4d2fcbd4531892b8a4626340212/925be554-9960-4590-9251-65db25f05419"
+
+    #https://thornhilllanecom.webhook.office.com/webhookb2/ac73a8c3-59a2-4df2-b6bd-82ce2fbd4572@015568c1-bbe7-4050-add6-6f36b7b44adb/IncomingWebhook/b41cd4d2fcbd4531892b8a4626340212/925be554-9960-4590-9251-65db25f05419
+
+    #https://chat.googleapis.com/v1/spaces/AAAAvSYSmfg/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&amp;token=Vj-NoThfrmjLnkIW_iQRQw71qcE2CGxG1tkjs2ArM7o
+#&gt;</script>
+        <in-binding>
+            <bind name="inputProperties" type="Properties" export-name="inputProperties"/>
+        </in-binding>
+        <out-binding/>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="320.0"/>
+    </workflow-item>
+</ns2:workflow>

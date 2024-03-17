@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item2" object-name="workflow:name=generic" id="4c6ac431-7edb-471b-b073-e404daa12663" editor-version="2.0" version="0.0.1" api-version="6.0.0" restartMode="1" resumeFromFailedMode="1">
+    <display-name>CMBU | Delayed Build</display-name>
+    <position y="50.0" x="100.0"/>
+    <input/>
+    <output/>
+    <attrib name="BuildDateTime" type="Date">
+        <value encoded="n"/>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="40.0" x="620.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item0" type="task" comparator="0">
+        <display-name>Scriptable task</display-name>
+        <runtime>powershell:7.3</runtime>
+        <script encoded="false">function Handler($context, $inputs) {
+    $inputsString = $inputs | ConvertTo-Json -Compress
+
+    Write-Host "Inputs were $inputsString"
+
+
+    $currentDataTime = Get-Date
+    $output = "Current Date/Time: " + $currentDataTime
+    Write-Host $output
+
+    
+    # Set your target date and time here (in the format "YYYY-MM-DD HH:MM")
+    $targetDateTime = Get-Date "2024-03-08 19:00"
+    $output = "Desried Date/Time: " + $targetDateTime
+    Write-Host $output
+
+
+    Write-Host $targetDateTime
+
+    # Loop until the current date and time is greater than or equal to the target date and time
+    while ((Get-Date) -lt $targetDateTime) {
+
+        $loopDateTime = Get-Date
+        $output = "Loop Date/Time: " + $loopDateTime
+        Write-Host $output
+
+        Start-Sleep -Seconds 30 # Wait for 60 seconds before checking again
+    
+    } # End While
+
+    # Your code to execute after the target date and time is reached goes here
+    Write-Host "The target date and time has been reached!"
+
+    
+    
+    
+    
+    
+    
+    $output=@{status = 'done'}
+
+    return $output
+}
+</script>
+        <in-binding>
+            <bind name="BuildDateTime" type="Date" export-name="BuildDateTime"/>
+        </in-binding>
+        <out-binding/>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="360.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item1" type="waiting-timer" comparator="0">
+        <display-name>Waiting timer</display-name>
+        <script/>
+        <in-binding>
+            <bind name="timer.date" type="Date" export-name="BuildDateTime">
+                <description>This timer item will wait until date and will continue workflow execution.</description>
+            </bind>
+        </in-binding>
+        <out-binding/>
+        <position y="50.0" x="240.0"/>
+    </workflow-item>
+</ns2:workflow>

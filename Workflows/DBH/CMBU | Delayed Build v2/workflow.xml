@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item3" object-name="workflow:name=generic" id="704d3a8f-95ee-4616-a73f-3c82968a08c3" editor-version="2.0" version="0.0.1" api-version="6.0.0" allowed-operations="vef" restartMode="1" resumeFromFailedMode="2">
+    <display-name>CMBU | Delayed Build v2</display-name>
+    <position y="50.0" x="100.0"/>
+    <input>
+        <param name="inputProperties" type="Properties"/>
+    </input>
+    <output>
+        <param name="vmDateTime" type="Date"/>
+    </output>
+    <attrib name="vmBuildWait" type="string">
+        <value encoded="n"></value>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="40.0" x="620.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item0" type="waiting-timer" comparator="0">
+        <display-name>VM-Build-Wait</display-name>
+        <script></script>
+        <in-binding>
+            <bind name="timer.date" type="Date" export-name="">
+                <description>This timer item will wait until date and will continue workflow execution.</description>
+            </bind>
+        </in-binding>
+        <out-binding/>
+        <position y="50.0" x="420.0"/>
+    </workflow-item>
+    <workflow-item name="item3" out-name="item2" type="task" comparator="0">
+        <display-name>Get-Build-Data-Time</display-name>
+        <script encoded="false">//var vmName2 = inputProperties.resourceNames[0];&#13;
+var customProperties = inputProperties.customProperties;&#13;
+//var vmFlavor = customProperties.flavor;&#13;
+var vmBuildTime = customProperties.BuildTime;&#13;
+&#13;
+vmDateTime = vmBuildTime&#13;
+vmBuildWait = vmBuildTime&#13;
+&#13;
+//Set Values&#13;
+//var script = "C:\\scripts\\create-file-post-compute.ps1 -fileName '" + vmName + "'";&#13;
+&#13;
+//var output;&#13;
+//var session;&#13;
+//try {&#13;
+&#13;
+&#13;
+//Send values to Log&#13;
+//System.log("VM Name: " + vmName);&#13;
+//System.log("VM Name2: " + vmName2);&#13;
+System.log("VM Build Time: " + vmBuildTime);&#13;
+</script>
+        <in-binding>
+            <bind name="inputProperties" type="Properties" export-name="inputProperties"/>
+        </in-binding>
+        <out-binding>
+            <bind name="vmDateTime" type="Date" export-name=""/>
+        </out-binding>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="200.0"/>
+    </workflow-item>
+</ns2:workflow>

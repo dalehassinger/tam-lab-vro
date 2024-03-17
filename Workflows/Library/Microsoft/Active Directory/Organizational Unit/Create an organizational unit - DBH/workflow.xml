@@ -3,13 +3,16 @@
     <display-name>Create an organizational unit - DBH</display-name>
     <description>Creates an organizational unit in an existing organizational unit.</description>
     <ref-types>(AD:OrganizationalUnit)</ref-types>
-    <position y="40.0" x="180.0"/>
+    <position y="50.0" x="180.0"/>
     <input>
         <param name="ouName" type="string">
             <description>The name for the new organizational unit</description>
         </param>
         <param name="ouContainer" type="string">
             <description>Organizational unit in which to put the newly created organizational unit</description>
+        </param>
+        <param name="container" type="AD:OrganizationalUnit">
+            <description>Existing OU for the new OU</description>
         </param>
     </input>
     <output>
@@ -23,13 +26,14 @@
     <workflow-item name="item0" out-name="item1" type="task" script-module="com.vmware.library.microsoft.activeDirectory/createOrganizationalUnit" comparator="0">
         <display-name>createOrganizationalUnit</display-name>
         <script encoded="false">//Auto generated script, cannot be modified !
-System.getModule("com.vmware.library.microsoft.activeDirectory").createOrganizationalUnit(ouName,container) ;</script>
+System.getModule("com.vmware.library.microsoft.activeDirectory").createOrganizationalUnit(ouName,container);
+</script>
         <in-binding>
             <bind name="ouName" type="string" export-name="ouName">
                 <description>The name for the organizational unit</description>
             </bind>
-            <bind name="container" type="string" export-name="ouContainer">
-                <description>Existing organizational unit in which to put the new organizational unit</description>
+            <bind name="container" type="AD:OrganizationalUnit" export-name="container">
+                <description>Existing OU for the new OU</description>
             </bind>
         </in-binding>
         <out-binding/>
