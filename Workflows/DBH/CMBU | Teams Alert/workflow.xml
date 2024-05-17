@@ -15,11 +15,7 @@
         <display-name>Send-Teams-Alert</display-name>
         <runtime>powershell:7.3</runtime>
         <script encoded="false">function Handler($context, $inputs) {
-    #$inputsString = $inputs | ConvertTo-Json -Compress
 
-    #Write-Host "Inputs were $inputsString"
-
-    # Build PowerShell variables
     # Build PowerShell variables
     if(!$inputs.inputProperties.resourceNames){
         $vmName = "NA"
@@ -46,10 +42,10 @@
     }else{
         $vmIP = $inputs.inputProperties.customProperties.vmIP
     }
-    if(!$inputs.inputProperties.__metadata_userName){
+    if(!$inputs.__metadata_userName){
         $userName = "NA"
     }else{
-        $userName = $inputs.inputProperties.__metadata_userName
+        $userName = $inputs.__metadata_userName
     }
     
     Write-Host "--vmName:"$vmName
