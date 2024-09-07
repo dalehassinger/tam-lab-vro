@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="dbhHostsNames" result-type="Array/VC:HostSystem" api-version="6.0.0" id="32d301b5-063c-4968-8f01-b938220672b3" version="0.0.0" category-name="com.vCROCS">
+  <script encoded="false"><![CDATA[// Return an array of host names for all host systems managed by vCenter Server
+return VcPlugin.getAllHostSystems();
+
+testString = "Console Log";
+
+console.info("Console");
+System.log("System");]]></script>
+</dunes-script-module>

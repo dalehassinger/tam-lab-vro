@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="nowPlus7Days" result-type="Date" api-version="6.0.0" id="7e5eab50-2fa2-43d7-8961-612a6cb58818" version="0.0.1" category-name="com.vCROCS">
+  <runtime><![CDATA[powercli:13-powershell-7.4]]></runtime>
+  <script encoded="false"><![CDATA[function Handler($context, $inputs) {
+    #$inputsString = $inputs | ConvertTo-Json -Compress
+    #Write-Host "Inputs were $inputsString"
+    #$output=@{status = 'done'}
+
+    $dateTime = (Get-Date).AddDays(7)
+    Write-Host $dateTime
+    return $dateTime
+}
+]]></script>
+</dunes-script-module>
