@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item0" object-name="Workflow:name=generic" id="7a22b592-f77a-4765-b0be-75628345625d" editor-version="2.0" version="0.1.4" api-version="6.0.0" allowed-operations="vef" restartMode="1" resumeFromFailedMode="0">
+    <display-name>DDC | Gmail | JS</display-name>
+    <description>Sends an Gmail email using JS</description>
+    <position y="50.0" x="180.0"/>
+    <input>
+        <param name="smtpHost" type="string">
+            <description>SMTP host</description>
+        </param>
+        <param name="smtpPort" type="number">
+            <description>SMTP port</description>
+        </param>
+        <param name="username" type="string">
+            <description>Username for authentication</description>
+        </param>
+        <param name="password" type="SecureString">
+            <description>Password for authentication</description>
+        </param>
+        <param name="fromName" type="string">
+            <description>Sender's name</description>
+        </param>
+        <param name="fromAddress" type="string">
+            <description>Sender's address</description>
+        </param>
+        <param name="toAddress" type="string">
+            <description>Destination address</description>
+        </param>
+        <param name="subject" type="string">
+            <description>Email subject</description>
+        </param>
+        <param name="content" type="string">
+            <description>Email content (text or HTML)</description>
+        </param>
+        <param name="useStartTls" type="boolean">
+            <description>If true, enables the use of the STARTTLS command (if supported by the server) to switch the connection to a TLS-protected connection before issuing any login commands.</description>
+        </param>
+    </input>
+    <output/>
+    <workflow-item name="item0" out-name="item1" type="task" comparator="0">
+        <display-name>Send Email</display-name>
+        <script encoded="false">var message = new EmailMessage("TLSv1.2");
+
+// Override default settings if and only if input parameter is set
+if ( smtpHost != null &amp;&amp; smtpHost.length &gt; 0 ){
+	message.smtpHost = smtpHost;
+}
+if ( smtpPort != null &amp;&amp; smtpPort &gt; 0 ){
+	message.smtpPort = smtpPort;
+}
+if ( username !=null &amp;&amp; username.length &gt; 0){
+	message.username = username;
+}
+if ( password != null &amp;&amp; password.length &gt; 0){
+	message.password = password;
+}
+if ( fromName != null &amp;&amp; fromName.length &gt; 0){
+	message.fromName = fromName;
+}
+if ( fromAddress != null &amp;&amp; fromAddress.length &gt; 0){
+	message.fromAddress = fromAddress;
+}
+
+if ( useStartTls ){
+	message.useStartTls = true;
+}
+
+message.toAddress = toAddress;
+message.subject = subject;
+message.addMimePart(content,"text/html; charset=UTF-8");
+
+System.log( "sending mail to host: " + message.smtpHost + ":" + message.smtpPort + " with user:" + message.username 
+			+ ", from:" + message.fromAddress + ", to:" + message.toAddress );
+
+message.sendMessage();</script>
+        <in-binding>
+            <bind name="smtpHost" type="string" export-name="smtpHost"/>
+            <bind name="smtpPort" type="number" export-name="smtpPort"/>
+            <bind name="username" type="string" export-name="username"/>
+            <bind name="password" type="SecureString" export-name="password"/>
+            <bind name="fromName" type="string" export-name="fromName"/>
+            <bind name="fromAddress" type="string" export-name="fromAddress"/>
+            <bind name="toAddress" type="string" export-name="toAddress"/>
+            <bind name="subject" type="string" export-name="subject"/>
+            <bind name="content" type="string" export-name="content"/>
+            <bind name="useStartTls" type="boolean" export-name="useStartTls">
+                <description>If true, enables the use of the STARTTLS command (if supported by the server) to switch the connection to a TLS-protected connection before issuing any login commands.</description>
+            </bind>
+        </in-binding>
+        <out-binding/>
+        <position y="100.0" x="140.0"/>
+    </workflow-item>
+    <workflow-item name="item1" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="190.0" x="180.0"/>
+    </workflow-item>
+</ns2:workflow>

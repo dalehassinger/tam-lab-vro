@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item0" object-name="Workflow:name=generic" id="44629d8b-71eb-451f-9b89-94f2490ad916" editor-version="2.0" version="4.0.6" api-version="6.0.0" allowed-operations="vef" restartMode="1" resumeFromFailedMode="0">
+    <display-name>DDC | Gmail | PS</display-name>
+    <description>Send Gmail Email with PowerShell</description>
+    <position y="260.0" x="60.0"/>
+    <input>
+        <param name="vmName" type="string"/>
+        <param name="emailAddress" type="string"/>
+        <param name="fromEmail" type="string"/>
+        <param name="toEmail" type="string"/>
+        <param name="smtpServer" type="string"/>
+        <param name="smtpPort" type="number"/>
+        <param name="appPassword" type="SecureString"/>
+    </input>
+    <output>
+        <param name="output" type="string">
+            <description>Script execution result</description>
+        </param>
+    </output>
+    <workflow-item name="item5" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="40.0" x="560.0"/>
+    </workflow-item>
+    <workflow-item name="item0" out-name="item5" type="task" comparator="0">
+        <display-name>Send Gmail</display-name>
+        <runtime>powercli:13-powershell-7.4</runtime>
+        <script encoded="false">function Handler($context, $inputs) {
+    $inputsString = $inputs | ConvertTo-Json -Compress
+
+    #Write-Host "Inputs were $inputsString"
+    $emailAddress = $inputs.emailAddress
+    $vmName       = $inputs.vmName
+    $smtpServer   = $inputs.smtpServer
+    $smtpPort     = $inputs.smtpPort
+    $toEmail      = $inputs.toEmail
+    $fromEmail    = $inputs.fromEmail
+    $appPassword = $inputs.appPassword
+
+    # Show Inputs
+    Write-Host "emailAddress:"$emailAddress
+    Write-Host "vmName:"$vmName
+    Write-Host "smtpServer:"$smtpServer
+    Write-Host "smtpPort:"$smtpPort
+    Write-Host "toEmail:"$toEmail
+    Write-Host "fromEmail:"$fromEmail
+
+	$finalUrl = "https://www.vcrocs.info"
+
+	# Example Gmail email Settings
+
+	# Email subject
+	$subject = "New Server Build: $vmName"
+
+	# Build the Email body
+	$body = '&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;title&gt;vCROCS Automation&lt;/title&gt;
+		&lt;style&gt;
+			body {
+				background-color: #ffffff;
+				color: #000000;
+				font-family: Arial, sans-serif;
+				font-size: 14px;
+				margin: 0;
+				padding: 20px;
+			}
+		&lt;/style&gt;&lt;/head&gt;&lt;body&gt;'
+	$body += '&lt;body&gt;&lt;p&gt;New Server Build: ' + $vmName + ' is Complete.&lt;/p&gt;'
+	$body += '&lt;p&gt;Link to View Server Build Logs within VCF Operations for Logs: &lt;a href="' + $finalUrl + '"&gt;Click Here&lt;/a&gt;&lt;/p&gt;'
+	$body += '&lt;/body&gt;&lt;/html&gt;'
+
+	# Create the email message
+	$emailMessage = New-Object system.net.mail.mailmessage
+	$emailMessage.From = $fromEmail
+	$emailMessage.To.Add($toEmail)
+	$emailMessage.Subject = $subject
+	$emailMessage.Body = $body
+	$emailMessage.IsBodyHtml = $true  # Set to true to send HTML emails
+
+	# Configure the SMTP client
+	$smtpClient = New-Object system.net.mail.smtpclient($smtpServer, $smtpPort)
+	$smtpClient.EnableSsl = $true  # Gmail requires SSL
+	$smtpClient.Credentials = New-Object System.Net.NetworkCredential($fromEmail, $appPassword)
+
+	# Send the email
+	try {
+		$smtpClient.Send($emailMessage)
+		Write-Host "Email sent successfully."
+	} catch {
+		Write-Host "Failed to send email: $_"
+	}
+
+	# Clean up
+	$smtpClient.Dispose()
+
+    $output=@{status = 'done'}
+
+    return $output
+}
+</script>
+        <in-binding>
+            <bind name="emailAddress" type="string" export-name="emailAddress"/>
+            <bind name="vmName" type="string" export-name="vmName"/>
+            <bind name="fromEmail" type="string" export-name="fromEmail"/>
+            <bind name="toEmail" type="string" export-name="toEmail"/>
+            <bind name="smtpServer" type="string" export-name="smtpServer"/>
+            <bind name="smtpPort" type="number" export-name="smtpPort"/>
+            <bind name="appPassword" type="SecureString" export-name="appPassword"/>
+        </in-binding>
+        <out-binding>
+            <bind name="output" type="string" export-name="output"/>
+        </out-binding>
+        <position y="70.0" x="300.0"/>
+    </workflow-item>
+</ns2:workflow>
